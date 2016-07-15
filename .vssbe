@@ -1,0 +1,213 @@
+﻿{
+  "Header": {
+    "_": [
+      " Current file requires a vsSolutionBuildEvent engine.",
+      " Free plugin for Visual Studio or MSBuild Tools:",
+      "  * http://visualstudiogallery.msdn.microsoft.com/0d1dbfd7-ed8a-40af-ae39-281bfeca2334/",
+      "  * http://vssbe.r-eg.net",
+      " Feedback: entry.reg@gmail.com"
+    ],
+    "Compatibility": "0.9"
+  },
+  "Components": [
+    {
+      "ClassName": "InternalComponent",
+      "Enabled": true
+    },
+    {
+      "ClassName": "UserVariableComponent",
+      "Enabled": true
+    },
+    {
+      "ClassName": "OWPComponent",
+      "Enabled": true
+    },
+    {
+      "ClassName": "NuGetComponent",
+      "Enabled": true
+    },
+    {
+      "ClassName": "FunctionComponent",
+      "Enabled": true
+    },
+    {
+      "ClassName": "FileComponent",
+      "Enabled": true
+    },
+    {
+      "ClassName": "DTEComponent",
+      "Enabled": true
+    },
+    {
+      "ClassName": "BuildComponent",
+      "Enabled": true
+    },
+    {
+      "ClassName": "SevenZipComponent",
+      "Enabled": true
+    },
+    {
+      "ClassName": "ConditionComponent",
+      "Enabled": true
+    },
+    {
+      "ClassName": "MSBuildComponent",
+      "Enabled": true
+    },
+    {
+      "ClassName": "CommentComponent",
+      "Enabled": true
+    }
+  ],
+  "PreBuild": [
+    {
+      "Enabled": true,
+      "Name": "ActDir",
+      "Caption": "Prepare output directory",
+      "SupportMSBuild": true,
+      "SupportSBEScripts": true,
+      "IgnoreIfBuildFailed": false,
+      "BuildType": "Common",
+      "Confirmation": false,
+      "ToConfiguration": [],
+      "ExecutionOrder": {
+        "$type": "net.r_eg.vsSBE.Events.ExecutionOrder[], vsSolutionBuildEvent",
+        "$values": []
+      },
+      "Process": {
+        "$type": "net.r_eg.vsSBE.Events.EventProcess, vsSolutionBuildEvent",
+        "Waiting": true,
+        "Hidden": true,
+        "TimeLimit": 30
+      },
+      "Mode": {
+        "$type": "net.r_eg.vsSBE.Events.ModeScript, vsSolutionBuildEvent",
+        "Type": "Script",
+        "Command": "#[$(dbin = \"bin/$(Configuration)/\")]\r\n\r\n$(pLunaRoad = \"LunaRoad\")\r\n$(odir      = \"$(dbin)raw/\")\r\n\r\n#[IO delete.directory(\"$(dbin)\", true)]\r\n#[IO copy.directory(\"\", \"$(dbin)\", true)]",
+        "Command__": [
+          "#[$(dbin = \"bin/$(Configuration)/\")]",
+          "",
+          "$(pLunaRoad = \"LunaRoad\")",
+          "$(odir      = \"$(dbin)raw/\")",
+          "",
+          "#[IO delete.directory(\"$(dbin)\", true)]",
+          "#[IO copy.directory(\"\", \"$(dbin)\", true)]"
+        ]
+      }
+    },
+    {
+      "Enabled": true,
+      "Name": "ActVer",
+      "Caption": "Update version number 'as is' - TODO: ",
+      "SupportMSBuild": true,
+      "SupportSBEScripts": true,
+      "IgnoreIfBuildFailed": false,
+      "BuildType": "Common",
+      "Confirmation": false,
+      "ToConfiguration": [],
+      "ExecutionOrder": {
+        "$type": "net.r_eg.vsSBE.Events.ExecutionOrder[], vsSolutionBuildEvent",
+        "$values": []
+      },
+      "Process": {
+        "$type": "net.r_eg.vsSBE.Events.EventProcess, vsSolutionBuildEvent",
+        "Waiting": true,
+        "Hidden": true,
+        "TimeLimit": 30
+      },
+      "Mode": {
+        "$type": "net.r_eg.vsSBE.Events.ModeScript, vsSolutionBuildEvent",
+        "Type": "Script",
+        "Command": "#[var pVer = #[File get(\".version\")]]\n\n#[IO replace.Regexp(\"$(pLunaRoad)/LunaRoadVersion.cs\", \"numberString =.+?\\\";\", \"numberString = \\\"$(pVer)\\\";\")]\n\n#[IO replace.Regexp(\"LunaRoad.nuspec\", \"<version>.+?</version>\", \"<version>$(pVer)</version>\")]\n#[IO replace.Regexp(\"LunaRoad.nuspec\", \"\\\"LunaRoad/[0-9.]+\\\"\", \"\\\"LunaRoad/$(pVer)\\\"\")]",
+        "Command__": [
+          "#[var pVer = #[File get(\".version\")]]",
+          "",
+          "#[IO replace.Regexp(\"$(pLunaRoad)/LunaRoadVersion.cs\", \"numberString =.+?\\\";\", \"numberString = \\\"$(pVer)\\\";\")]",
+          "",
+          "#[IO replace.Regexp(\"LunaRoad.nuspec\", \"<version>.+?</version>\", \"<version>$(pVer)</version>\")]",
+          "#[IO replace.Regexp(\"LunaRoad.nuspec\", \"\\\"LunaRoad/[0-9.]+\\\"\", \"\\\"LunaRoad/$(pVer)\\\"\")]"
+        ]
+      }
+    }
+  ],
+  "PostBuild": [
+    {
+      "Enabled": true,
+      "Name": "ActBinaries",
+      "Caption": "Binaries & tools ...",
+      "SupportMSBuild": true,
+      "SupportSBEScripts": true,
+      "IgnoreIfBuildFailed": true,
+      "BuildType": "Common",
+      "Confirmation": false,
+      "ToConfiguration": [],
+      "ExecutionOrder": {
+        "$type": "net.r_eg.vsSBE.Events.ExecutionOrder[], vsSolutionBuildEvent",
+        "$values": []
+      },
+      "Process": {
+        "$type": "net.r_eg.vsSBE.Events.EventProcess, vsSolutionBuildEvent",
+        "Waiting": true,
+        "Hidden": true,
+        "TimeLimit": 30
+      },
+      "Mode": {
+        "$type": "net.r_eg.vsSBE.Events.ModeScript, vsSolutionBuildEvent",
+        "Type": "Script",
+        "Command": "[IO copy.file(\r\n            \"$(SolutionDir)tools/*.*\", \r\n            \"$(odir)/tools/\", \r\n            true, \r\n            {\"*.nuspec\"})]\r\n            \r\n#[IO copy.file(\"LunaRoad.nuspec\", \"$(odir)/DllExport.nuspec\", true)]\r\n#[IO copy.file(\"$(pLunaRoad)/$(OutDir:$(pLunaRoad))/*.dll\", \r\n               \"$(odir)/lib/net40/\", true)]\r\n\r\n#[IO copy.file(\"LICENSE\", \"$(odir)/\", true)]\r\n#[IO copy.file(\"Readme.md\", \"$(odir)/\", true)]",
+        "Command__": [
+          "[IO copy.file(",
+          "            \"$(SolutionDir)tools/*.*\", ",
+          "            \"$(odir)/tools/\", ",
+          "            true, ",
+          "            {\"*.nuspec\"})]",
+          "            ",
+          "#[IO copy.file(\"LunaRoad.nuspec\", \"$(odir)/DllExport.nuspec\", true)]",
+          "#[IO copy.file(\"$(pLunaRoad)/$(OutDir:$(pLunaRoad))/*.dll\", ",
+          "               \"$(odir)/lib/net40/\", true)]",
+          "",
+          "#[IO copy.file(\"LICENSE\", \"$(odir)/\", true)]",
+          "#[IO copy.file(\"Readme.md\", \"$(odir)/\", true)]"
+        ]
+      }
+    },
+    {
+      "Enabled": true,
+      "Name": "ActPack",
+      "Caption": "Packing with GetNuTool ...",
+      "SupportMSBuild": true,
+      "SupportSBEScripts": true,
+      "IgnoreIfBuildFailed": true,
+      "BuildType": "Common",
+      "Confirmation": false,
+      "ToConfiguration": [],
+      "ExecutionOrder": {
+        "$type": "net.r_eg.vsSBE.Events.ExecutionOrder[], vsSolutionBuildEvent",
+        "$values": []
+      },
+      "Process": {
+        "$type": "net.r_eg.vsSBE.Events.EventProcess, vsSolutionBuildEvent",
+        "Waiting": true,
+        "Hidden": true,
+        "TimeLimit": 30
+      },
+      "Mode": {
+        "$type": "net.r_eg.vsSBE.Events.ModeScript, vsSolutionBuildEvent",
+        "Type": "Script",
+        "Command": "#[NuGet gnt.raw(\"/t:pack /p:ngin=\\\"$(odir)\\\" /p:ngout=\\\"$(dbin)\\\"\")]",
+        "Command__": [
+          "#[NuGet gnt.raw(\"/t:pack /p:ngin=\\\"$(odir)\\\" /p:ngout=\\\"$(dbin)\\\"\")]"
+        ]
+      }
+    }
+  ],
+  "CancelBuild": [],
+  "WarningsBuild": [],
+  "ErrorsBuild": [],
+  "OWPBuild": [],
+  "Transmitter": [],
+  "CommandEvent": [],
+  "Logging": [],
+  "SlnOpened": [],
+  "SlnClosed": []
+}

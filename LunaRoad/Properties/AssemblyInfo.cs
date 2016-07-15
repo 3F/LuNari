@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using net.r_eg.LunaRoad;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
@@ -14,8 +15,12 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
-// friendly assembles
-[assembly: InternalsVisibleTo("LunaRoadTest")]
+// friendly assemblies
+[assembly: InternalsVisibleTo("LunaRoadTest, PublicKey=002400000480000094000000060200000024000052534131000400000100010013224edc96bef3" +
+                                                      "a150fcff282af16abf503647200e69724148c64f6d6b7ae8b2251052892dd5a0a5d41c6f9f161a" +
+                                                      "f799e9e94db8bbfa07440c7ada5f0f31de3e7b3d9374bc48839d39592d7c33c8813114f9a467d4" +
+                                                      "77af6a3eb99fbc5a66084c667046ceac3b962add0a4e87a916fea3c6977ed0e51df496eb3caba8" +
+                                                      "dc32cd92")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
 // to COM components.  If you need to access a type in this assembly from 
@@ -34,6 +39,6 @@ using System.Runtime.InteropServices;
 //
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
-[assembly: AssemblyVersion("1.0.*")]
+[assembly: AssemblyVersion(LunaRoadVersion.numberString + ".*")]
 //[assembly: AssemblyVersion("1.0.0.0")]
 //[assembly: AssemblyFileVersion("1.0.0.0")]
