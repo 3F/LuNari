@@ -83,7 +83,7 @@
       "Mode": {
         "$type": "net.r_eg.vsSBE.Events.ModeScript, vsSolutionBuildEvent",
         "Type": "Script",
-        "Command": "#[$(dbin = \"bin/$(Configuration)/\")]\r\n\r\n$(pLunaRoad = \"LunaRoad\")\r\n$(odir      = \"$(dbin)raw/\")\r\n\r\n#[IO delete.directory(\"$(dbin)\", true)]\r\n#[IO copy.directory(\"\", \"$(dbin)\", true)]",
+        "Command": "#[$(dbin = \"bin/$(Configuration)/\")]\n\n$(pLunaRoad = \"LunaRoad\")\n$(odir      = \"$(dbin)raw/\")\n\n#[IO delete.directory(\"$(dbin)\", true)]\n#[IO copy.directory(\"\", \"$(dbin)\", true)]",
         "Command__": [
           "#[$(dbin = \"bin/$(Configuration)/\")]",
           "",
@@ -154,7 +154,7 @@
       "Mode": {
         "$type": "net.r_eg.vsSBE.Events.ModeScript, vsSolutionBuildEvent",
         "Type": "Script",
-        "Command": "[IO copy.file(\r\n            \"$(SolutionDir)tools/*.*\", \r\n            \"$(odir)/tools/\", \r\n            true, \r\n            {\"*.nuspec\"})]\r\n            \r\n#[IO copy.file(\"LunaRoad.nuspec\", \"$(odir)/DllExport.nuspec\", true)]\r\n#[IO copy.file(\"$(pLunaRoad)/$(OutDir:$(pLunaRoad))/*.dll\", \r\n               \"$(odir)/lib/net40/\", true)]\r\n\r\n#[IO copy.file(\"LICENSE\", \"$(odir)/\", true)]\r\n#[IO copy.file(\"Readme.md\", \"$(odir)/\", true)]",
+        "Command": "[IO copy.file(\n            \"$(SolutionDir)tools/*.*\", \n            \"$(odir)/tools/\", \n            true, \n            {\"*.nuspec\"})]\n            \n#[IO copy.file(\"LunaRoad.nuspec\", \"$(odir)/LunaRoad.nuspec\", true)]\n#[IO copy.file(\"$(pLunaRoad)/$(OutDir:$(pLunaRoad))/*.dll\", \n               \"$(odir)/lib/net40/\", true)]\n\n#[IO copy.file(\"LICENSE\", \"$(odir)/\", true)]\n#[IO copy.file(\"Readme.md\", \"$(odir)/\", true)]",
         "Command__": [
           "[IO copy.file(",
           "            \"$(SolutionDir)tools/*.*\", ",
@@ -162,7 +162,7 @@
           "            true, ",
           "            {\"*.nuspec\"})]",
           "            ",
-          "#[IO copy.file(\"LunaRoad.nuspec\", \"$(odir)/DllExport.nuspec\", true)]",
+          "#[IO copy.file(\"LunaRoad.nuspec\", \"$(odir)/LunaRoad.nuspec\", true)]",
           "#[IO copy.file(\"$(pLunaRoad)/$(OutDir:$(pLunaRoad))/*.dll\", ",
           "               \"$(odir)/lib/net40/\", true)]",
           "",

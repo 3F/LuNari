@@ -27,6 +27,13 @@ namespace net.r_eg.LunaRoad.API.Lua51
     public interface ILua51: ILevel
     {
         /// <summary>
+        /// We will specify the global const from lua.h as properties.
+        /// </summary>
+        int LUA_REGISTRYINDEX { get; }
+        int LUA_ENVIRONINDEX  { get; }
+        int LUA_GLOBALSINDEX  { get; }
+
+        /// <summary>
         /// [-n, +1, m] void lua_pushcclosure (lua_State *L, lua_CFunction fn, int n);
         /// 
         /// Pushes a new C closure onto the stack.
@@ -59,8 +66,13 @@ namespace net.r_eg.LunaRoad.API.Lua51
         /// <summary>
         /// [-1, +0, e] void lua_setglobal (lua_State *L, const char *name);
         /// 
-        /// Pops a value from the stack and sets it as the new value of global name. It is defined as a macro: 
+        /// Pops a value from the stack and sets it as the new value of global name. 
+        /// 
+        /// Note: 
+        /// It is defined as a macro: 
         ///     #define lua_setglobal(L,s)   lua_setfield(L, LUA_GLOBALSINDEX, s)
+        ///     
+        ///  but it exists as part of Lua API in official documentation to v5.1, so we also cover this
         /// </summary>
         /// <param name="L"></param>
         /// <param name="name"></param>

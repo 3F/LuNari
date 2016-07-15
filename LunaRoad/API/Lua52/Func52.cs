@@ -22,12 +22,24 @@
  * THE SOFTWARE.
 */
 
+using System;
 using net.r_eg.LunaRoad.API.Lua51;
 
 namespace net.r_eg.LunaRoad.API.Lua52
 {
     internal abstract class Func52: Func51, ILua52
     {
+        /// <summary>
+        /// [-1, +0, e] void lua_setglobal (lua_State *L, const char *name);
+        /// 
+        /// Pops a value from the stack and sets it as the new value of global name.
+        /// </summary>
+        /// <param name="L"></param>
+        /// <param name="name"></param>
+        public override void setglobal(LuaState L, string name)
+        {
+            bind<Action<LuaState, string>>("setglobal")(L, name);
+        }
 
     }
 }

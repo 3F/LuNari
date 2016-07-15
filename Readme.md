@@ -1,7 +1,8 @@
 # LunaRoad
 
-Lua C API for .NET
+Lua C API for .NET 
 
+*LunaRoad represents a flexible platform to work with Lua*
 
 [![Build status](https://ci.appveyor.com/api/projects/status/94y78phdvkoi5oda/branch/master?svg=true)](https://ci.appveyor.com/project/3Fs/lunaroad/branch/master)
 [![NuGet package](https://img.shields.io/nuget/v/LunaRoad.svg)](https://www.nuget.org/packages/LunaRoad/) 
@@ -14,7 +15,7 @@ using(var l = new Lua<ILua51>("Lua51.dll")) {
 }
 ```
 
-Flexible binding with **any exported function of library**, even if it's not provided today:
+Flexible binding with any exported function of library, even if it's not provided today:
 
 ```csharp
 // custom binding:
@@ -33,11 +34,12 @@ using(var l = new Lua<ILua53>("Lua53.dll")) {
 }
 ```
 
-Unified API level for work between different versions:
+Unified API level between different versions:
 
 ```csharp
 Lua<ILua53> l;
 ...
+// to avoid ambiguity if exists: l.U as ILua51 ~
 l.U.arith(L, LUA_OPSUB);
 l.U.pop(L, 1);
 ```
@@ -84,7 +86,7 @@ Available variants:
 ### Roadmap
 
 LunaRoad is already provides powerful and flexible binding. And as you can see above, you already may work between different versions via lambda-functions.
-However, we also want to provide fully compatible API layer for more comfortable work with Lua 5.1, 5.2, 5.3 ...
+However, we want to provide fully compatible API layer for more comfortable work with Lua 5.1, 5.2, 5.3 ...
 
 
 ### How to Contribute
