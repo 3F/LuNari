@@ -39,6 +39,6 @@ using net.r_eg.LunaRoad;
 //
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
-[assembly: AssemblyVersion(LunaRoadVersion.numberString + ".*")]
+[assembly: AssemblyVersion(LunaRoadVersion.S_NUM + ".*")]
 //[assembly: AssemblyVersion("1.0.0.0")]
 //[assembly: AssemblyFileVersion("1.0.0.0")]

@@ -118,11 +118,11 @@
       "Mode": {
         "$type": "net.r_eg.vsSBE.Events.ModeScript, vsSolutionBuildEvent",
         "Type": "Script",
-        "Command": "#[var pVer = #[File get(\".version\")]]\n\n#[IO replace.Regexp(\"$(pLunaRoad)/LunaRoadVersion.cs\", \"numberString =.+?\\\";\", \"numberString = \\\"$(pVer)\\\";\")]\n\n#[IO replace.Regexp(\"LunaRoad.nuspec\", \"<version>.+?</version>\", \"<version>$(pVer)</version>\")]\n#[IO replace.Regexp(\"LunaRoad.nuspec\", \"\\\"LunaRoad/[0-9.]+\\\"\", \"\\\"LunaRoad/$(pVer)\\\"\")]",
+        "Command": "#[var pVer = #[File get(\".version\")]]\n\n#[IO replace.Regexp(\"$(pLunaRoad)/LunaRoadVersion.cs\", \"(S_NUM\\s+=).+?\\\";\", \"$1 \\\"$(pVer)\\\";\")]\n\n#[IO replace.Regexp(\"LunaRoad.nuspec\", \"<version>.+?</version>\", \"<version>$(pVer)</version>\")]\n#[IO replace.Regexp(\"LunaRoad.nuspec\", \"\\\"LunaRoad/[0-9.]+\\\"\", \"\\\"LunaRoad/$(pVer)\\\"\")]",
         "Command__": [
           "#[var pVer = #[File get(\".version\")]]",
           "",
-          "#[IO replace.Regexp(\"$(pLunaRoad)/LunaRoadVersion.cs\", \"numberString =.+?\\\";\", \"numberString = \\\"$(pVer)\\\";\")]",
+          "#[IO replace.Regexp(\"$(pLunaRoad)/LunaRoadVersion.cs\", \"(S_NUM\\s+=).+?\\\";\", \"$1 \\\"$(pVer)\\\";\")]",
           "",
           "#[IO replace.Regexp(\"LunaRoad.nuspec\", \"<version>.+?</version>\", \"<version>$(pVer)</version>\")]",
           "#[IO replace.Regexp(\"LunaRoad.nuspec\", \"\\\"LunaRoad/[0-9.]+\\\"\", \"\\\"LunaRoad/$(pVer)\\\"\")]"
@@ -154,7 +154,7 @@
       "Mode": {
         "$type": "net.r_eg.vsSBE.Events.ModeScript, vsSolutionBuildEvent",
         "Type": "Script",
-        "Command": "[IO copy.file(\n            \"$(SolutionDir)tools/*.*\", \n            \"$(odir)/tools/\", \n            true, \n            {\"*.nuspec\"})]\n            \n#[IO copy.file(\"LunaRoad.nuspec\", \"$(odir)/LunaRoad.nuspec\", true)]\n#[IO copy.file(\"$(pLunaRoad)/$(OutDir:$(pLunaRoad))/*.dll\", \n               \"$(odir)/lib/net40/\", true)]\n\n#[IO copy.file(\"LICENSE\", \"$(odir)/\", true)]\n#[IO copy.file(\"Readme.md\", \"$(odir)/\", true)]",
+        "Command": "[IO copy.file(\n            \"$(SolutionDir)tools/*.*\", \n            \"$(odir)/tools/\", \n            true, \n            {\"*.nuspec\"})]\n            \n#[IO copy.file(\"LunaRoad.nuspec\", \"$(odir)/LunaRoad.nuspec\", true)]\n#[IO copy.file(\"$(pLunaRoad)/$(OutDir:$(pLunaRoad))/*.*\", \n               \"$(odir)/lib/net40/\", true)]\n\n#[IO copy.file(\"LICENSE\", \"$(odir)/\", true)]\n#[IO copy.file(\"Readme.md\", \"$(odir)/\", true)]\n#[IO copy.file(\"changelog.txt\", \"$(odir)/\", true)]",
         "Command__": [
           "[IO copy.file(",
           "            \"$(SolutionDir)tools/*.*\", ",
@@ -163,11 +163,12 @@
           "            {\"*.nuspec\"})]",
           "            ",
           "#[IO copy.file(\"LunaRoad.nuspec\", \"$(odir)/LunaRoad.nuspec\", true)]",
-          "#[IO copy.file(\"$(pLunaRoad)/$(OutDir:$(pLunaRoad))/*.dll\", ",
+          "#[IO copy.file(\"$(pLunaRoad)/$(OutDir:$(pLunaRoad))/*.*\", ",
           "               \"$(odir)/lib/net40/\", true)]",
           "",
           "#[IO copy.file(\"LICENSE\", \"$(odir)/\", true)]",
-          "#[IO copy.file(\"Readme.md\", \"$(odir)/\", true)]"
+          "#[IO copy.file(\"Readme.md\", \"$(odir)/\", true)]",
+          "#[IO copy.file(\"changelog.txt\", \"$(odir)/\", true)]"
         ]
       }
     },
