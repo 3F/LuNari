@@ -2,3 +2,9 @@
 LunaRoad
 _ _ _ _ _
 
+
+[v1.0-alpha]
+
+    * Initial alpha release. 
+      Flexible binding via lambda-functions and lightweight platform to work between different versions.
+

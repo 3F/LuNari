@@ -15,7 +15,7 @@ using(var l = new Lua<ILua51>("Lua51.dll")) {
 }
 ```
 
-Flexible binding with any exported function of library, even if it's not provided today:
+Flexible binding with any exported function of library:
 
 ```csharp
 // custom binding:
@@ -85,6 +85,10 @@ and more ...
 
 The [MIT License (MIT)](https://github.com/3F/LunaRoad/blob/master/LICENSE) - be a ~free~ and open
 
+```
+Copyright (c) 2016  Denis Kuzmin <entry.reg@gmail.com>
+```
+
 ##
 
 ### How to Get
@@ -100,8 +104,8 @@ Available variants:
 
 ### Roadmap
 
-LunaRoad is already provides powerful and flexible binding. And as you can see above, you already may work between different versions via lambda-functions.
-However, we want to provide fully compatible API layer for more comfortable work with Lua 5.1, 5.2, 5.3 ...
+The LunaRoad already provides powerful and flexible binding. And as you can see above, you already may work between different versions via lambda-functions.
+However, the main tasks: to provide fully compatible API layer for more comfortable work with Lua 5.1, 5.2, 5.3 ...
 
 
 ### How to Contribute

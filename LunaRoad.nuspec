@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>LunaRoad</id>
-    <version>0.1.0</version>
+    <version>1.0.0</version>
     <title>Lua C API for .NET</title>
     <authors>github.com/3F/LunaRoad</authors>
     <owners>reg</owners>
@@ -19,7 +19,7 @@
         ~~~~~~~~
         Alternative to get it:
         ==========================================
-        msbuild gnt.core /p:ngpackages="LunaRoad/0.1.0"
+        msbuild gnt.core /p:ngpackages="LunaRoad/1.0.0"
         ==========================================
         * https://github.com/3F/GetNuTool         
         
