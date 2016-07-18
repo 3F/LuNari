@@ -22,53 +22,40 @@
  * THE SOFTWARE.
 */
 
-using System;
 using net.r_eg.LunaRoad.API.Lua51;
 using net.r_eg.LunaRoad.API.Lua52;
 using net.r_eg.LunaRoad.API.Lua53;
 
 namespace net.r_eg.LunaRoad.API
 {
-    internal sealed class Bridge<TAPI>: Func53, IAPI<TAPI>, ILuaCommon, ILua51, ILua52, ILua53 
+    internal sealed class Bridge<TAPI>: LuaFuncN, IAPI<TAPI>, ILuaCommon, ILua51, ILua52, ILua53 
         where TAPI: ILevel
     {
-        private IProvider provider;
-
         public TAPI Lua
         {
-            get {
+            get
+            {
+                var type = typeof(TAPI);
+
+                if(type == typeof(ILua51)) {
+                    return (TAPI)(ILevel)new Impl51(provider);
+                }
+
+                if(type == typeof(ILua52)) {
+                    return (TAPI)(ILevel)new Impl52(provider);
+                }
+
+                //if(type == typeof(ILua53)) {
+                //    return (TAPI)(ILevel)new Impl53(provider);
+                //}
+
                 return (TAPI)(ILevel)this;
             }
         }
 
-        /// <summary>
-        /// Binds the exported function.
-        /// </summary>
-        /// <typeparam name="T">Type of delegate.</typeparam>
-        /// <param name="lpProcName">The name of exported function.</param>
-        /// <returns>Delegate of exported function.</returns>
-        public override T bindFunc<T>(string lpProcName)
-        {
-            return provider.bindFunc<T>(lpProcName);
-        }
-
-        /// <summary>
-        /// Binds the exported C API Function.
-        /// </summary>
-        /// <typeparam name="T">Type of delegate.</typeparam>
-        /// <param name="func">The name of exported C API function.</param>
-        /// <returns>Delegate of exported function.</returns>
-        public override T bind<T>(string func)
-        {
-            return provider.bind<T>(func);
-        }
-
         public Bridge(IProvider provider)
         {
-            if(provider == null) {
-                throw new ArgumentException("Provider cannot be null.");
-            }
-            this.provider = provider;
+            setProvider(provider);
         }
     }
 }

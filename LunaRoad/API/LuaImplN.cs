@@ -22,10 +22,16 @@
  * THE SOFTWARE.
 */
 
+using net.r_eg.LunaRoad.API.Lua53;
+
 namespace net.r_eg.LunaRoad.API
 {
-    public interface ILevel
+    internal class LuaImplN: Impl53
     {
-        LuaVersion Version { get; }
+        public LuaImplN(IProvider provider)
+            : base(provider)
+        {
+
+        }
     }
 }

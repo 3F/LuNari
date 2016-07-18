@@ -63,6 +63,11 @@ namespace net.r_eg.LunaRoad
             return true;
         }
 
+        protected bool load()
+        {
+            return load(Library.LibName);
+        }
+
         protected Link loadLibrary(string lib)
         {
             IntPtr hModule = NativeMethods.LoadLibrary(lib);

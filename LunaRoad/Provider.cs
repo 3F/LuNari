@@ -42,7 +42,7 @@ namespace net.r_eg.LunaRoad
         /// <returns>Delegate of exported function.</returns>
         public T bindFunc<T>(string lpProcName) where T : class
         {
-            return getDelegate<T>(getProcAddress(lpProcName));
+            return getDelegate<T>(lpProcName);
         }
 
         /// <summary>
@@ -72,7 +72,7 @@ namespace net.r_eg.LunaRoad
         /// <returns>The address of the exported function.</returns>
         protected IntPtr getProcAddress(string lpProcName)
         {
-            if(!Library.IsActive) {
+            if(!Library.IsActive && !load()) {
                 throw new LoaderException($"The handle of library is zero. Last loaded library: '{Library.LibName}'");
             }
 

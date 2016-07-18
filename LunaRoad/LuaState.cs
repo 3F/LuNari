@@ -64,11 +64,6 @@ namespace net.r_eg.LunaRoad
         /// </remarks>
         private IntPtr ptr;
 
-        public LuaState(IntPtr ptr)
-        {
-            this.ptr = ptr;
-        }
-
         public static implicit operator IntPtr(LuaState state)
         {
             return state.ptr;
@@ -77,6 +72,11 @@ namespace net.r_eg.LunaRoad
         public static implicit operator LuaState(IntPtr ptr)
         {
             return new LuaState(ptr);
+        }
+
+        public LuaState(IntPtr ptr)
+        {
+            this.ptr = ptr;
         }
     }
 }

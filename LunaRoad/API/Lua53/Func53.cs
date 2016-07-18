@@ -28,6 +28,11 @@ namespace net.r_eg.LunaRoad.API.Lua53
 {
     internal abstract class Func53: Func52, ILua53
     {
-
+        public override LuaVersion Version
+        {
+            get {
+                return LuaVersion.Lua53;
+            }
+        }
     }
 }

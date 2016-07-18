@@ -22,10 +22,42 @@
  * THE SOFTWARE.
 */
 
+using System;
+
 namespace net.r_eg.LunaRoad.API
 {
-    public interface ILevel
+    internal abstract class LuaX: Binder, IBinder
     {
-        LuaVersion Version { get; }
+        protected IProvider provider;
+
+        /// <summary>
+        /// Binds the exported function.
+        /// </summary>
+        /// <typeparam name="T">Type of delegate.</typeparam>
+        /// <param name="lpProcName">The name of exported function.</param>
+        /// <returns>Delegate of exported function.</returns>
+        public override T bindFunc<T>(string lpProcName)
+        {
+            return provider.bindFunc<T>(lpProcName);
+        }
+
+        /// <summary>
+        /// Binds the exported C API Function.
+        /// </summary>
+        /// <typeparam name="T">Type of delegate.</typeparam>
+        /// <param name="func">The name of exported C API function.</param>
+        /// <returns>Delegate of exported function.</returns>
+        public override T bind<T>(string func)
+        {
+            return provider.bind<T>(func);
+        }
+
+        protected void setProvider(IProvider provider)
+        {
+            if(provider == null) {
+                throw new ArgumentException("Provider cannot be null.");
+            }
+            this.provider = provider;
+        }
     }
 }

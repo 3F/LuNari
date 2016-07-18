@@ -22,10 +22,13 @@
  * THE SOFTWARE.
 */
 
-namespace net.r_eg.LunaRoad.API
+namespace net.r_eg.LunaRoad.API.Lua52
 {
-    public interface ILevel
+    internal class Impl52: Func52, ILevel, ILua52
     {
-        LuaVersion Version { get; }
+        public Impl52(IProvider provider)
+        {
+            setProvider(provider);
+        }
     }
 }

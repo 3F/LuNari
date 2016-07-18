@@ -22,10 +22,55 @@
  * THE SOFTWARE.
 */
 
-namespace net.r_eg.LunaRoad.API
+using System;
+
+namespace net.r_eg.LunaRoad
 {
-    public interface ILevel
+    public struct LuaConfig
     {
-        LuaVersion Version { get; }
+        /// <summary>
+        /// The Lua library.
+        /// </summary>
+        public string LibName
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// To use `commit` methods for end calling.
+        /// TODO:
+        /// </summary>
+        public bool TransactionStrategy
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// To load library only when it required.
+        /// </summary>
+        public bool LazyLoading
+        {
+            get;
+            set;
+        }
+
+        public static implicit operator String(LuaConfig cfg)
+        {
+            return cfg.LibName;
+        }
+
+        public static implicit operator LuaConfig(String lib)
+        {
+            return new LuaConfig() { LibName = lib };
+        }
+
+        /// <param name="lib">The Lua library.</param>
+        public LuaConfig(string lib)
+            : this()
+        {
+            LibName = lib;
+        }
     }
 }

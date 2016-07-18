@@ -31,7 +31,7 @@ namespace net.r_eg.LunaRoad.API
     /// <summary>
     /// Unspecified common interface to Lua C API Functions
     /// </summary>
-    public interface ILuaCommon: ILevel, ILua51, ILua52, ILua53
+    public interface ILuaCommon: ILevel, ILuaN, ILua51, ILua52, ILua53
     {
 
     }

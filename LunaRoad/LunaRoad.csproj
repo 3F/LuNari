@@ -42,10 +42,17 @@
   <ItemGroup>
     <Compile Include="API\Binder.cs" />
     <Compile Include="API\IAPI.cs" />
+    <Compile Include="API\LuaImplN.cs" />
+    <Compile Include="API\LuaFuncN.cs" />
+    <Compile Include="API\ILuaN.cs" />
     <Compile Include="API\ILuaCommon.cs" />
     <Compile Include="API\ILevel.cs" />
     <Compile Include="API\Bridge.cs" />
     <Compile Include="API\IBinder.cs" />
+    <Compile Include="API\Lua52\Impl52.cs" />
+    <Compile Include="API\Lua53\Impl53.cs" />
+    <Compile Include="API\LuaX.cs" />
+    <Compile Include="API\Lua51\Impl51.cs" />
     <Compile Include="API\Lua53\Func53.cs" />
     <Compile Include="API\Lua53\ILua53.cs" />
     <Compile Include="API\Lua52\ILua52.cs" />
@@ -53,6 +60,7 @@
     <Compile Include="API\LuaVersion.cs" />
     <Compile Include="IProvider.cs" />
     <Compile Include="Link.cs" />
+    <Compile Include="LuaConfig.cs" />
     <Compile Include="LunaRoadVersion.cs" />
     <Compile Include="Provider.cs" />
     <Compile Include="API\Lua51\Func51.cs" />

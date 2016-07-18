@@ -58,5 +58,11 @@ namespace net.r_eg.LunaRoad
             Handle  = handle;
             LibName = library;
         }
+
+        public Link(string library)
+            : this(IntPtr.Zero, library)
+        {
+
+        }
     }
 }

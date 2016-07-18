@@ -47,8 +47,11 @@ l.U.pop(L, 1);
 and light access to specific:
 
 ```csharp
-((ILua51)l.API).pushcclosure(L, onProc, 0);
-l.v<ILua51>().pushcclosure(L, onProc, 0);
+// from the higher version to the lower, for example: v5.2 -> v5.1
+((ILua51)l.API).pushcclosure(L, onProc, 0); 
+
+// not important, for example: v5.2 <-> v5.1
+l.v<ILua51>().pushcclosure(L, onProc, 0); 
 ```
 
 Powerful work with several libraries:
@@ -58,6 +61,18 @@ using(var lSpec = new Lua("SpecLib.dll")) {
     using(ILua l = new Lua<ILua52>("Lua52.dll")) {
         //...
     }
+}
+```
+
+Lazy loading:
+
+```csharp
+using(var l = new Lua<ILua51>(
+                    new LuaConfig("Lua51.dll") {
+                        LazyLoading = true
+                    }))
+{
+    ...
 }
 ```
 

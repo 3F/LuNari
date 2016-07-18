@@ -29,6 +29,13 @@ namespace net.r_eg.LunaRoad.API.Lua52
 {
     internal abstract class Func52: Func51, ILua52
     {
+        public override LuaVersion Version
+        {
+            get {
+                return LuaVersion.Lua52;
+            }
+        }
+
         /// <summary>
         /// [-1, +0, e] void lua_setglobal (lua_State *L, const char *name);
         /// 

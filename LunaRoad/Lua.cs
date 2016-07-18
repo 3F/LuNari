@@ -22,6 +22,8 @@
  * THE SOFTWARE.
 */
 
+using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using net.r_eg.LunaRoad.API;
 
@@ -29,9 +31,9 @@ namespace net.r_eg.LunaRoad
 {
     public class Lua: Lua<API.Lua51.ILua51>
     {
-        /// <param name="lib">The Lua library.</param>
-        public Lua(string lib) 
-            : base(lib)
+        /// <param name="cfg">The Lua library or its configuration.</param>
+        public Lua(LuaConfig cfg) 
+            : base(cfg)
         {
 
         }
@@ -41,6 +43,8 @@ namespace net.r_eg.LunaRoad
     public class Lua<TAPI>: Provider, ILua, ILoader, IProvider, IBinder/*, IDisposable*/
         where TAPI : ILevel
     {
+        private Dictionary<Type, ILevel> cacheL = new Dictionary<Type, ILevel>();
+
         /// <summary>
         /// Current API version.
         /// </summary>
@@ -56,7 +60,7 @@ namespace net.r_eg.LunaRoad
         public ILuaCommon U
         {
             get {
-                return (ILuaCommon)API;
+                return (ILuaCommon)bridge<ILuaN>();
             }
         }
 
@@ -67,14 +71,31 @@ namespace net.r_eg.LunaRoad
         /// <returns></returns>
         public T v<T>() where T : ILevel
         {
-            return (T)(ILevel)API;
+            return ((IAPI<T>)bridge<T>()).Lua;
         }
 
-        /// <param name="lib">The Lua library.</param>
-        public Lua(string lib)
+        /// <param name="cfg">The Lua library or its configuration.</param>
+        public Lua(LuaConfig cfg)
         {
-            load(lib);
-            API = new API.Bridge<TAPI>(this).Lua;
+            if(cfg.LazyLoading) {
+                Library = new Link(cfg.LibName);
+            }
+            else {
+                load(cfg.LibName);
+            }
+
+            API = v<TAPI>();
+        }
+
+        protected T bridge<T>() where T : ILevel
+        {
+            var type = typeof(T);
+
+            if(!cacheL.ContainsKey(type)) {
+                cacheL[type] = new API.Bridge<T>(this);
+            }
+
+            return (T)cacheL[type];
         }
     }
 }

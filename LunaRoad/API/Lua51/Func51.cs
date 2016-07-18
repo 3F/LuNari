@@ -26,8 +26,15 @@ using System;
 
 namespace net.r_eg.LunaRoad.API.Lua51
 {
-    internal abstract class Func51: Binder, ILua51
+    internal abstract class Func51: LuaX, ILua51
     {
+        public virtual LuaVersion Version
+        {
+            get {
+                return LuaVersion.Lua51;
+            }
+        }
+
         /// <summary>
         /// We will specify the global const from lua.h as properties.
         /// </summary>

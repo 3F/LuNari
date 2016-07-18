@@ -26,6 +26,8 @@ namespace net.r_eg.LunaRoad.API
 {
     public enum LuaVersion
     {
+        Unspecified,
+
         /// <summary>
         /// https://www.lua.org/manual/5.1/
         /// </summary>
