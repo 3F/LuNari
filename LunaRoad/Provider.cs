@@ -124,10 +124,26 @@ namespace net.r_eg.LunaRoad
                 il.Emit(OpCodes.Ldc_I4, ptr.ToInt32()); //32bit ptr
             }
 
-            il.EmitCalli(OpCodes.Calli, type, m.ReturnType, mParams);
+            il.EmitCalli(OpCodes.Calli, type, convRetType(m.ReturnType), mParams);
             il.Emit(OpCodes.Ret);
 
             return dyn.CreateDelegate(m.DeclaringType) as T;
+        }
+
+        /// <summary>
+        /// to support of implicit/explicit conversions
+        /// </summary>
+        /// <param name="origin">Base type</param>
+        /// <returns></returns>
+        protected Type convRetType(Type origin)
+        {
+            var t = origin.GetMember("op_Implicit", BindingFlags.Public | BindingFlags.Static);
+
+            if(t != null && t.Length > 0) {
+                return ((MethodInfo)t[0]).ReturnType;
+            }
+
+            return origin;
         }
     }
 }
