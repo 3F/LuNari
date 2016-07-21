@@ -22,22 +22,38 @@
  * THE SOFTWARE.
 */
 
-using System.Runtime.InteropServices;
+using System;
 
-namespace net.r_eg.LunaRoad
+namespace net.r_eg.LunaRoad.Types
 {
     /// <summary>
-    /// typedef int (*lua_CFunction) (lua_State *L);
-    /// 
-    /// In order to communicate properly with Lua, a C function must use the following protocol, which defines the way parameters and results are passed: 
-    /// * C function receives its arguments from Lua in its stack in direct order (the first argument is pushed first). 
-    /// 
-    /// So, when the function starts, lua_gettop(L) returns the number of arguments received by the function. 
-    /// The first argument (if any) is at index 1 and its last argument is at index lua_gettop(L). 
-    /// To return values to Lua, a C function just pushes them onto the stack, in direct order (the first result is pushed first), and returns the number of results. 
-    /// Any other value in the stack below the results will be properly discarded by Lua. Like a Lua function, a C function called by Lua can also return many results. 
+    /// unsigned int 
+    /// /or/ 
+    /// unsigned __int64 (unsigned long long)
     /// </summary>
-    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    [return: MarshalAs(UnmanagedType.I4)]
-    public delegate int LuaCFunction(LuaState luaState);
+    public struct size_t
+    {
+        private ulong val;
+
+        public static implicit operator ulong(size_t number)
+        {
+            return number.val;
+        }
+
+        /// <exception cref="OverflowException">number is greater than UInt32.MaxValue</exception>
+        public static implicit operator UInt32(size_t number)
+        {
+            return Convert.ToUInt32(number.val);
+        }
+
+        public static implicit operator size_t(ulong number)
+        {
+            return new size_t(number);
+        }
+
+        public size_t(ulong number)
+        {
+            val = number;
+        }
+    }
 }
