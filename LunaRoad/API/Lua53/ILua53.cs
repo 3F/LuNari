@@ -22,6 +22,8 @@
  * THE SOFTWARE.
 */
 
+using net.r_eg.LunaRoad.Types;
+
 namespace net.r_eg.LunaRoad.API.Lua53
 {
     public interface ILua53: ILevel
@@ -79,6 +81,28 @@ namespace net.r_eg.LunaRoad.API.Lua53
         /// <param name="L"></param>
         /// <param name="index">Lua value at the given index.</param>
         /// <returns></returns>
-        double tonumber(LuaState L, int index);
+        LuaNumber tonumber(LuaState L, int index);
+
+        /// <summary>
+        /// [-0, +0, m] const char *lua_tolstring (lua_State *L, int index, size_t *len);
+        /// 
+        /// Converts the Lua value at the given index to a C string. 
+        /// If len is not NULL, it sets *len with the string length. 
+        /// The Lua value must be a string or a number; otherwise, the function returns NULL. 
+        /// If the value is a number, then lua_tolstring also changes the actual value in the stack to a string. 
+        /// (This change confuses lua_next when lua_tolstring is applied to keys during a table traversal.) 
+        /// 
+        /// lua_tolstring returns a pointer to a string inside the Lua state. 
+        /// This string always has a zero ('\0') after its last character (as in C), 
+        /// but can contain other zeros in its body. 
+        /// 
+        /// Because Lua has garbage collection, there is no guarantee that the pointer returned by lua_tolstring 
+        /// will be valid after the corresponding Lua value is removed from the stack. 
+        /// </summary>
+        /// <param name="L"></param>
+        /// <param name="index">Lua value at the given acceptable index.</param>
+        /// <param name="len">string length</param>
+        /// <returns></returns>
+        CharPtr tolstring(LuaState L, int index, out size_t len);
     }
 }

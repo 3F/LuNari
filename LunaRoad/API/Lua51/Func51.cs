@@ -23,6 +23,7 @@
 */
 
 using System;
+using net.r_eg.LunaRoad.Types;
 
 namespace net.r_eg.LunaRoad.API.Lua51
 {
@@ -34,13 +35,25 @@ namespace net.r_eg.LunaRoad.API.Lua51
                 return LuaVersion.Lua51;
             }
         }
-
+        
         /// <summary>
-        /// We will specify the global const from lua.h as properties.
+        /// Lua provides a registry, a pre-defined table that can be used by any C code to store whatever Lua value it needs to store. 
+        /// This table is always located at pseudo-index LUA_REGISTRYINDEX.
+        /// (global const from lua.h as property)
         /// </summary>
         public int LUA_REGISTRYINDEX { get { return -10000; } }
-        public int LUA_ENVIRONINDEX  { get { return -10001; } }
-        public int LUA_GLOBALSINDEX  { get { return -10002; } }
+
+        /// <summary>
+        /// The environment of the running C function is always at pseudo-index LUA_ENVIRONINDEX.
+        /// (global const from lua.h as property)
+        /// </summary>
+        public int LUA_ENVIRONINDEX { get { return -10001; } }
+
+        /// <summary>
+        /// The thread environment (where global variables live) is always at pseudo-index LUA_GLOBALSINDEX.
+        /// (global const from lua.h as property)
+        /// </summary>
+        public int LUA_GLOBALSINDEX { get { return -10002; } }
         
         /// <summary>
         /// [-n, +1, m] void lua_pushcclosure (lua_State *L, lua_CFunction fn, int n);
@@ -107,15 +120,13 @@ namespace net.r_eg.LunaRoad.API.Lua51
         /// <param name="L"></param>
         /// <param name="index">Lua value at the given acceptable index.</param>
         /// <returns></returns>
-        public double tonumber(LuaState L, int index)
+        public LuaNumber tonumber(LuaState L, int index)
         {
-            return bind<Func<LuaState, int, double>>("tonumber")(L, index);
+            return bind<Func<LuaState, int, LuaNumber>>("tonumber")(L, index);
         }
 
         /// <summary>
         /// [-0, +0, m] const char *lua_tolstring (lua_State *L, int index, size_t *len);
-        /// 
-        /// where size_t - unsigned int /or/ unsigned __int64 (unsigned long long)
         /// 
         /// Converts the Lua value at the given acceptable index to a C string. 
         /// If len is not NULL, it also sets *len with the string length. 
@@ -132,9 +143,9 @@ namespace net.r_eg.LunaRoad.API.Lua51
         /// Because Lua has garbage collection, there is no guarantee that the pointer returned by lua_tolstring will be valid 
         /// after the corresponding value is removed from the stack.
         /// </returns>
-        //public string tolstring(LuaState L, int index, out ulong len)
-        //{
-
-        //}
+        public CharPtr tolstring(LuaState L, int index, out size_t len)
+        {
+            return bind<FuncOut3<LuaState, int, size_t, IntPtr>>("tolstring")(L, index, out len);
+        }
     }
 }

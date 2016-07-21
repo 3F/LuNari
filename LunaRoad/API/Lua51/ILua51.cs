@@ -22,15 +22,29 @@
  * THE SOFTWARE.
 */
 
+using net.r_eg.LunaRoad.Types;
+
 namespace net.r_eg.LunaRoad.API.Lua51
 {
     public interface ILua51: ILevel
     {
         /// <summary>
-        /// We will specify the global const from lua.h as properties.
+        /// Lua provides a registry, a pre-defined table that can be used by any C code to store whatever Lua value it needs to store. 
+        /// This table is always located at pseudo-index LUA_REGISTRYINDEX.
+        /// (global const from lua.h as property)
         /// </summary>
         int LUA_REGISTRYINDEX { get; }
+
+        /// <summary>
+        /// The environment of the running C function is always at pseudo-index LUA_ENVIRONINDEX.
+        /// (global const from lua.h as property)
+        /// </summary>
         int LUA_ENVIRONINDEX  { get; }
+
+        /// <summary>
+        /// The thread environment (where global variables live) is always at pseudo-index LUA_GLOBALSINDEX.
+        /// (global const from lua.h as property)
+        /// </summary>
         int LUA_GLOBALSINDEX  { get; }
 
         /// <summary>
@@ -89,28 +103,26 @@ namespace net.r_eg.LunaRoad.API.Lua51
         /// <param name="L"></param>
         /// <param name="index">Lua value at the given acceptable index.</param>
         /// <returns></returns>
-        double tonumber(LuaState L, int index);
+        LuaNumber tonumber(LuaState L, int index);
 
         /// <summary>
         /// [-0, +0, m] const char *lua_tolstring (lua_State *L, int index, size_t *len);
-        /// 
-        /// where size_t - unsigned int /or/ unsigned __int64 (unsigned long long)
         /// 
         /// Converts the Lua value at the given acceptable index to a C string. 
         /// If len is not NULL, it also sets *len with the string length. 
         /// The Lua value must be a string or a number; otherwise, the function returns NULL. 
         /// If the value is a number, then lua_tolstring also changes the actual value in the stack to a string. 
         /// (This change confuses lua_next when lua_tolstring is applied to keys during a table traversal.)
+        /// 
+        /// lua_tolstring returns a fully aligned pointer to a string inside the Lua state. 
+        /// This string always has a zero ('\0') after its last character (as in C), but can contain other zeros in its body. 
+        /// Because Lua has garbage collection, there is no guarantee that the pointer returned by lua_tolstring will be valid 
+        /// after the corresponding value is removed from the stack.
         /// </summary>
         /// <param name="L"></param>
         /// <param name="index">Lua value at the given acceptable index.</param>
         /// <param name="len">string length</param>
-        /// <returns>
-        /// a fully aligned pointer to a string inside the Lua state. 
-        /// This string always has a zero ('\0') after its last character (as in C), but can contain other zeros in its body. 
-        /// Because Lua has garbage collection, there is no guarantee that the pointer returned by lua_tolstring will be valid 
-        /// after the corresponding value is removed from the stack.
-        /// </returns>
-        //string tolstring(LuaState L, int index, out ulong len);
+        /// <returns></returns>
+        CharPtr tolstring(LuaState L, int index, out size_t len);
     }
 }
