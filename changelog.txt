@@ -2,6 +2,18 @@
 LunaRoad
 _ _ _ _ _
 
+[v1.1-beta]
+
+    * NEW: IL EmitCalli - support of implicit/explicit conversions with additional types.
+    * NEW: added Func/ActionOut delegates to work with ByRef-arguments.
+    * NEW: added additional types: LuaNumber, CharPtr, size_t
+    * NEW: API. added:
+            * `CharPtr tolstring(LuaState L, int index, out size_t len)`    - v5.1/5.2/5.3
+            * `void pushnumber(LuaState L, LuaNumber n)`                    - v5.1/5.2/5.3
+            * `void pushstring(LuaState L, string s)`                       - v5.1
+                * `CharPtr pushstring(LuaState L, string s)`                - v5.2/5.3
+                
+    * CHANGED: API. `LuaNumber tonumber(LuaState L, int index);`            - v5.1/5.2/5.3
 
 [v1.0-alpha]
 
