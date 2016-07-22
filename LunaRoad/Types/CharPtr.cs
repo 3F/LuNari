@@ -43,10 +43,10 @@ namespace net.r_eg.LunaRoad.Types
             get
             {
                 //length - our strings always has a zero '\0' after its last character as in C.
-                int len = 0;
-                while(Marshal.ReadByte(ptr, len++) != 0) { };
+                int len = -1;
+                while(Marshal.ReadByte(ptr, ++len) != 0) { };
 
-                if(len == 0) {
+                if(len < 1) {
                     return new byte[0];
                 }
 
@@ -73,8 +73,13 @@ namespace net.r_eg.LunaRoad.Types
 
         public string Utf8
         {
-            get {
+            get
+            {
                 byte[] data = Raw;
+
+                if(data.Length < 1) {
+                    return String.Empty;
+                }
                 return Encoding.UTF8.GetString(data, 0, data.Length);
             }
         }

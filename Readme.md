@@ -5,6 +5,8 @@ Lua C API for .NET
 *LunaRoad represents a flexible platform to work with Lua*
 
 [![Build status](https://ci.appveyor.com/api/projects/status/94y78phdvkoi5oda/branch/master?svg=true)](https://ci.appveyor.com/project/3Fs/lunaroad/branch/master)
+[![release-src](https://img.shields.io/github/release/3F/LunaRoad.svg)](https://github.com/3F/LunaRoad/releases/latest)
+[![License](https://img.shields.io/badge/License-MIT-74A5C2.svg)](https://github.com/3F/LunaRoad/blob/master/LICENSE)
 [![NuGet package](https://img.shields.io/nuget/v/LunaRoad.svg)](https://www.nuget.org/packages/LunaRoad/) 
 
 Easy to start:
@@ -19,16 +21,18 @@ Flexible binding with any exported function of library:
 
 ```csharp
 // custom binding:
-using(ILua l = new Lua("Lua52.dll")) {
+using(ILua l = new Lua("Lua52.dll"))
+{
     l.bind<Action<LuaState, LuaCFunction, int>>("pushcclosure")(L, onProc, 0);
     l.bind<Action<LuaState, string>>("setglobal")(L, "onKeyDown");
     //or any exported function like: bindFunc<...>("_full_name_")
     ...
-    double num = l.bind<Func<LuaState, int, double>>("tonumber")(L, 7);
+    LuaNumber num = l.bind<Func<LuaState, int, LuaNumber>>("tonumber")(L, 7);
 }
 
 // API layer:
-using(var l = new Lua<ILua53>("Lua53.dll")) {
+using(var l = new Lua<ILua53>("Lua53.dll"))
+{
     l.API.pushcclosure(L, onProc, 0); // ILua53 lua = l.API
     l.API.setglobal(L, "onKeyDown");
 }
@@ -62,6 +66,18 @@ using(var lSpec = new Lua("SpecLib.dll")) {
         //...
     }
 }
+```
+
+Additional types:
+
+```csharp
+
+size_t len;
+CharPtr name = lua.tolstring(L, 1, out len);
+...
+string myName += name; // (IntPtr)name; .Raw; .Ansi; .Utf8; ...
+...
+LuaNumber mv = lua.tonumber(L, 2);
 ```
 
 Lazy loading:
@@ -119,3 +135,5 @@ The Application Program Interface of Lua:
 * [v5.1](https://www.lua.org/manual/5.1/manual.html#3)
 * [v5.2](https://www.lua.org/manual/5.2/manual.html#4)
 * [v5.3](https://www.lua.org/manual/5.3/manual.html#4)
+
+The documentation **[here](https://github.com/3F/LunaRoad/wiki/API)** - *try with us*

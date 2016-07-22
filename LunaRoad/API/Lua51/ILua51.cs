@@ -124,5 +124,25 @@ namespace net.r_eg.LunaRoad.API.Lua51
         /// <param name="len">string length</param>
         /// <returns></returns>
         CharPtr tolstring(LuaState L, int index, out size_t len);
+
+        /// <summary>
+        /// [-0, +1, -] void lua_pushnumber (lua_State *L, lua_Number n);
+        /// 
+        /// Pushes a number with value n onto the stack.
+        /// </summary>
+        /// <param name="L"></param>
+        /// <param name="n">value of number</param>
+        void pushnumber(LuaState L, LuaNumber n);
+
+        /// <summary>
+        /// [-0, +1, m] void lua_pushstring (lua_State *L, const char *s);
+        /// 
+        /// Pushes the zero-terminated string pointed to by s onto the stack. 
+        /// Lua makes (or reuses) an internal copy of the given string, so the memory at s can be freed or reused immediately after the function returns. 
+        /// The string cannot contain embedded zeros; it is assumed to end at the first zero. 
+        /// </summary>
+        /// <param name="L"></param>
+        /// <param name="s"></param>
+        void pushstring(LuaState L, string s);
     }
 }

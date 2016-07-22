@@ -147,5 +147,35 @@ namespace net.r_eg.LunaRoad.API.Lua51
         {
             return bind<FuncOut3<LuaState, int, size_t, IntPtr>>("tolstring")(L, index, out len);
         }
+
+        /// <summary>
+        /// [-0, +1, -] void lua_pushnumber (lua_State *L, lua_Number n);
+        /// 
+        /// Pushes a number with value n onto the stack.
+        /// </summary>
+        /// <param name="L"></param>
+        /// <param name="n">value of number</param>
+        public void pushnumber(LuaState L, LuaNumber n)
+        {
+            bind<Action<LuaState, LuaNumber>>("pushnumber")(L, n);
+        }
+
+        /// <summary>
+        /// [-0, +1, m] void lua_pushstring (lua_State *L, const char *s);
+        /// 
+        /// Pushes the zero-terminated string pointed to by s onto the stack. 
+        /// Lua makes (or reuses) an internal copy of the given string, so the memory at s can be freed or reused immediately after the function returns. 
+        /// The string cannot contain embedded zeros; it is assumed to end at the first zero. 
+        /// </summary>
+        /// <param name="L"></param>
+        /// <param name="s"></param>
+        /// <internalWarning>
+        ///     v5.2 uses another return-type. We can't override this ! 
+        ///     Thus please note and be careful, refrain from calling this inside other API-methods !
+        /// </internalWarning>
+        public virtual void pushstring(LuaState L, string s)
+        {
+            bind<Action<LuaState, string>>("pushstring")(L, s);
+        }
     }
 }

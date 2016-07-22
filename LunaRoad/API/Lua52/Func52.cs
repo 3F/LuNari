@@ -24,6 +24,7 @@
 
 using System;
 using net.r_eg.LunaRoad.API.Lua51;
+using net.r_eg.LunaRoad.Types;
 
 namespace net.r_eg.LunaRoad.API.Lua52
 {
@@ -48,5 +49,19 @@ namespace net.r_eg.LunaRoad.API.Lua52
             bind<Action<LuaState, string>>("setglobal")(L, name);
         }
 
+        /// <summary>
+        /// [-0, +1, e] const char *lua_pushstring (lua_State *L, const char *s);
+        /// 
+        /// Pushes the zero-terminated string pointed to by s onto the stack. 
+        /// Lua makes (or reuses) an internal copy of the given string, 
+        /// so the memory at s can be freed or reused immediately after the function returns.
+        /// </summary>
+        /// <param name="L"></param>
+        /// <param name="s">If s is NULL, pushes nil and returns NULL.</param>
+        /// <returns>a pointer to the internal copy of the string.</returns>
+        public new CharPtr pushstring(LuaState L, string s)
+        {
+            return bind<Func<LuaState, string, IntPtr>>("pushstring")(L, s);
+        }
     }
 }
