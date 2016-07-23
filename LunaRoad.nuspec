@@ -3,11 +3,12 @@
   <metadata>
     <id>LunaRoad</id>
     <version>1.1.0</version>
-    <title>Lua C API for .NET</title>
+    <title>[ LunaRoad ] Lua C API for .NET</title>
     <authors>github.com/3F/LunaRoad</authors>
     <owners>reg</owners>
     <licenseUrl>https://github.com/3F/LunaRoad/blob/master/LICENSE</licenseUrl>
     <projectUrl>https://github.com/3F/LunaRoad</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/3F/LunaRoad/master/LunaRoad/Resources/LunaRoad_v3_96px.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>
     
@@ -24,6 +25,7 @@
         * https://github.com/3F/GetNuTool         
         
     </description>
+    <summary>LunaRoad represents a flexible platform to work with Lua C API :: Source code and all details here: https://github.com/3F/LunaRoad</summary>
     <tags>Lua API LunaRoad dll KeraLua KopiLua NLua</tags>
     <releaseNotes></releaseNotes>
     <copyright>Copyright (c) 2016  Denis Kuzmin [entry.reg@gmail.com] </copyright>
