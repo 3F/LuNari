@@ -31,9 +31,15 @@ namespace net.r_eg.LunaRoad
 {
     public class Lua: Lua<API.Lua51.ILua51>
     {
-        /// <param name="cfg">The Lua library or its configuration.</param>
         public Lua(LuaConfig cfg) 
             : base(cfg)
+        {
+
+        }
+
+        /// <param name="lib">The Lua library.</param>
+        public Lua(string lib)
+            : base(lib)
         {
 
         }
@@ -74,7 +80,6 @@ namespace net.r_eg.LunaRoad
             return ((IAPI<T>)bridge<T>()).Lua;
         }
 
-        /// <param name="cfg">The Lua library or its configuration.</param>
         public Lua(LuaConfig cfg)
         {
             if(cfg.LazyLoading) {
@@ -85,6 +90,13 @@ namespace net.r_eg.LunaRoad
             }
 
             API = v<TAPI>();
+        }
+        
+        /// <param name="lib">The Lua library.</param>
+        public Lua(string lib)
+            : this((LuaConfig)lib)
+        {
+
         }
 
         protected T bridge<T>() where T : ILevel

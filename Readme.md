@@ -1,5 +1,7 @@
 # LunaRoad
 
+![](https://raw.githubusercontent.com/3F/LunaRoad/master/LunaRoad/Resources/LunaRoad_v3_96px.png)
+
 Lua C API for .NET 
 
 *LunaRoad represents a flexible platform to work with Lua*

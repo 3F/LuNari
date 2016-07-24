@@ -56,12 +56,12 @@ namespace net.r_eg.LunaRoad
             set;
         }
 
-        public static implicit operator String(LuaConfig cfg)
+        public static explicit operator String(LuaConfig cfg)
         {
             return cfg.LibName;
         }
 
-        public static implicit operator LuaConfig(String lib)
+        public static explicit operator LuaConfig(String lib)
         {
             return new LuaConfig() { LibName = lib };
         }

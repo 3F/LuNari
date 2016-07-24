@@ -125,5 +125,60 @@ namespace net.r_eg.LunaRoad.API.Lua53
         /// <param name="s">If s is NULL, pushes nil and returns NULL.</param>
         /// <returns>a pointer to the internal copy of the string.</returns>
         CharPtr pushstring(LuaState L, string s);
+
+        /// <summary>
+        /// [-?, +?, -] void lua_settop (lua_State *L, int index);
+        /// 
+        /// Accepts any index, or 0, and sets the stack top to this index. 
+        /// If the new top is larger than the old one, then the new elements are filled with nil. 
+        /// If index is 0, then all stack elements are removed.
+        /// </summary>
+        /// <param name="L"></param>
+        /// <param name="index"></param>
+        void settop(LuaState L, int index);
+
+        /// <summary>
+        /// [-0, +0, -] int lua_gettop (lua_State *L);
+        /// 
+        /// Returns the index of the top element in the stack. 
+        /// Because indices start at 1, this result is equal to the number of elements in the stack; in particular, 0 means an empty stack. 
+        /// </summary>
+        /// <param name="L"></param>
+        /// <returns>the index of the top element in the stack.</returns>
+        int gettop(LuaState L);
+
+        /// <summary>
+        /// [-0, +1, -] void lua_pushvalue (lua_State *L, int index);
+        /// 
+        /// Pushes a copy of the element at the given index onto the stack.
+        /// </summary>
+        /// <param name="L"></param>
+        /// <param name="index"></param>
+        void pushvalue(LuaState L, int index);
+
+        /// <summary>
+        /// [-0, +1, e] int lua_getfield (lua_State *L, int index, const char *k);
+        /// 
+        /// Pushes onto the stack the value t[k], where t is the value at the given index. 
+        /// As in Lua, this function may trigger a metamethod for the "index" event.
+        /// </summary>
+        /// <param name="L"></param>
+        /// <param name="index"></param>
+        /// <param name="k"></param>
+        int getfield(LuaState L, int index, string k);
+
+        /// <summary>
+        /// [-2, +0, e] void lua_settable (lua_State *L, int index);
+        /// 
+        /// Does the equivalent to t[k] = v, 
+        /// where t is the value at the given index, v is the value at the top of the stack, 
+        /// and k is the value just below the top.
+        /// 
+        /// This function pops both the key and the value from the stack. 
+        /// As in Lua, this function may trigger a metamethod for the "newindex" event.
+        /// </summary>
+        /// <param name="L"></param>
+        /// <param name="index"></param>
+        void settable(LuaState L, int index);
     }
 }
