@@ -169,11 +169,7 @@ namespace net.r_eg.LunaRoad.API.Lua51
         /// </summary>
         /// <param name="L"></param>
         /// <param name="s"></param>
-        /// <internalWarning>
-        ///     v5.2 uses another return-type. We can't override this ! 
-        ///     Thus please note and be careful, do not use this inside other API-methods !
-        /// </internalWarning>
-        public virtual void pushstring(LuaState L, string s)
+        public void pushstring(LuaState L, string s)
         {
             bind<Action<LuaState, string>>("pushstring")(L, s);
         }
@@ -226,11 +222,7 @@ namespace net.r_eg.LunaRoad.API.Lua51
         /// <param name="L"></param>
         /// <param name="index"></param>
         /// <param name="k"></param>
-        /// <internalWarning>
-        ///     v5.3 uses another return-type. We can't override this ! 
-        ///     Thus please note and be careful, do not use this inside other API-methods !
-        /// </internalWarning>
-        public virtual void getfield(LuaState L, int index, string k)
+        public void getfield(LuaState L, int index, string k)
         {
             bind<Action<LuaState, int, string>>("getfield")(L, index, k);
         }
@@ -288,11 +280,7 @@ namespace net.r_eg.LunaRoad.API.Lua51
         /// </summary>
         /// <param name="L"></param>
         /// <param name="index"></param>
-        /// <internalWarning>
-        ///     v5.3 uses another return-type. We can't override this ! 
-        ///     Thus please note and be careful, do not use this inside other API-methods !
-        /// </internalWarning>
-        public virtual void rawget(LuaState L, int index)
+        public void rawget(LuaState L, int index)
         {
             bind<Action<LuaState, int>>("rawget")(L, index);
         }
@@ -322,11 +310,7 @@ namespace net.r_eg.LunaRoad.API.Lua51
         /// </summary>
         /// <param name="L"></param>
         /// <param name="index"></param>
-        /// <internalWarning>
-        ///     v5.3 uses another return-type. We can't override this ! 
-        ///     Thus please note and be careful, do not use this inside other API-methods !
-        /// </internalWarning>
-        public virtual void gettable(LuaState L, int index)
+        public void gettable(LuaState L, int index)
         {
             bind<Action<LuaState, int>>("gettable")(L, index);
         }

@@ -124,7 +124,7 @@ namespace net.r_eg.LunaRoad.API.Lua53
         /// <param name="L"></param>
         /// <param name="s">If s is NULL, pushes nil and returns NULL.</param>
         /// <returns>a pointer to the internal copy of the string.</returns>
-        CharPtr pushstring(LuaState L, string s);
+        CharPtr pushstring(Rt_.LuaState L, string s);
 
         /// <summary>
         /// [-?, +?, -] void lua_settop (lua_State *L, int index);
@@ -165,7 +165,7 @@ namespace net.r_eg.LunaRoad.API.Lua53
         /// <param name="L"></param>
         /// <param name="index"></param>
         /// <param name="k"></param>
-        int getfield(LuaState L, int index, string k);
+        int getfield(Rt_.LuaState L, int index, string k);
 
         /// <summary>
         /// [-2, +0, e] void lua_settable (lua_State *L, int index);
@@ -211,7 +211,7 @@ namespace net.r_eg.LunaRoad.API.Lua53
         /// </summary>
         /// <param name="L"></param>
         /// <param name="index"></param>
-        int rawget(LuaState L, int index);
+        int rawget(Rt_.LuaState L, int index);
 
         /// <summary>
         /// [-0, +1, -] int lua_rawgeti (lua_State *L, int index, lua_Integer n);
@@ -237,6 +237,6 @@ namespace net.r_eg.LunaRoad.API.Lua53
         /// <param name="L"></param>
         /// <param name="index"></param>
         /// <returns>the type of the pushed value.</returns>
-        int gettable(LuaState L, int index);
+        int gettable(Rt_.LuaState L, int index);
     }
 }

@@ -121,7 +121,7 @@ namespace net.r_eg.LunaRoad.API.Lua52
         /// <param name="L"></param>
         /// <param name="s">If s is NULL, pushes nil and returns NULL.</param>
         /// <returns>a pointer to the internal copy of the string.</returns>
-        CharPtr pushstring(LuaState L, string s);
+        CharPtr pushstring(Rt_.LuaState L, string s);
 
         /// <summary>
         /// [-?, +?, -] void lua_settop (lua_State *L, int index);

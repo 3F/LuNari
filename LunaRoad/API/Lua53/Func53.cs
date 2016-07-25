@@ -46,7 +46,7 @@ namespace net.r_eg.LunaRoad.API.Lua53
         /// <param name="L"></param>
         /// <param name="index"></param>
         /// <param name="k"></param>
-        public new int getfield(LuaState L, int index, string k)
+        public int getfield(Rt_.LuaState L, int index, string k)
         {
             return bind<Func<LuaState, int, string, int>>("getfield")(L, index, k);
         }
@@ -76,7 +76,7 @@ namespace net.r_eg.LunaRoad.API.Lua53
         /// <param name="L"></param>
         /// <param name="index"></param>
         /// <returns></returns>
-        public new int rawget(LuaState L, int index)
+        public int rawget(Rt_.LuaState L, int index)
         {
             return bind<Func<LuaState, int, int>>("rawget")(L, index);
         }
@@ -108,7 +108,7 @@ namespace net.r_eg.LunaRoad.API.Lua53
         /// <param name="L"></param>
         /// <param name="index"></param>
         /// <returns>the type of the pushed value.</returns>
-        public new int gettable(LuaState L, int index)
+        public int gettable(Rt_.LuaState L, int index)
         {
             return bind<Func<LuaState, int, int>>("rawgeti")(L, index);
         }

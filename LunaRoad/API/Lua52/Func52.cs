@@ -59,9 +59,9 @@ namespace net.r_eg.LunaRoad.API.Lua52
         /// <param name="L"></param>
         /// <param name="s">If s is NULL, pushes nil and returns NULL.</param>
         /// <returns>a pointer to the internal copy of the string.</returns>
-        public new CharPtr pushstring(LuaState L, string s)
+        public CharPtr pushstring(Rt_.LuaState L, string s)
         {
-            return bind<Func<LuaState, string, IntPtr>>("pushstring")(L, s);
+            return bind<Func<Rt_.LuaState, string, IntPtr>>("pushstring")(L, s);
         }
     }
 }
