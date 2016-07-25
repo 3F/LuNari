@@ -81,6 +81,7 @@
     <Compile Include="Types\ActionOut.cs" />
     <Compile Include="Types\FuncOut.cs" />
     <Compile Include="Types\CharPtr.cs" />
+    <Compile Include="Types\LuaInteger.cs" />
     <Compile Include="Types\size_t.cs" />
     <Compile Include="Types\LuaNumber.cs" />
     <Compile Include="WinAPI\NativeMethods.cs" />

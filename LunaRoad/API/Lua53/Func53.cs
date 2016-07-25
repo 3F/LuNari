@@ -24,6 +24,7 @@
 
 using System;
 using net.r_eg.LunaRoad.API.Lua52;
+using net.r_eg.LunaRoad.Types;
 
 namespace net.r_eg.LunaRoad.API.Lua53
 {
@@ -48,6 +49,68 @@ namespace net.r_eg.LunaRoad.API.Lua53
         public new int getfield(LuaState L, int index, string k)
         {
             return bind<Func<LuaState, int, string, int>>("getfield")(L, index, k);
+        }
+
+        /// <summary>
+        /// [-1, +0, m] void lua_rawseti (lua_State *L, int index, lua_Integer i);
+        /// 
+        /// Does the equivalent of t[i] = v, where t is the table at the given index 
+        /// and v is the value at the top of the stack.
+        /// 
+        /// This function pops the value from the stack. 
+        /// The assignment is raw, that is, it does not invoke the __newindex metamethod.  
+        /// </summary>
+        /// <param name="L"></param>
+        /// <param name="index"></param>
+        /// <param name="i"></param>
+        public void rawseti(LuaState L, int index, LuaInteger i)
+        {
+            bind<Action<LuaState, int, LuaInteger>>("rawseti")(L, index, i);
+        }
+
+        /// <summary>
+        /// [-1, +1, -] void lua_rawget (lua_State *L, int index);
+        /// 
+        /// Similar to lua_gettable, but does a raw access (i.e., without metamethods).
+        /// </summary>
+        /// <param name="L"></param>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        public new int rawget(LuaState L, int index)
+        {
+            return bind<Func<LuaState, int, int>>("rawget")(L, index);
+        }
+
+        /// <summary>
+        /// [-0, +1, -] int lua_rawgeti (lua_State *L, int index, lua_Integer n);
+        /// 
+        /// Pushes onto the stack the value t[n], where t is the table at the given index. 
+        /// The access is raw, that is, it does not invoke the __index metamethod.  
+        /// </summary>
+        /// <param name="L"></param>
+        /// <param name="index"></param>
+        /// <param name="n"></param>
+        /// <returns>the type of the pushed value.</returns>
+        public int rawgeti(LuaState L, int index, LuaInteger n)
+        {
+            return bind<Func<LuaState, int, LuaInteger, int>>("rawgeti")(L, index, n);
+        }
+
+        /// <summary>
+        /// [-1, +1, e] int lua_gettable (lua_State *L, int index);
+        /// 
+        /// Pushes onto the stack the value t[k], where t is the value at the given index 
+        /// and k is the value at the top of the stack.
+        /// 
+        /// This function pops the key from the stack, pushing the resulting value in its place. 
+        /// As in Lua, this function may trigger a metamethod for the "index" event.
+        /// </summary>
+        /// <param name="L"></param>
+        /// <param name="index"></param>
+        /// <returns>the type of the pushed value.</returns>
+        public new int gettable(LuaState L, int index)
+        {
+            return bind<Func<LuaState, int, int>>("rawgeti")(L, index);
         }
     }
 }

@@ -199,5 +199,61 @@ namespace net.r_eg.LunaRoad.API.Lua51
         /// <param name="L"></param>
         /// <param name="index"></param>
         void settable(LuaState L, int index);
+
+        /// <summary>
+        /// [-2, +0, m] void lua_rawset (lua_State *L, int index);
+        /// 
+        /// Similar to lua_settable, but does a raw assignment (i.e., without metamethods).
+        /// </summary>
+        /// <param name="L"></param>
+        /// <param name="index"></param>
+        void rawset(LuaState L, int index);
+
+        /// <summary>
+        /// [-1, +0, m] void lua_rawseti (lua_State *L, int index, int n);
+        /// 
+        /// Does the equivalent of t[n] = v, where t is the value at the given valid index 
+        /// and v is the value at the top of the stack.
+        /// 
+        /// This function pops the value from the stack. 
+        /// The assignment is raw; that is, it does not invoke metamethods. 
+        /// </summary>
+        /// <param name="L"></param>
+        /// <param name="index"></param>
+        /// <param name="n"></param>
+        void rawseti(LuaState L, int index, int n);
+
+        /// <summary>
+        /// [-1, +1, -] void lua_rawget (lua_State *L, int index);
+        /// 
+        /// Similar to lua_gettable, but does a raw access (i.e., without metamethods).
+        /// </summary>
+        /// <param name="L"></param>
+        /// <param name="index"></param>
+        void rawget(LuaState L, int index);
+
+        /// <summary>
+        /// [-0, +1, -] void lua_rawgeti (lua_State *L, int index, int n);
+        /// 
+        /// Pushes onto the stack the value t[n], where t is the value at the given valid index. 
+        /// The access is raw; that is, it does not invoke metamethods. 
+        /// </summary>
+        /// <param name="L"></param>
+        /// <param name="index"></param>
+        /// <param name="n"></param>
+        void rawgeti(LuaState L, int index, int n);
+
+        /// <summary>
+        /// [-1, +1, e] void lua_gettable (lua_State *L, int index);
+        /// 
+        /// Pushes onto the stack the value t[k], where t is the value at the given valid index 
+        /// and k is the value at the top of the stack. 
+        /// 
+        /// This function pops the key from the stack (putting the resulting value in its place). 
+        /// As in Lua, this function may trigger a metamethod for the "index" event.
+        /// </summary>
+        /// <param name="L"></param>
+        /// <param name="index"></param>
+        void gettable(LuaState L, int index);
     }
 }

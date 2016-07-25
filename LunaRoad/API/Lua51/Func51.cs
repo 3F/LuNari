@@ -251,5 +251,84 @@ namespace net.r_eg.LunaRoad.API.Lua51
         {
             bind<Action<LuaState, int>>("settable")(L, index);
         }
+
+        /// <summary>
+        /// [-2, +0, m] void lua_rawset (lua_State *L, int index);
+        /// 
+        /// Similar to lua_settable, but does a raw assignment (i.e., without metamethods).
+        /// </summary>
+        /// <param name="L"></param>
+        /// <param name="index"></param>
+        public void rawset(LuaState L, int index)
+        {
+            bind<Action<LuaState, int>>("rawset")(L, index);
+        }
+
+        /// <summary>
+        /// [-1, +0, m] void lua_rawseti (lua_State *L, int index, int n);
+        /// 
+        /// Does the equivalent of t[n] = v, where t is the value at the given valid index 
+        /// and v is the value at the top of the stack.
+        /// 
+        /// This function pops the value from the stack. 
+        /// The assignment is raw; that is, it does not invoke metamethods. 
+        /// </summary>
+        /// <param name="L"></param>
+        /// <param name="index"></param>
+        /// <param name="n"></param>
+        public void rawseti(LuaState L, int index, int n)
+        {
+            bind<Action<LuaState, int, int>>("rawseti")(L, index, n);
+        }
+
+        /// <summary>
+        /// [-1, +1, -] void lua_rawget (lua_State *L, int index);
+        /// 
+        /// Similar to lua_gettable, but does a raw access (i.e., without metamethods).
+        /// </summary>
+        /// <param name="L"></param>
+        /// <param name="index"></param>
+        /// <internalWarning>
+        ///     v5.3 uses another return-type. We can't override this ! 
+        ///     Thus please note and be careful, do not use this inside other API-methods !
+        /// </internalWarning>
+        public virtual void rawget(LuaState L, int index)
+        {
+            bind<Action<LuaState, int>>("rawget")(L, index);
+        }
+
+        /// <summary>
+        /// [-0, +1, -] void lua_rawgeti (lua_State *L, int index, int n);
+        /// 
+        /// Pushes onto the stack the value t[n], where t is the value at the given valid index. 
+        /// The access is raw; that is, it does not invoke metamethods. 
+        /// </summary>
+        /// <param name="L"></param>
+        /// <param name="index"></param>
+        /// <param name="n"></param>
+        public void rawgeti(LuaState L, int index, int n)
+        {
+            bind<Action<LuaState, int, int>>("rawgeti")(L, index, n);
+        }
+
+        /// <summary>
+        /// [-1, +1, e] void lua_gettable (lua_State *L, int index);
+        /// 
+        /// Pushes onto the stack the value t[k], where t is the value at the given valid index 
+        /// and k is the value at the top of the stack. 
+        /// 
+        /// This function pops the key from the stack (putting the resulting value in its place). 
+        /// As in Lua, this function may trigger a metamethod for the "index" event.
+        /// </summary>
+        /// <param name="L"></param>
+        /// <param name="index"></param>
+        /// <internalWarning>
+        ///     v5.3 uses another return-type. We can't override this ! 
+        ///     Thus please note and be careful, do not use this inside other API-methods !
+        /// </internalWarning>
+        public virtual void gettable(LuaState L, int index)
+        {
+            bind<Action<LuaState, int>>("gettable")(L, index);
+        }
     }
 }

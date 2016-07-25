@@ -180,5 +180,63 @@ namespace net.r_eg.LunaRoad.API.Lua53
         /// <param name="L"></param>
         /// <param name="index"></param>
         void settable(LuaState L, int index);
+
+        /// <summary>
+        /// [-2, +0, m] void lua_rawset (lua_State *L, int index);
+        /// 
+        /// Similar to lua_settable, but does a raw assignment (i.e., without metamethods).
+        /// </summary>
+        /// <param name="L"></param>
+        /// <param name="index"></param>
+        void rawset(LuaState L, int index);
+
+        /// <summary>
+        /// [-1, +0, m] void lua_rawseti (lua_State *L, int index, lua_Integer i);
+        /// 
+        /// Does the equivalent of t[i] = v, where t is the table at the given index 
+        /// and v is the value at the top of the stack.
+        /// 
+        /// This function pops the value from the stack. 
+        /// The assignment is raw, that is, it does not invoke the __newindex metamethod.  
+        /// </summary>
+        /// <param name="L"></param>
+        /// <param name="index"></param>
+        /// <param name="i"></param>
+        void rawseti(LuaState L, int index, LuaInteger i);
+
+        /// <summary>
+        /// [-1, +1, -] void lua_rawget (lua_State *L, int index);
+        /// 
+        /// Similar to lua_gettable, but does a raw access (i.e., without metamethods).
+        /// </summary>
+        /// <param name="L"></param>
+        /// <param name="index"></param>
+        int rawget(LuaState L, int index);
+
+        /// <summary>
+        /// [-0, +1, -] int lua_rawgeti (lua_State *L, int index, lua_Integer n);
+        /// 
+        /// Pushes onto the stack the value t[n], where t is the table at the given index. 
+        /// The access is raw, that is, it does not invoke the __index metamethod.  
+        /// </summary>
+        /// <param name="L"></param>
+        /// <param name="index"></param>
+        /// <param name="n"></param>
+        /// <returns>the type of the pushed value.</returns>
+        int rawgeti(LuaState L, int index, LuaInteger n);
+
+        /// <summary>
+        /// [-1, +1, e] int lua_gettable (lua_State *L, int index);
+        /// 
+        /// Pushes onto the stack the value t[k], where t is the value at the given index 
+        /// and k is the value at the top of the stack.
+        /// 
+        /// This function pops the key from the stack, pushing the resulting value in its place. 
+        /// As in Lua, this function may trigger a metamethod for the "index" event.
+        /// </summary>
+        /// <param name="L"></param>
+        /// <param name="index"></param>
+        /// <returns>the type of the pushed value.</returns>
+        int gettable(LuaState L, int index);
     }
 }
