@@ -2,6 +2,38 @@
 LunaRoad
 _ _ _ _ _
 
+[v1.2-beta]
+
+    * NEW: LuaInteger type.
+    * NEW: The lua.h constants of v5.1/2/3 represented with LuaH.
+    * NEW: API. added:
+            * `void lua_settop (lua_State *L, int index);` /v5.1, 5.2, 5.3
+            * `int lua_gettop (lua_State *L);` /v5.1, 5.2, 5.3
+            * `void lua_pushvalue (lua_State *L, int index);` /v5.1, 5.2, 5.3
+            * `void lua_getfield (lua_State *L, int index, const char *k);` /v5.1, 5.2
+            * * int lua_getfield (lua_State *L, int index, const char *k);` /v5.3
+            * `void rawset(LuaState L, int index);` /v5.1; 5.2; 5.3
+            * `void rawseti(LuaState L, int index, int n);` /v5.1; 5.2
+            * * `void rawseti(LuaState L, int index, LuaInteger i);` /v5.3
+            * `int rawget (lua_State *L, int index);` /v5.3
+            * * `void rawget(LuaState L, int index);` /v5.1; v5.2
+            * `int rawgeti(LuaState L, int index, LuaInteger n);` /v5.3
+            * * `void rawgeti(LuaState L, int index, int n);` /v5.1; 5.2
+            * `int gettable(LuaState L, int index);` /v5.3
+            * * `void gettable(LuaState L, int index);` /v5.1; 5.2
+            * `int lua_type (lua_State *L, int index);` /v5.1; 5.2; 5.3
+            * `void lua_getglobal (lua_State *L, const char *name);` /v5.1; 5.2
+            * * `int lua_getglobal (lua_State *L, const char *name);` /v5.3
+            * `void pop(LuaState L, int n);` /v5.1; 5.2; 5.3
+            * `void pushinteger(LuaState L, LuaInteger n);` /v5.1; 5.2; 5.3
+            * `int pushthread(LuaState L);` /v5.1; 5.2; 5.3
+            * `void pushnil(LuaState L);` /v5.1; 5.2; 5.3
+            * `int pcall(LuaState L, int nargs, int nresults, int errfunc);` /v5.1; 5.2; 5.3
+            * `void lua_call (lua_State *L, int nargs, int nresults);` /v5.1; 5.2; 5.3
+            
+    * CHANGED: Pseudo-indices for Lua5.1 now is part of LuaH.
+    * CHANGED: Additional Lua .ctor(string) - the LuaConfig now has only explicit conversions to avoid misunderstanding.
+
 [v1.1-beta]
 
     * NEW: IL EmitCalli - support of implicit/explicit conversions with additional types.
