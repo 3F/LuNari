@@ -27,8 +27,11 @@ using System;
 namespace net.r_eg.LunaRoad.Types
 {
     /// <summary>
-    /// lua_Integer - The type of integers in Lua v5.3+:
+    /// lua_Integer - The type of integers in Lua:
     ///  * typedef ... lua_Integer; 
+    /// 
+    ///  v5.1, 5.2: ptrdiff_t
+    ///  v5.3:
     ///  
     ///  By default this type is long long, (usually a 64-bit two-complement integer), 
     ///  but that can be changed to long or int (usually a 32-bit two-complement integer)

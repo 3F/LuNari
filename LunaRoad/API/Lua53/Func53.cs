@@ -112,5 +112,18 @@ namespace net.r_eg.LunaRoad.API.Lua53
         {
             return bind<Func<LuaState, int, int>>("rawgeti")(L, index);
         }
+
+        /// <summary>
+        /// [-0, +1, e] void lua_getglobal (lua_State *L, const char *name);
+        /// 
+        /// Pushes onto the stack the value of the global name. 
+        /// </summary>
+        /// <param name="L"></param>
+        /// <param name="name"></param>
+        /// <returns>Returns the type of that value.</returns>
+        public int getglobal(Rt_.LuaState L, string name)
+        {
+            return bind<Func<LuaState, string, int>>("getglobal")(L, name);
+        }
     }
 }

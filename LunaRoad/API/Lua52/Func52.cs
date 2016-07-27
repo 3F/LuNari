@@ -63,5 +63,17 @@ namespace net.r_eg.LunaRoad.API.Lua52
         {
             return bind<Func<Rt_.LuaState, string, IntPtr>>("pushstring")(L, s);
         }
+
+        /// <summary>
+        /// [-0, +1, e] void lua_getglobal (lua_State *L, const char *name);
+        /// 
+        /// Pushes onto the stack the value of the global name.
+        /// </summary>
+        /// <param name="L"></param>
+        /// <param name="name"></param>
+        public override void getglobal(LuaState L, string name)
+        {
+            bind<Action<LuaState, string>>("getglobal")(L, name);
+        }
     }
 }

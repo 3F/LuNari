@@ -44,6 +44,9 @@
   <ItemGroup>
     <Compile Include="API\Binder.cs" />
     <Compile Include="API\IAPI.cs" />
+    <Compile Include="API\Lua51\LuaH.cs" />
+    <Compile Include="API\Lua52\LuaH.cs" />
+    <Compile Include="API\Lua53\LuaH.cs" />
     <Compile Include="API\LuaImplN.cs" />
     <Compile Include="API\LuaFuncN.cs" />
     <Compile Include="API\ILuaN.cs" />

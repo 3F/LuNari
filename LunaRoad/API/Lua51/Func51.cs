@@ -37,25 +37,6 @@ namespace net.r_eg.LunaRoad.API.Lua51
         }
         
         /// <summary>
-        /// Lua provides a registry, a pre-defined table that can be used by any C code to store whatever Lua value it needs to store. 
-        /// This table is always located at pseudo-index LUA_REGISTRYINDEX.
-        /// (global const from lua.h as property)
-        /// </summary>
-        public int LUA_REGISTRYINDEX { get { return -10000; } }
-
-        /// <summary>
-        /// The environment of the running C function is always at pseudo-index LUA_ENVIRONINDEX.
-        /// (global const from lua.h as property)
-        /// </summary>
-        public int LUA_ENVIRONINDEX { get { return -10001; } }
-
-        /// <summary>
-        /// The thread environment (where global variables live) is always at pseudo-index LUA_GLOBALSINDEX.
-        /// (global const from lua.h as property)
-        /// </summary>
-        public int LUA_GLOBALSINDEX { get { return -10002; } }
-        
-        /// <summary>
         /// [-n, +1, m] void lua_pushcclosure (lua_State *L, lua_CFunction fn, int n);
         /// 
         /// Pushes a new C closure onto the stack.
@@ -106,7 +87,7 @@ namespace net.r_eg.LunaRoad.API.Lua51
         /// <param name="name"></param>
         public virtual void setglobal(LuaState L, string name)
         {
-            setfield(L, LUA_GLOBALSINDEX, name);
+            setfield(L, LuaH.LUA_GLOBALSINDEX, name);
         }
 
         /// <summary>
@@ -313,6 +294,154 @@ namespace net.r_eg.LunaRoad.API.Lua51
         public void gettable(LuaState L, int index)
         {
             bind<Action<LuaState, int>>("gettable")(L, index);
+        }
+
+        /// <summary>
+        /// [-(nargs + 1), +nresults, e] void lua_call (lua_State *L, int nargs, int nresults);
+        /// 
+        /// Calls a function.
+        /// 
+        /// To call a function you must use the following protocol: first, the function to be called is pushed onto the stack; 
+        /// then, the arguments to the function are pushed in direct order; 
+        /// that is, the first argument is pushed first.
+        /// 
+        /// Finally you call lua_call; nargs is the number of arguments that you pushed onto the stack. 
+        /// All arguments and the function value are popped from the stack when the function is called. 
+        /// The function results are pushed onto the stack when the function returns.
+        /// 
+        /// The number of results is adjusted to nresults, unless nresults is LUA_MULTRET. 
+        /// In this case, all results from the function are pushed. 
+        /// Lua takes care that the returned values fit into the stack space. 
+        /// The function results are pushed onto the stack in direct order (the first result is pushed first), 
+        /// so that after the call the last result is on the top of the stack. 
+        /// 
+        /// Any error inside the called function is propagated upwards (with a longjmp).
+        /// </summary>
+        /// <param name="L"></param>
+        /// <param name="nargs"></param>
+        /// <param name="nresults"></param>
+        public void call(LuaState L, int nargs, int nresults)
+        {
+            bind<Action<LuaState, int, int>>("call")(L, nargs, nresults);
+        }
+
+        /// <summary>
+        /// [-(nargs + 1), +(nresults|1), -] int lua_pcall (lua_State *L, int nargs, int nresults, int errfunc);
+        /// 
+        /// Calls a function in protected mode.
+        /// 
+        /// Both nargs and nresults have the same meaning as in lua_call. 
+        /// If there are no errors during the call, lua_pcall behaves exactly like lua_call. 
+        /// However, if there is any error, lua_pcall catches it, pushes a single value on the stack (the error message), 
+        /// and returns an error code. 
+        /// Like lua_call, lua_pcall always removes the function and its arguments from the stack. 
+        /// 
+        /// In case of runtime errors, this function will be called with the error message and its return value 
+        /// will be the message returned on the stack by lua_pcall.
+        /// 
+        /// Typically, the error handler function is used to add more debug information to the error message, 
+        /// such as a stack traceback. Such information cannot be gathered after the return of lua_pcall, 
+        /// since by then the stack has unwound.
+        /// </summary>
+        /// <param name="L"></param>
+        /// <param name="nargs"></param>
+        /// <param name="nresults"></param>
+        /// <param name="errfunc">
+        /// If errfunc is 0, then the error message returned on the stack is exactly the original error message. 
+        /// Otherwise, errfunc is the stack index of an error handler function. 
+        /// (In the current implementation, this index cannot be a pseudo-index.) 
+        /// </param>
+        /// <returns>
+        /// The lua_pcall function returns 0 in case of success or one of the following error codes (defined in lua.h):
+        ///     * LUA_ERRRUN: a runtime error.
+        ///     * LUA_ERRMEM: memory allocation error. For such errors, Lua does not call the error handler function. 
+        ///     * LUA_ERRERR: error while running the error handler function. 
+        /// </returns>
+        public int pcall(LuaState L, int nargs, int nresults, int errfunc)
+        {
+            return bind<Func<LuaState, int, int, int, int>>("pcall")(L, nargs, nresults, errfunc);
+        }
+
+        /// <summary>
+        /// [-0, +1, -] void lua_pushnil (lua_State *L);
+        /// 
+        /// Pushes a nil value onto the stack. 
+        /// </summary>
+        /// <param name="L"></param>
+        public void pushnil(LuaState L)
+        {
+            bind<Action<LuaState>>("pushnil")(L);
+        }
+
+        /// <summary>
+        /// [-0, +1, -] int lua_pushthread (lua_State *L);
+        /// 
+        /// Pushes the thread represented by L onto the stack. 
+        /// </summary>
+        /// <param name="L"></param>
+        /// <returns>Returns 1 if this thread is the main thread of its state.</returns>
+        public int pushthread(LuaState L)
+        {
+            return bind<Func<LuaState, int>>("pushthread")(L);
+        }
+
+        /// <summary>
+        /// [-0, +1, -] void lua_pushinteger (lua_State *L, lua_Integer n);
+        /// 
+        /// Pushes a number with value n onto the stack.
+        /// </summary>
+        /// <param name="L"></param>
+        /// <param name="n"></param>
+        public void pushinteger(LuaState L, LuaInteger n)
+        {
+            bind<Action<LuaState, LuaInteger>>("pushinteger")(L, n);
+        }
+
+        /// <summary>
+        /// [-n, +0, -] void lua_pop (lua_State *L, int n);
+        /// 
+        /// Pops n elements from the stack.
+        /// 
+        /// Note: 
+        /// It is defined as a macro: 
+        ///     #define lua_pop(L,n)    lua_settop(L, -(n)-1)
+        /// </summary>
+        /// <param name="L"></param>
+        /// <param name="n"></param>
+        public void pop(LuaState L, int n)
+        {
+            settop(L, -(n) - 1);
+        }
+
+        /// <summary>
+        /// [-0, +1, e] void lua_getglobal (lua_State *L, const char *name);
+        /// 
+        /// Pushes onto the stack the value of the global name. It is defined as a macro: 
+        ///     #define lua_getglobal(L,s)  lua_getfield(L, LUA_GLOBALSINDEX, s)
+        /// </summary>
+        /// <param name="L"></param>
+        /// <param name="name"></param>
+        public virtual void getglobal(LuaState L, string name)
+        {
+            getfield(L, LuaH.LUA_GLOBALSINDEX, name);
+        }
+
+        /// <summary>
+        /// [-0, +0, -] int lua_type (lua_State *L, int index);
+        /// 
+        /// Returns the type of the value in the given acceptable index, or LUA_TNONE for a non-valid index 
+        /// (that is, an index to an "empty" stack position).
+        /// </summary>
+        /// <param name="L"></param>
+        /// <param name="index"></param>
+        /// <returns>
+        /// The types returned by lua_type are coded by the following constants defined in lua.h: 
+        /// LUA_TNIL, LUA_TNUMBER, LUA_TBOOLEAN, LUA_TSTRING, LUA_TTABLE, LUA_TFUNCTION, 
+        /// LUA_TUSERDATA, LUA_TTHREAD, and LUA_TLIGHTUSERDATA.
+        /// </returns>
+        public int type(LuaState L, int index)
+        {
+            return bind<Func<LuaState, int, int>>("type")(L, index);
         }
     }
 }
