@@ -22,6 +22,7 @@
  * THE SOFTWARE.
 */
 
+using net.r_eg.Conari.Core;
 using net.r_eg.LunaRoad.API.Lua53;
 
 namespace net.r_eg.LunaRoad.API

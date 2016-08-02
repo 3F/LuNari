@@ -22,6 +22,8 @@
  * THE SOFTWARE.
 */
 
+using net.r_eg.Conari.Types;
+
 namespace net.r_eg.LunaRoad.Types
 {
     /// <summary>
@@ -31,17 +33,21 @@ namespace net.r_eg.LunaRoad.Types
     /// </summary>
     public struct LuaNumber
     {
-        private double val;
+        private float_t val;
 
-        public static implicit operator double(LuaNumber number)
+        public static implicit operator float_t(LuaNumber number)
         {
             return number.val;
         }
 
-        public static implicit operator float(LuaNumber number)
+        public static implicit operator LuaNumber(float_t number)
         {
-            // To check infinity use the IsInfinity methods
-            return (float)number.val;
+            return new LuaNumber(number);
+        }
+
+        public static implicit operator double(LuaNumber number)
+        {
+            return number.val;
         }
 
         public static implicit operator LuaNumber(double number)
@@ -49,7 +55,18 @@ namespace net.r_eg.LunaRoad.Types
             return new LuaNumber(number);
         }
 
-        public LuaNumber(double number)
+        public static implicit operator float(LuaNumber number)
+        {
+            return number.val;
+        }
+
+        // we also use this to initialize the float_t as the float type
+        public static implicit operator LuaNumber(float number)
+        {
+            return new LuaNumber(number);
+        }
+
+        public LuaNumber(float_t number)
         {
             val = number;
         }

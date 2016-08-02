@@ -22,6 +22,8 @@
  * THE SOFTWARE.
 */
 
+using net.r_eg.Conari.Core;
+
 namespace net.r_eg.LunaRoad.API.Lua52
 {
     internal class Impl52: Func52, ILevel, ILua52

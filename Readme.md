@@ -4,7 +4,9 @@
 
 Lua C API for .NET 
 
-*LunaRoad represents a flexible platform to work with Lua*
+LunaRoad represents a flexible platform to work with Lua.
+
+*Works via powerful [Conari](https://github.com/3F/Conari) engine.*
 
 [![Build status](https://ci.appveyor.com/api/projects/status/94y78phdvkoi5oda/branch/master?svg=true)](https://ci.appveyor.com/project/3Fs/lunaroad/branch/master)
 [![release-src](https://img.shields.io/github/release/3F/LunaRoad.svg)](https://github.com/3F/LunaRoad/releases/latest)
@@ -39,6 +41,9 @@ using(var l = new Lua<ILua53>("Lua53.dll"))
     l.API.setglobal(L, "onKeyDown");
 }
 ```
+
+*Since the LunaRoad works over [Conari](https://github.com/3F/Conari), it also does not require the creation of any additional* ***delegate***. *We'll do it* ***automatically*** *instead of you.* [[?](https://github.com/3F/LunaRoad/wiki/API)]
+
 
 Unified API level between different versions:
 
@@ -139,3 +144,28 @@ The Application Program Interface of Lua:
 * [v5.3](https://www.lua.org/manual/5.3/manual.html#4)
 
 The documentation **[here](https://github.com/3F/LunaRoad/wiki/API)** - *try with us*
+
+#### How to Build
+
+Current repository contains [git submodules](https://git-scm.com/book/en/Git-Tools-Submodules), and all this should be restored before build.
+
+Our build-scripts solves it automatically instead of you:
+
+* Inside IDE by [vsSBE](https://visualstudiogallery.msdn.microsoft.com/0d1dbfd7-ed8a-40af-ae39-281bfeca2334/) ([this script](https://gist.github.com/3F/a7f8eeb59ade9139d4da4862e03ee225) is also reloads all unavailable projects inside solution after updating submodules)
+* With msbuild tools (and other) by `submodules.bat`. Just command > build
+
+*It also prepares NuGet package as a `LunaRoad.<version>.nupkg` etc.*
+
+But, just a note, how to do it manually:
+
+* For initial cloning repo:
+
+```
+git clone --recursive https://github.com/3F/LunaRoad.git
+```
+
+* For already cloned:
+
+```
+git submodule update --init --recursive
+```

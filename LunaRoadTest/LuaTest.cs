@@ -1,11 +1,11 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using net.r_eg.Conari.Exceptions;
 using net.r_eg.LunaRoad;
 using net.r_eg.LunaRoad.API.Lua51;
 using net.r_eg.LunaRoad.API.Lua52;
-using net.r_eg.LunaRoad.Exceptions;
 
-namespace net.r_eg.LunaRoadTes
+namespace net.r_eg.LunaRoadTest
 {
     [TestClass]
     public class LuaTest
@@ -33,7 +33,7 @@ namespace net.r_eg.LunaRoadTes
         //[ExpectedException(typeof(ArgumentException))]
         public void loadTest2()
         {
-            new Lua(new LuaConfig("") { LazyLoading = true });
+            new _Lua();
 
             try {
                 new Lua("");
@@ -117,7 +117,7 @@ namespace net.r_eg.LunaRoadTes
         [TestMethod]
         public void funcNameTest1()
         {
-            var l = new Provider();
+            var l = new _Provider();
 
             try {
                 l.funcName("");

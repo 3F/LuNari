@@ -22,7 +22,7 @@
  * THE SOFTWARE.
 */
 
-using System;
+using net.r_eg.Conari.Types;
 
 namespace net.r_eg.LunaRoad.Types
 {
@@ -39,17 +39,21 @@ namespace net.r_eg.LunaRoad.Types
     /// </summary>
     public struct LuaInteger
     {
-        private long val;
+        private int_t val;
 
-        public static implicit operator long(LuaInteger number)
+        public static implicit operator int_t(LuaInteger number)
         {
             return number.val;
         }
 
-        /// <exception cref="OverflowException">number is greater than Int32.MaxValue</exception>
-        public static implicit operator Int32(LuaInteger number)
+        public static implicit operator LuaInteger(int_t number)
         {
-            return Convert.ToInt32(number.val);
+            return new LuaInteger(number);
+        }
+
+        public static implicit operator long(LuaInteger number)
+        {
+            return number.val;
         }
 
         public static implicit operator LuaInteger(long number)
@@ -57,7 +61,18 @@ namespace net.r_eg.LunaRoad.Types
             return new LuaInteger(number);
         }
 
-        public LuaInteger(long number)
+        public static implicit operator int(LuaInteger number)
+        {
+            return number.val;
+        }
+
+        // we also use this to initialize the int_t as the int type
+        public static implicit operator LuaInteger(int number)
+        {
+            return new LuaInteger(number);
+        }
+
+        public LuaInteger(int_t number)
         {
             val = number;
         }

@@ -23,6 +23,7 @@
 */
 
 using System;
+using net.r_eg.Conari.Core;
 
 namespace net.r_eg.LunaRoad.API
 {

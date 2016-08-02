@@ -25,6 +25,8 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Runtime.InteropServices;
+using net.r_eg.Conari;
 using net.r_eg.LunaRoad.API;
 
 namespace net.r_eg.LunaRoad
@@ -46,7 +48,7 @@ namespace net.r_eg.LunaRoad
     }
 
     [SuppressMessage("Microsoft.Design", "CA1063:ImplementIDisposableCorrectly", Justification = "Bug. False positive. The IDisposable is already implemented correctly !")]
-    public class Lua<TAPI>: Provider, ILua, ILoader, IProvider, IBinder/*, IDisposable*/
+    public class Lua<TAPI>: ConariL, ILua, IConari, IBinder/*, IDisposable*/
         where TAPI : ILevel
     {
         private Dictionary<Type, ILevel> cacheL = new Dictionary<Type, ILevel>();
@@ -81,14 +83,8 @@ namespace net.r_eg.LunaRoad
         }
 
         public Lua(LuaConfig cfg)
+            : base(cfg, CallingConvention.Cdecl, "lua_")
         {
-            if(cfg.LazyLoading) {
-                Library = new Link(cfg.LibName);
-            }
-            else {
-                load(cfg.LibName);
-            }
-
             API = v<TAPI>();
         }
         

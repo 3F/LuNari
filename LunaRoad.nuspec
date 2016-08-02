@@ -26,7 +26,7 @@
         
     </description>
     <summary>LunaRoad represents a flexible platform to work with Lua C API :: Source code and all details here: https://github.com/3F/LunaRoad</summary>
-    <tags>Lua API LunaRoad dll KeraLua KopiLua NLua</tags>
+    <tags>Lua API LunaRoad dll KeraLua KopiLua NLua LuaInterface Conari</tags>
     <releaseNotes></releaseNotes>
     <copyright>Copyright (c) 2016  Denis Kuzmin [entry.reg@gmail.com] </copyright>
     <references>

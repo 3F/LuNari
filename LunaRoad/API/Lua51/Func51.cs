@@ -23,7 +23,9 @@
 */
 
 using System;
+using net.r_eg.Conari.Types;
 using net.r_eg.LunaRoad.Types;
+using TFO = net.r_eg.Conari.Types.Func.Out;
 
 namespace net.r_eg.LunaRoad.API.Lua51
 {
@@ -126,7 +128,7 @@ namespace net.r_eg.LunaRoad.API.Lua51
         /// </returns>
         public CharPtr tolstring(LuaState L, int index, out size_t len)
         {
-            return bind<FuncOut3<LuaState, int, size_t, IntPtr>>("tolstring")(L, index, out len);
+            return bind<TFO.FuncOut3<LuaState, int, size_t, IntPtr>>("tolstring")(L, index, out len);
         }
 
         /// <summary>

@@ -23,10 +23,11 @@
 */
 
 using System;
+using net.r_eg.Conari.Core;
 
 namespace net.r_eg.LunaRoad
 {
-    public struct LuaConfig
+    public struct LuaConfig: IConfig
     {
         /// <summary>
         /// The Lua library.

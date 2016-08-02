@@ -61,10 +61,15 @@
   <ItemGroup>
     <Compile Include="API\BridgeTest.cs" />
     <Compile Include="LuaTest.cs" />
-    <Compile Include="LinkTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="_Lua.cs" />
+    <Compile Include="_Provider.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Conari\Conari\Conari.csproj">
+      <Project>{27152fd4-7b94-4af0-a7ed-be7e7a196d57}</Project>
+      <Name>Conari</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LunaRoad\LunaRoad.csproj">
       <Project>{359a216f-1b6d-4a82-b75a-09509a23830a}</Project>
       <Name>LunaRoad</Name>

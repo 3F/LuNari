@@ -23,8 +23,8 @@
 */
 
 using System;
+using net.r_eg.Conari.Types;
 using net.r_eg.LunaRoad.API.Lua51;
-using net.r_eg.LunaRoad.Types;
 
 namespace net.r_eg.LunaRoad.API.Lua52
 {
