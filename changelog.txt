@@ -2,6 +2,20 @@
 LunaRoad
 _ _ _ _ _
 
+[v1.3-beta]
+
+    * CHANGED: The LunaRoad now works over Conari engine v1.0
+               https://github.com/3F/Conari
+               
+               That adds the following important changes for LunaRoad:
+               
+               * NEW: Added additional delegates for work with ref/out parameters. And now it is part of Conari.
+               * NEW: IL EmitCalli - now supports of nested implicit conversions.
+                      The [NativeType] attribute available to change priority of selecting type for unmanaged code.
+                          
+               * CHANGED: updated size_t for work with primitives types directly.
+               * CHANGED: all common types now is also part of Conari.
+               
 [v1.2-beta]
 
     * NEW: LuaInteger type.
