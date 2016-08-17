@@ -13,15 +13,29 @@ LunaRoad represents a flexible platform to work with Lua.
 [![License](https://img.shields.io/badge/License-MIT-74A5C2.svg)](https://github.com/3F/LunaRoad/blob/master/LICENSE)
 [![NuGet package](https://img.shields.io/nuget/v/LunaRoad.svg)](https://www.nuget.org/packages/LunaRoad/) 
 
-Easy to start:
+**Easy to start**:
 
 ```csharp
-using(var l = new Lua<ILua51>("Lua51.dll")) {
+using(var l = new Lua<ILua51>("Lua.dll")) {
     // ...
 }
 ```
 
 Flexible binding with any exported function of library:
+
+* **Dynamic features / DLR:**
+
+*It does not require API level at all, we will generate all this* ***automatically at runtime*** ! *Easy and works well.*
+
+```csharp
+// all this will be generated at runtime, i.e. you can use all of what you need from Lua as you like:
+dlr.pushcclosure(L, onProc, 0);
+dlr.setglobal(L, "onKeyDown");
+...
+LuaNumber num = dlr.tonumber<LuaNumber>(L, 7);
+```
+
+* **Lambda expressions:**
 
 ```csharp
 // custom binding:
@@ -99,14 +113,14 @@ using(var l = new Lua<ILua51>(
 }
 ```
 
-and more ...
+**and more ...**
 
 ----
 
 
 ## License
 
-The [MIT License (MIT)](https://github.com/3F/LunaRoad/blob/master/LICENSE) - be a ~free~ and open
+The [MIT License (MIT)](https://github.com/3F/LunaRoad/blob/master/LICENSE)
 
 ```
 Copyright (c) 2016  Denis Kuzmin <entry.reg@gmail.com>
@@ -127,7 +141,7 @@ Available variants:
 
 ### Roadmap
 
-The LunaRoad already provides powerful and flexible binding. And as you can see above, you already may work between different versions via lambda-functions.
+The LunaRoad already provides powerful and flexible binding. And as you can see above, you already may work between different versions via lambda-functions and DLR features.
 However, the main tasks: to provide fully compatible API layer for more comfortable work with Lua 5.1, 5.2, 5.3 ...
 
 
@@ -169,3 +183,5 @@ git clone --recursive https://github.com/3F/LunaRoad.git
 ```
 git submodule update --init --recursive
 ```
+
+[![Donate](https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=entry%2ereg%40gmail%2ecom&lc=US&item_name=3F%2dOpenSource%20%5b%20github%2ecom%2f3F&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted)

@@ -57,6 +57,24 @@ namespace net.r_eg.LunaRoad
             set;
         }
 
+        /// <summary>
+        /// To cache dynamic types.
+        /// </summary>
+        public bool CacheDLR
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Auto name-decoration to find entry points of exported functions.
+        /// </summary>
+        public bool Mangling
+        {
+            get;
+            set;
+        }
+
         public static explicit operator String(LuaConfig cfg)
         {
             return cfg.LibName;
