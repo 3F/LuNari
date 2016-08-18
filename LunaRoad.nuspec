@@ -2,8 +2,8 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>LunaRoad</id>
-    <version>1.3.0</version>
-    <title>[ LunaRoad ] Lua C API for .NET</title>
+    <version>1.4.0</version>
+    <title>[ LunaRoad ] Lua C API for .NET /DLR &amp; Lambda features</title>
     <authors>github.com/3F/LunaRoad</authors>
     <owners>reg</owners>
     <licenseUrl>https://github.com/3F/LunaRoad/blob/master/LICENSE</licenseUrl>
@@ -20,12 +20,12 @@
         ~~~~~~~~
         Alternative to get it:
         ==========================================
-        msbuild gnt.core /p:ngpackages="LunaRoad/1.3.0"
+        msbuild gnt.core /p:ngpackages="LunaRoad/1.4.0"
         ==========================================
         * https://github.com/3F/GetNuTool         
         
     </description>
-    <summary>LunaRoad represents a flexible platform to work with Lua C API :: Source code and all details here: https://github.com/3F/LunaRoad</summary>
+    <summary>LunaRoad represents a flexible platform to work with Lua C API - DLR &amp; Lambda features :: Source code: https://github.com/3F/LunaRoad</summary>
     <tags>Lua API LunaRoad dll KeraLua KopiLua NLua LuaInterface Conari</tags>
     <releaseNotes></releaseNotes>
     <copyright>Copyright (c) 2016  Denis Kuzmin [entry.reg@gmail.com] </copyright>

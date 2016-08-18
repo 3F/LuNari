@@ -2,6 +2,25 @@
 LunaRoad
 _ _ _ _ _
 
+[v1.4-beta]
+
+    * CHANGED: Updated Conari engine v1.1
+               https://github.com/3F/Conari
+
+    * NEW: DLR features with caching of dynamic types.
+    * NEW: Added access to export functions of Lua. `ILoader.ExportFunctionNames`
+    * NEW: Added features for convenient work with any binary raw data.
+    * NEW: Added events:
+           * BeforeUnload - Before unloading a library.
+           * AfterUnload - When library has been unloaded.
+           * AfterLoad - When library has been loaded.
+           * PrefixChanged - When Prefix has been changed.
+
+    * FIXED: bug with CharPtr when unboxing for unmanaged code.
+    * FIXED: trivial fixes with implicit conversion for size_t and UIntPtr.
+    * CHANGED: Updated CharPtr: +BSTR, +WCharPtr & added new UnmanagedString, that allocates strings for unmanaged code.
+    * CHANGED: Other trivial fixes and improvements.
+
 [v1.3-beta]
 
     * CHANGED: The LunaRoad now works over Conari engine v1.0
