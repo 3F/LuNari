@@ -4,9 +4,9 @@
 
 Lua C API for .NET 
 
-LunaRoad represents a flexible platform to work with Lua.
+LunaRoad represents flexible platform for work with [Lua](https://www.lua.org).
 
-*Works via powerful [Conari](https://github.com/3F/Conari) engine.*
+*Works via powerful [Conari](https://github.com/3F/Conari) engine, starting with v1.3+*
 
 [![Build status](https://ci.appveyor.com/api/projects/status/94y78phdvkoi5oda/branch/master?svg=true)](https://ci.appveyor.com/project/3Fs/lunaroad/branch/master)
 [![release-src](https://img.shields.io/github/release/3F/LunaRoad.svg)](https://github.com/3F/LunaRoad/releases/latest)
@@ -84,7 +84,7 @@ l.v<ILua51>().pushcclosure(L, onProc, 0);
 Powerful work with several libraries:
 
 ```csharp
-using(var lSpec = new Lua("SpecLib.dll")) {
+using(var lSpec = new Lua("SpecLua.dll")) {
     using(ILua l = new Lua<ILua52>("Lua52.dll")) {
         //...
     }
@@ -115,7 +115,7 @@ using(var l = new Lua<ILua51>(
 }
 ```
 
-**and more ...**
+and more !
 
 ----
 
@@ -168,11 +168,11 @@ Current repository contains [git submodules](https://git-scm.com/book/en/Git-Too
 Our build-scripts solves it automatically instead of you:
 
 * Inside IDE by [vsSBE](https://visualstudiogallery.msdn.microsoft.com/0d1dbfd7-ed8a-40af-ae39-281bfeca2334/) ([this script](https://gist.github.com/3F/a7f8eeb59ade9139d4da4862e03ee225) is also reloads all unavailable projects inside solution after updating submodules)
-* With msbuild tools (and other) by `submodules.bat`. Just command > build
+* With msbuild tools (and other) by `submodules.bat`. Just command `> build`
 
-*It also prepares NuGet package as a `LunaRoad.<version>.nupkg` etc.*
+*It also prepares Zip & NuGet package as a `LunaRoad.<version>.nupkg` etc.*
 
-But, just a note, how to do it manually:
+But just a note, how to do it manually:
 
 * For initial cloning repo:
 
