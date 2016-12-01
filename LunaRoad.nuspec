@@ -30,7 +30,7 @@
     <releaseNotes></releaseNotes>
     <copyright>Copyright (c) 2016  Denis Kuzmin [entry.reg@gmail.com] </copyright>
     <references>
-      <!-- <reference file="Conari.dll" /> --- Optional via GetNuTool etc. -->
+      <!-- <reference file="Conari.dll" />   Optional via GetNuTool etc. -->
       <reference file="LunaRoad.dll" />
     </references>
     <dependencies>

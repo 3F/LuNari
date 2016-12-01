@@ -167,7 +167,7 @@ Current repository contains [git submodules](https://git-scm.com/book/en/Git-Too
 
 Our build-scripts solves it automatically instead of you:
 
-* Inside IDE by [vsSBE](https://visualstudiogallery.msdn.microsoft.com/0d1dbfd7-ed8a-40af-ae39-281bfeca2334/) ([this script](https://gist.github.com/3F/a7f8eeb59ade9139d4da4862e03ee225) is also reloads all unavailable projects inside solution after updating submodules)
+* Inside IDE by [vsSBE](https://visualstudiogallery.msdn.microsoft.com/0d1dbfd7-ed8a-40af-ae39-281bfeca2334/) v0.12.8+ (or [script for old versions](https://gist.github.com/3F/a7f8eeb59ade9139d4da4862e03ee225) - reloads all unavailable projects inside solution after updating submodules)
 * With msbuild tools (and other) by `submodules.bat`. Just command `> build`
 
 *It also prepares Zip & NuGet package as a `LunaRoad.<version>.nupkg` etc.*
