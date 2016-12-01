@@ -16,7 +16,7 @@ LunaRoad represents a flexible platform to work with Lua.
 **Easy to start**:
 
 ```csharp
-using(var l = new Lua<ILua51>("Lua.dll")) {
+using(var l = new Lua<ILua51>("Lua.dll")) { // ILua51, ILua52, ILua53, ...
     // ...
 }
 ```
@@ -47,17 +47,19 @@ using(ILua l = new Lua("Lua52.dll"))
     ...
     LuaNumber num = l.bind<Func<LuaState, int, LuaNumber>>("tonumber")(L, 7);
 }
+```
 
-// API layer:
+*Since the LunaRoad works via [Conari](https://github.com/3F/Conari), it also does not require the creation of any additional* ***delegate***. *We'll do it* ***automatically*** *instead of you.* [[?](https://github.com/3F/LunaRoad/wiki/API)]
+
+* **API layer:**
+
+```csharp
 using(var l = new Lua<ILua53>("Lua53.dll"))
 {
     l.API.pushcclosure(L, onProc, 0); // ILua53 lua = l.API
     l.API.setglobal(L, "onKeyDown");
 }
 ```
-
-*Since the LunaRoad works over [Conari](https://github.com/3F/Conari), it also does not require the creation of any additional* ***delegate***. *We'll do it* ***automatically*** *instead of you.* [[?](https://github.com/3F/LunaRoad/wiki/API)]
-
 
 Unified API level between different versions:
 

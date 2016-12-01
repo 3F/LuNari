@@ -19,6 +19,10 @@
       "Enabled": true
     },
     {
+      "ClassName": "TryComponent",
+      "Enabled": true
+    },
+    {
       "ClassName": "OWPComponent",
       "Enabled": true
     },
@@ -40,6 +44,10 @@
     },
     {
       "ClassName": "BuildComponent",
+      "Enabled": true
+    },
+    {
+      "ClassName": "BoxComponent",
       "Enabled": true
     },
     {
@@ -211,9 +219,9 @@
   "Logging": [],
   "SlnOpened": [
     {
-      "Enabled": true,
+      "Enabled": false,
       "Name": "ActReload",
-      "Caption": "Reload projects in solution after adding submodules",
+      "Caption": "[obsolete] Reload projects in solution after adding submodules",
       "SupportMSBuild": true,
       "SupportSBEScripts": true,
       "IgnoreIfBuildFailed": false,
@@ -249,7 +257,7 @@
         "FilesMode": false,
         "CachingBytecode": false,
         "LastTime": 0,
-        "Command": "//#[($(ProjectDir:Conari) == \"*Undefined*\" && ( $(BuildingInsideVisualStudio) || $(VSIDE) || $(DevEnvDir) != \"*Undefined*\") ) {\n\nusing System;\nusing Microsoft.VisualStudio;\nusing Microsoft.VisualStudio.Shell.Interop;\nusing ICommand = net.r_eg.vsSBE.Actions.ICommand;\nusing ISolutionEvent = net.r_eg.vsSBE.Events.ISolutionEvent;\n\nnamespace vsSolutionBuildEvent\n{\n    public class CSharpMode\n    {\n        public static int Init(ICommand cmd, ISolutionEvent evt)\n        {\n            System.Diagnostics.Process.Start(\"submodules.bat\").WaitForExit();\n\n            object service      = Microsoft.VisualStudio.Shell.Package.GetGlobalService(typeof(IVsSolution));\n            IVsSolution sln     = (IVsSolution)service;\n            IVsSolution4 sln4   = (IVsSolution4)service;\n\n            IEnumHierarchies projects;\n            Guid gtype = Guid.Empty;\n            if(ErrorHandler.Failed(sln.GetProjectEnum((int)__VSENUMPROJFLAGS.EPF_UNLOADEDINSOLUTION  /*EPF_ALLPROJECTS*/, ref gtype, out projects))) {\n                return 0;\n            }\n\n            var phr = new IVsHierarchy[1];\n            uint count;\n            while((projects.Next((uint)phr.Length, phr, out count) == VSConstants.S_OK) && (count > 0))\n            {\n                Guid pGuid;\n                if(ErrorHandler.Failed(sln.GetGuidOfProject(phr[0], out pGuid))) {\n                    continue;\n                }\n                sln4.EnsureProjectIsLoaded(ref pGuid, (uint)__VSBSLFLAGS.VSBSLFLAGS_None);\n            }\n            \n            return 0;\n        }\n    }\n}\n\n//}]",
+        "Command": "//#[($(ProjectDir:Conari) == \"*Undefined*\" && ( $(BuildingInsideVisualStudio) || $(VSIDE) || $(DevEnvDir) != \"*Undefined*\") ) {\n\nusing System;\nusing Microsoft.VisualStudio;\nusing Microsoft.VisualStudio.Shell.Interop;\nusing ICommand = net.r_eg.vsSBE.Actions.ICommand;\nusing ISolutionEvent = net.r_eg.vsSBE.Events.ISolutionEvent;\n\nnamespace vsSolutionBuildEvent\n{\n    public class CSharpMode\n    {\n        public static int Init(ICommand cmd, ISolutionEvent evt)\n        {\n            System.Diagnostics.Process.Start(@\"$(SolutionDir)submodules.bat\").WaitForExit();\n\n            object service      = Microsoft.VisualStudio.Shell.Package.GetGlobalService(typeof(IVsSolution));\n            IVsSolution sln     = (IVsSolution)service;\n            IVsSolution4 sln4   = (IVsSolution4)service;\n\n            IEnumHierarchies projects;\n            Guid gtype = Guid.Empty;\n            if(ErrorHandler.Failed(sln.GetProjectEnum((int)__VSENUMPROJFLAGS.EPF_UNLOADEDINSOLUTION  /*EPF_ALLPROJECTS*/, ref gtype, out projects))) {\n                return 0;\n            }\n\n            var phr = new IVsHierarchy[1];\n            uint count;\n            while((projects.Next((uint)phr.Length, phr, out count) == VSConstants.S_OK) && (count > 0))\n            {\n                Guid pGuid;\n                if(ErrorHandler.Failed(sln.GetGuidOfProject(phr[0], out pGuid))) {\n                    continue;\n                }\n                sln4.EnsureProjectIsLoaded(ref pGuid, (uint)__VSBSLFLAGS.VSBSLFLAGS_None);\n            }\n            \n            return 0;\n        }\n    }\n}\n\n//}]",
         "Command__": [
           "//#[($(ProjectDir:Conari) == \"*Undefined*\" && ( $(BuildingInsideVisualStudio) || $(VSIDE) || $(DevEnvDir) != \"*Undefined*\") ) {",
           "",
@@ -265,7 +273,7 @@
           "    {",
           "        public static int Init(ICommand cmd, ISolutionEvent evt)",
           "        {",
-          "            System.Diagnostics.Process.Start(\"submodules.bat\").WaitForExit();",
+          "            System.Diagnostics.Process.Start(@\"$(SolutionDir)submodules.bat\").WaitForExit();",
           "",
           "            object service      = Microsoft.VisualStudio.Shell.Package.GetGlobalService(typeof(IVsSolution));",
           "            IVsSolution sln     = (IVsSolution)service;",
@@ -294,6 +302,43 @@
           "}",
           "",
           "//}]"
+        ]
+      }
+    },
+    {
+      "Enabled": true,
+      "Name": "ModernReload",
+      "Caption": "v0.12.8+: Reload projects in solution after adding git submodules",
+      "SupportMSBuild": true,
+      "SupportSBEScripts": true,
+      "IgnoreIfBuildFailed": false,
+      "BuildType": "Before",
+      "Confirmation": false,
+      "ToConfiguration": [],
+      "ExecutionOrder": {
+        "$type": "net.r_eg.vsSBE.Events.ExecutionOrder[], vsSolutionBuildEvent",
+        "$values": []
+      },
+      "Process": {
+        "$type": "net.r_eg.vsSBE.Events.EventProcess, vsSolutionBuildEvent",
+        "Waiting": true,
+        "Hidden": true,
+        "TimeLimit": 30
+      },
+      "Mode": {
+        "$type": "net.r_eg.vsSBE.Events.ModeScript, vsSolutionBuildEvent",
+        "Type": "Script",
+        "Command": "#[$(moduleConari = \"Conari/Conari.sln\")]\n\n#[( #[IO exists.file(\"$(moduleConari)\")] )\n{ \n    #[File scall(\"submodules.bat\", \"$(moduleConari)\", 400)]\n}\nelse{\n    #[File call(\"submodules.bat\", \"$(moduleConari)\", 2000)]\n}]",
+        "Command__": [
+          "#[$(moduleConari = \"Conari/Conari.sln\")]",
+          "",
+          "#[( #[IO exists.file(\"$(moduleConari)\")] )",
+          "{ ",
+          "    #[File scall(\"submodules.bat\", \"$(moduleConari)\", 400)]",
+          "}",
+          "else{",
+          "    #[File call(\"submodules.bat\", \"$(moduleConari)\", 2000)]",
+          "}]"
         ]
       }
     }

@@ -2,7 +2,7 @@
 
 echo. checking submodules ...
 
-if not exist "Conari\\Conari.sln" goto restore
+if not exist "%1" goto restore
 REM ...
 
 goto exit
