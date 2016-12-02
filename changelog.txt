@@ -1,6 +1,17 @@
-- - - - - 
-LunaRoad
+- - - - -
+LunaRoad 
 _ _ _ _ _
+
+[v1.4.1]
+
+    * FIXED: Possible Incorrect boolean values from Lua libraries.
+    * NEW: First public version for production. Completely play with us now.
+    * CHANGED: Optional dependency to Conari NuGet package >= v1.1
+               'optional' means that .nupkg is already contains binaries from https://github.com/3F/Conari 
+                but via NuGet server the users can take newer versions by default.
+                To configure it manually use https://github.com/3F/GetNuTool etc.
+                
+    * CHANGED: Updated Conari engine v1.2
 
 [v1.4-beta]
 
