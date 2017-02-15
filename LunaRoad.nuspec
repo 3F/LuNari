@@ -15,6 +15,9 @@
         Lua C API for .NET
         LunaRoad represents a flexible platform to work with Lua.
         _ _ _ _ _ _
+
+        using(var l = new Lua&lt;ILua51&gt;("Lua.dll")) { /* ILua51, ILua52, ILua53, ... */ }
+        _ _ _ _ _ _
         Source code and all details here: https://github.com/3F/LunaRoad
         
         ~~~~~~~~

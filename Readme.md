@@ -1,6 +1,6 @@
 # LunaRoad
 
-[![](https://raw.githubusercontent.com/3F/LunaRoad/master/LunaRoad/Resources/LunaRoad_v3_96px.png)](https://github.com/3F/LunaRoad/fork)
+[![](https://raw.githubusercontent.com/3F/LunaRoad/master/LunaRoad/Resources/LunaRoad_v3_96px.png)](https://github.com/3F/LunaRoad)
 
 Lua C API for .NET 
 
@@ -135,7 +135,7 @@ Copyright (c) 2016-2017  Denis Kuzmin <entry.reg@gmail.com>
 Available variants:
 
 * NuGet PM: `Install-Package LunaRoad`
-* [GetNuTool](https://github.com/3F/GetNuTool): `msbuild gnt.core /p:ngpackages="LunaRoad"` or [gnt](https://github.com/3F/GetNuTool/releases/download/v1.5/gnt.bat) /p:ngpackages="LunaRoad"
+* [GetNuTool](https://github.com/3F/GetNuTool): `msbuild gnt.core /p:ngpackages="LunaRoad"` or [gnt](https://github.com/3F/GetNuTool/releases/download/v1.6/gnt.bat) /p:ngpackages="LunaRoad"
 * NuGet Commandline: `nuget install LunaRoad`
 * [/releases](https://github.com/3F/LunaRoad/releases) ( [latest](https://github.com/3F/LunaRoad/releases/latest) )
 * [Nightly builds](https://ci.appveyor.com/project/3Fs/LunaRoad/history) (`/artifacts` page). But remember: It can be unstable or not work at all. Use this for tests of latest changes.

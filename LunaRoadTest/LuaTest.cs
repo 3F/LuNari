@@ -120,13 +120,13 @@ namespace net.r_eg.LunaRoadTest
             var l = new _Provider();
 
             try {
-                l.funcName("");
+                l.procName("");
                 Assert.Fail("1");
             }
             catch(Exception ex) { Assert.IsTrue(ex.GetType() == typeof(ArgumentException), ex.GetType().ToString()); }
 
             try {
-                l.funcName(null);
+                l.procName(null);
                 Assert.Fail("2");
             }
             catch(Exception ex) { Assert.IsTrue(ex.GetType() == typeof(ArgumentException), ex.GetType().ToString()); }
