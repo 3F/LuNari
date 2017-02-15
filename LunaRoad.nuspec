@@ -18,9 +18,9 @@
         Source code and all details here: https://github.com/3F/LunaRoad
         
         ~~~~~~~~
-        Alternative to get it:
+        Get it via GetNuTool:
         ==========================================
-        msbuild gnt.core /p:ngpackages="LunaRoad/1.4.1"
+        gnt /p:ngpackages="LunaRoad/1.4.1"
         ==========================================
         * https://github.com/3F/GetNuTool         
         
@@ -28,7 +28,7 @@
     <summary>LunaRoad represents a flexible platform to work with Lua C API - DLR &amp; Lambda features :: Source code: https://github.com/3F/LunaRoad</summary>
     <tags>Lua API LunaRoad dll KeraLua KopiLua NLua LuaInterface Conari</tags>
     <releaseNotes></releaseNotes>
-    <copyright>Copyright (c) 2016  Denis Kuzmin [entry.reg@gmail.com] </copyright>
+    <copyright>Copyright (c) 2016-2017  Denis Kuzmin [entry.reg@gmail.com] </copyright>
     <references>
       <!-- <reference file="Conari.dll" />   Optional via GetNuTool etc. -->
       <reference file="LunaRoad.dll" />

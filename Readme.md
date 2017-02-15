@@ -125,7 +125,7 @@ and more !
 The [MIT License (MIT)](https://github.com/3F/LunaRoad/blob/master/LICENSE)
 
 ```
-Copyright (c) 2016  Denis Kuzmin <entry.reg@gmail.com>
+Copyright (c) 2016-2017  Denis Kuzmin <entry.reg@gmail.com>
 ```
 
 ##
