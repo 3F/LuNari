@@ -1,11 +1,18 @@
 @echo off
 
-set msbuild=tools/msbuild
+set reltype=%1
+set _gnt=tools/gnt
+set _msbuild=tools/msbuild
+
+if "%reltype%"=="" (
+    set reltype=Release
+)
 
 call submodules "Conari/Conari.sln" || goto err
 
-call %msbuild% gnt.core /p:ngconfig="packages.config" /nologo /v:m /m:4
-call "packages\vsSBE.CI.MSBuild\bin\CI.MSBuild" "LunaRoad.sln" /verbosity:normal /m:4 /t:Rebuild /p:Configuration=Release
+call %_gnt% /p:wpath="%cd%" /p:ngconfig="packages.config" /nologo /v:m /m:4 || goto err
+
+call %_msbuild% -notamd64 "LunaRoad.sln" /v:normal /l:"packages\vsSBE.CI.MSBuild\bin\CI.MSBuild.dll" /m:4 /t:Rebuild /p:Configuration=%reltype% || goto err
 
 goto exit
 

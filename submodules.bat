@@ -1,8 +1,16 @@
 @echo off
 
-echo. checking submodules ...
+echo Checking submodules ...
 
-if not exist "%1" goto restore
+set _dep=%1
+
+if "%_dep%"=="" (
+    echo Incorrect command.
+    goto exit
+)
+
+
+if not exist "%_dep%" goto restore
 REM ...
 
 goto exit
@@ -10,18 +18,18 @@ goto exit
 :restore
 
 echo.
-echo. We detected that you need to update git submodules.
-echo. We already do it automatically. Solution of VS IDE is also should be updated after ending of this process by the action via `Sln-Opened` event. If not, please reopen .sln file again.
+echo. Whoops, you need to update git submodules.
+echo. We will do it automatically, and the solution of VS IDE is also should be updated after ending of this process by the action via `Sln-Opened` event. If not, please reopen .sln file again.
 echo.
 echo. Please wait...
 echo.
 
 git submodule update --init --recursive 2>nul || goto err_gitNotFound
 
-REM Where to find... TODO:
-REM HKEY_LOCAL_MACHINE\SOFTWARE\GitForWindows
-REM HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Git_is1
-REM HKEY_CURRENT_USER\SOFTWARE\TortoiseGit
+:: Where to find... TODO:
+:: HKEY_LOCAL_MACHINE\SOFTWARE\GitForWindows
+:: HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Git_is1
+:: HKEY_CURRENT_USER\SOFTWARE\TortoiseGit
 
 goto exit
 
