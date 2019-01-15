@@ -1,4 +1,4 @@
-# LunaRoad
+# LuNari
 
 [![](https://raw.githubusercontent.com/3F/LunaRoad/master/LunaRoad/Resources/LunaRoad_v3_96px.png)](https://github.com/3F/LunaRoad)
 
