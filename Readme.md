@@ -125,8 +125,10 @@ and more !
 The [MIT License (MIT)](https://github.com/3F/LuNari/blob/master/LICENSE)
 
 ```
-Copyright (c) 2016-2017  Denis Kuzmin <entry.reg@gmail.com>
+Copyright (c) 2016,2017,2019  Denis Kuzmin < entry.reg@gmail.com > :: github.com/3F
 ```
+
+[![Donate](https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif) ☕](https://3F.github.io/Donation/) 
 
 ##
 
@@ -185,5 +187,3 @@ git clone --recursive https://github.com/3F/LuNari.git
 ```
 git submodule update --init --recursive
 ```
-
-[![Donate](https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=entry%2ereg%40gmail%2ecom&lc=US&item_name=3F%2dOpenSource%20%5b%20github%2ecom%2f3F&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted)
