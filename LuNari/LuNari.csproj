@@ -80,7 +80,7 @@
   <ItemGroup>
     <None Include="key.snk" />
     <None Include="Resources\License.md" />
-    <None Include="Resources\LunaRoad_v3_96px.png" />
+    <None Include="Resources\LuNari.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Conari\Conari\Conari.csproj">

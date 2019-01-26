@@ -1,6 +1,6 @@
 # LuNari
 
-[![](https://raw.githubusercontent.com/3F/LuNari/master/LuNari/Resources/LunaRoad_v3_96px.png)](https://github.com/3F/LuNari)
+[![](./LuNari/Resources/LuNari.png)](https://github.com/3F/LuNari)
 
 Lua C API for .NET 
 
