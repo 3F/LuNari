@@ -1,17 +1,17 @@
-# LunaRoad
+# LuNari
 
-[![](https://raw.githubusercontent.com/3F/LunaRoad/master/LunaRoad/Resources/LunaRoad_v3_96px.png)](https://github.com/3F/LunaRoad)
+[![](https://raw.githubusercontent.com/3F/LuNari/master/LuNari/Resources/LunaRoad_v3_96px.png)](https://github.com/3F/LuNari)
 
 Lua C API for .NET 
 
-LunaRoad represents flexible platform for work with [Lua](https://www.lua.org).
+LuNari represents flexible platform for work with [Lua](https://www.lua.org).
 
 *Works via powerful [Conari](https://github.com/3F/Conari) engine, starting with v1.3+*
 
 [![Build status](https://ci.appveyor.com/api/projects/status/94y78phdvkoi5oda/branch/master?svg=true)](https://ci.appveyor.com/project/3Fs/lunaroad/branch/master)
-[![release-src](https://img.shields.io/github/release/3F/LunaRoad.svg)](https://github.com/3F/LunaRoad/releases/latest)
-[![License](https://img.shields.io/badge/License-MIT-74A5C2.svg)](https://github.com/3F/LunaRoad/blob/master/LICENSE)
-[![NuGet package](https://img.shields.io/nuget/v/LunaRoad.svg)](https://www.nuget.org/packages/LunaRoad/) 
+[![release-src](https://img.shields.io/github/release/3F/LuNari.svg)](https://github.com/3F/LuNari/releases/latest)
+[![License](https://img.shields.io/badge/License-MIT-74A5C2.svg)](https://github.com/3F/LuNari/blob/master/LICENSE)
+[![NuGet package](https://img.shields.io/nuget/v/LuNari.svg)](https://www.nuget.org/packages/LuNari/) 
 
 **Easy to start**:
 
@@ -49,7 +49,7 @@ using(ILua l = new Lua("Lua52.dll"))
 }
 ```
 
-*Since the LunaRoad works via [Conari](https://github.com/3F/Conari), it also does not require the creation of any additional* ***delegate***. *We'll do it* ***automatically*** *instead of you.* [[?](https://github.com/3F/LunaRoad/wiki/API)]
+*Since the LuNari works via [Conari](https://github.com/3F/Conari), it also does not require the creation of any additional* ***delegate***. *We'll do it* ***automatically*** *instead of you.* [[?](https://github.com/3F/LuNari/wiki/API)]
 
 * **API layer:**
 
@@ -122,7 +122,7 @@ and more !
 
 ## License
 
-The [MIT License (MIT)](https://github.com/3F/LunaRoad/blob/master/LICENSE)
+The [MIT License (MIT)](https://github.com/3F/LuNari/blob/master/LICENSE)
 
 ```
 Copyright (c) 2016-2017  Denis Kuzmin <entry.reg@gmail.com>
@@ -134,16 +134,16 @@ Copyright (c) 2016-2017  Denis Kuzmin <entry.reg@gmail.com>
 
 Available variants:
 
-* NuGet PM: `Install-Package LunaRoad`
-* [GetNuTool](https://github.com/3F/GetNuTool): `msbuild gnt.core /p:ngpackages="LunaRoad"` or [gnt](https://github.com/3F/GetNuTool/releases/download/v1.6/gnt.bat) /p:ngpackages="LunaRoad"
-* NuGet Commandline: `nuget install LunaRoad`
-* [/releases](https://github.com/3F/LunaRoad/releases) ( [latest](https://github.com/3F/LunaRoad/releases/latest) )
-* [Nightly builds](https://ci.appveyor.com/project/3Fs/LunaRoad/history) (`/artifacts` page). But remember: It can be unstable or not work at all. Use this for tests of latest changes.
+* NuGet PM: `Install-Package LuNari`
+* [GetNuTool](https://github.com/3F/GetNuTool): `msbuild gnt.core /p:ngpackages="LuNari"` or [gnt](https://github.com/3F/GetNuTool/releases/download/v1.6/gnt.bat) /p:ngpackages="LuNari"
+* NuGet Commandline: `nuget install LuNari`
+* [/releases](https://github.com/3F/LuNari/releases) ( [latest](https://github.com/3F/LuNari/releases/latest) )
+* [Nightly builds](https://ci.appveyor.com/project/3Fs/LuNari/history) (`/artifacts` page). But remember: It can be unstable or not work at all. Use this for tests of latest changes.
 
 
 ### Roadmap
 
-The LunaRoad already provides powerful and flexible binding. And as you can see above, you already may work between different versions via lambda-functions and DLR features.
+The LuNari already provides powerful and flexible binding. And as you can see above, you already may work between different versions via lambda-functions and DLR features.
 However, the main tasks: to provide fully compatible API layer for more comfortable work with Lua 5.1, 5.2, 5.3 ...
 
 
@@ -159,7 +159,7 @@ The Application Program Interface of Lua:
 * [v5.2](https://www.lua.org/manual/5.2/manual.html#4)
 * [v5.3](https://www.lua.org/manual/5.3/manual.html#4)
 
-The documentation **[here](https://github.com/3F/LunaRoad/wiki/API)** - *try with us*
+The documentation **[here](https://github.com/3F/LuNari/wiki/API)** - *try with us*
 
 #### How to Build
 
@@ -170,14 +170,14 @@ Our build-scripts solves it automatically instead of you:
 * Inside IDE by [vsSBE](https://visualstudiogallery.msdn.microsoft.com/0d1dbfd7-ed8a-40af-ae39-281bfeca2334/) v0.12.8+ (or [script for old versions](https://gist.github.com/3F/a7f8eeb59ade9139d4da4862e03ee225) - reloads all unavailable projects inside solution after updating submodules)
 * With msbuild tools (and other) by `submodules.bat`. Just command `> build`
 
-*It also prepares Zip & NuGet package as a `LunaRoad.<version>.nupkg` etc.*
+*It also prepares Zip & NuGet package as a `LuNari.<version>.nupkg` etc.*
 
 But just a note, how to do it manually:
 
 * For initial cloning repo:
 
 ```
-git clone --recursive https://github.com/3F/LunaRoad.git
+git clone --recursive https://github.com/3F/LuNari.git
 ```
 
 * For already cloned:

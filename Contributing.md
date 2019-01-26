@@ -10,6 +10,6 @@ The Application Program Interface of Lua:
 * [v5.2](https://www.lua.org/manual/5.2/manual.html#4)
 * [v5.3](https://www.lua.org/manual/5.3/manual.html#4)
 
-The documentation **[here](https://github.com/3F/LunaRoad/wiki/API)** - *try with us*
+The documentation **[here](https://github.com/3F/LuNari/wiki/API)** - *try with us*
 
 Wiki of Conari engine: https://github.com/3F/Conari/wiki

@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>LuNari</id>
+    <version>1.4.1</version>
+    <title>[ LuNari ] Lua C API for .NET /DLR &amp; Lambda features</title>
+    <authors>github.com/3F/LuNari</authors>
+    <owners>reg</owners>
+    <licenseUrl>https://github.com/3F/LuNari/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/3F/LuNari</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/3F/LuNari/master/LuNari/Resources/LunaRoad_v3_96px.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>
+    
+        Lua C API for .NET
+        LuNari represents a flexible platform to work with Lua.
+        _ _ _ _ _ _
+
+        using(var l = new Lua&lt;ILua51&gt;("Lua.dll")) { /* ILua51, ILua52, ILua53, ... */ }
+        _ _ _ _ _ _
+        Source code and all details here: https://github.com/3F/LuNari
+        
+        ~~~~~~~~
+        Get it via GetNuTool:
+        ==========================================
+        gnt /p:ngpackages="LuNari/1.4.1"
+        ==========================================
+        * https://github.com/3F/GetNuTool         
+        
+    </description>
+    <summary>LuNari represents a flexible platform to work with Lua C API - DLR &amp; Lambda features :: Source code: https://github.com/3F/LuNari</summary>
+    <tags>Lua API LuNari dll KeraLua KopiLua NLua LuaInterface Conari</tags>
+    <releaseNotes></releaseNotes>
+    <copyright>Copyright (c) 2016-2017  Denis Kuzmin [entry.reg@gmail.com] </copyright>
+    <references>
+      <!-- <reference file="Conari.dll" />   Optional via GetNuTool etc. -->
+      <reference file="LuNari.dll" />
+    </references>
+    <dependencies>
+        <dependency id="Conari" version="(1.1.0,)" />
+    </dependencies>
+  </metadata>
+</package>
