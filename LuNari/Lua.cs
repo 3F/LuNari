@@ -48,7 +48,7 @@ namespace net.r_eg.LuNari
     }
 
     [SuppressMessage("Microsoft.Design", "CA1063:ImplementIDisposableCorrectly", Justification = "Bug. False positive. The IDisposable is already implemented correctly !")]
-    public class Lua<TAPI>: ConariL, ILua, IConari, IBinder/*, IDisposable*/
+    public class Lua<TAPI>: ConariL, ILua, IConari, IBinder, IDisposable
         where TAPI : ILevel
     {
         private Dictionary<Type, ILevel> cacheL = new Dictionary<Type, ILevel>();

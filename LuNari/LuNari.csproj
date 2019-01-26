@@ -20,6 +20,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <NoWarn>CS1591,IDE1006</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -30,7 +31,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Release\LuNari.XML</DocumentationFile>
-    <NoWarn>CS1591</NoWarn>
+    <NoWarn>CS1591,IDE1006</NoWarn>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
@@ -74,7 +75,7 @@
     <Compile Include="Lua.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Types\LuaInteger.cs" />
-    <Compile Include="Rt_\LuaState.cs" />
+    <Compile Include="_\LuaState.cs" />
     <Compile Include="Types\LuaNumber.cs" />
   </ItemGroup>
   <ItemGroup>

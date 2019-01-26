@@ -125,7 +125,7 @@ namespace net.r_eg.LuNari.API.Lua53
         /// <param name="L"></param>
         /// <param name="s">If s is NULL, pushes nil and returns NULL.</param>
         /// <returns>a pointer to the internal copy of the string.</returns>
-        CharPtr pushstring(Rt_.LuaState L, string s);
+        CharPtr pushstring(_.LuaState L, string s);
 
         /// <summary>
         /// [-?, +?, -] void lua_settop (lua_State *L, int index);
@@ -166,7 +166,7 @@ namespace net.r_eg.LuNari.API.Lua53
         /// <param name="L"></param>
         /// <param name="index"></param>
         /// <param name="k"></param>
-        int getfield(Rt_.LuaState L, int index, string k);
+        int getfield(_.LuaState L, int index, string k);
 
         /// <summary>
         /// [-2, +0, e] void lua_settable (lua_State *L, int index);
@@ -212,7 +212,7 @@ namespace net.r_eg.LuNari.API.Lua53
         /// </summary>
         /// <param name="L"></param>
         /// <param name="index"></param>
-        int rawget(Rt_.LuaState L, int index);
+        int rawget(_.LuaState L, int index);
 
         /// <summary>
         /// [-0, +1, -] int lua_rawgeti (lua_State *L, int index, lua_Integer n);
@@ -238,7 +238,7 @@ namespace net.r_eg.LuNari.API.Lua53
         /// <param name="L"></param>
         /// <param name="index"></param>
         /// <returns>the type of the pushed value.</returns>
-        int gettable(Rt_.LuaState L, int index);
+        int gettable(_.LuaState L, int index);
 
         /// <summary>
         /// [-(nargs + 1), +nresults, e] void lua_call (lua_State *L, int nargs, int nresults);
@@ -338,7 +338,7 @@ namespace net.r_eg.LuNari.API.Lua53
         /// <param name="L"></param>
         /// <param name="name"></param>
         /// <returns>Returns the type of that value.</returns>
-        int getglobal(Rt_.LuaState L, string name);
+        int getglobal(_.LuaState L, string name);
 
         /// <summary>
         /// [-0, +0, -] int lua_type (lua_State *L, int index);

@@ -46,7 +46,7 @@ namespace net.r_eg.LuNari.API.Lua53
         /// <param name="L"></param>
         /// <param name="index"></param>
         /// <param name="k"></param>
-        public int getfield(Rt_.LuaState L, int index, string k)
+        public int getfield(_.LuaState L, int index, string k)
         {
             return bind<Func<LuaState, int, string, int>>("getfield")(L, index, k);
         }
@@ -76,7 +76,7 @@ namespace net.r_eg.LuNari.API.Lua53
         /// <param name="L"></param>
         /// <param name="index"></param>
         /// <returns></returns>
-        public int rawget(Rt_.LuaState L, int index)
+        public int rawget(_.LuaState L, int index)
         {
             return bind<Func<LuaState, int, int>>("rawget")(L, index);
         }
@@ -108,7 +108,7 @@ namespace net.r_eg.LuNari.API.Lua53
         /// <param name="L"></param>
         /// <param name="index"></param>
         /// <returns>the type of the pushed value.</returns>
-        public int gettable(Rt_.LuaState L, int index)
+        public int gettable(_.LuaState L, int index)
         {
             return bind<Func<LuaState, int, int>>("rawgeti")(L, index);
         }
@@ -121,7 +121,7 @@ namespace net.r_eg.LuNari.API.Lua53
         /// <param name="L"></param>
         /// <param name="name"></param>
         /// <returns>Returns the type of that value.</returns>
-        public int getglobal(Rt_.LuaState L, string name)
+        public int getglobal(_.LuaState L, string name)
         {
             return bind<Func<LuaState, string, int>>("getglobal")(L, name);
         }

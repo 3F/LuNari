@@ -24,14 +24,11 @@
 
 using System;
 
-namespace net.r_eg.LuNari.Rt_
+namespace net.r_eg.LuNari._
 {
     /// <summary>
-    /// This used to avoid problem with overriding, when child uses another return-type.
-    /// Other variants:
-    /// * Just replace method only in child object ('new' keyword) - but for this way be careful, it cannot be really overridden. 
-    ///   However for our case it also a correct variant ! It was before with `internalWarning` tags.
-    /// * Or, avoid classic horizontal inheritance. For example, the Mixin and Traits should help :)
+    /// `_.LuaState` allows overriding for an another return-type:
+    /// https://github.com/3F/LuNari/wiki/API.Dev#return-types
     /// </summary>
     public struct LuaState
     {
