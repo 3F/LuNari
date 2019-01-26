@@ -19,12 +19,12 @@ goto exit
 
 echo.
 echo. Whoops, you need to update git submodules.
-echo. We will do it automatically, and the solution of VS IDE is also should be updated after ending of this process by the action via `Sln-Opened` event. If not, please reopen .sln file again.
+echo. But we'll update this automatically.
 echo.
 echo. Please wait...
 echo.
 
-git submodule update --init --recursive 2>nul || goto err_gitNotFound
+git submodule update --init --recursive 2>nul || goto gitNotFound
 
 :: Where to find... TODO:
 :: HKEY_LOCAL_MACHINE\SOFTWARE\GitForWindows
@@ -33,7 +33,14 @@ git submodule update --init --recursive 2>nul || goto err_gitNotFound
 
 goto exit
 
-:err_gitNotFound
+:gitNotFound
+
+if not exist ".git" (
+    echo.  1>&2
+    echo To restore submodules via Git scm you should have a `.git` folder, but we can't find this. 1>&2
+    echo Unfortunately you should get this manually, or try to clone initially with recursive option: `git clone --recursive ...` 1>&2
+    exit /B 3
+)
 
 echo.  1>&2
 echo. `git` was not found or something went wrong. Check your connection and env. variable `PATH`. Or get submodules manually: 1>&2
@@ -41,4 +48,8 @@ echo.     1. Use command `git submodule update --init --recursive` 1>&2
 echo.     2. Or clone initially with recursive option: `git clone --recursive ...` 1>&2
 echo.  1>&2
 
+exit /B 2
+
 :exit
+
+exit /B 0
