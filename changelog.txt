@@ -1,7 +1,29 @@
 - - - - -
   LuNari 
-(LunaRoad)
 _ _ _ _ _
+
+
+[v1.5] 2019.01.27
+
+    * NEW: Meet the 'LuNari' project. Issue #2.
+    
+           Lua for .NET on Conari engine
+           https://github.com/3F/LuNari
+           
+           Modern versions will not require neither our API 
+           (Lua 5.4, 5.3, 5.2, 5.1, ...) nor something other from you at all.
+           
+           We will generate all your needs automatically at runtime.
+           Do whatever you love. Enjoy!
+           
+    * CHANGED: API dev core changes: `Rt_.LuaState` has been renamed to `_.LuaState`
+               https://github.com/3F/LuNari/wiki/API.Dev
+               
+    * NOTE: Official NuGet packages of the LuNari project: 
+            https://www.nuget.org/packages/LuNari/
+            
+    * NOTE: LunaRoad packages will no longer be updated. (Discontinued)
+            Please consider upgrading to LuNari.
 
 [v1.4.1]
 

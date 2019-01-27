@@ -154,7 +154,7 @@ However, the main goal for this project is to provide fully compatible API layer
 
 Extend our API layer or improve all of what you want. It's completely transparent with our flexible architecture.
 
-Here's how to extend API: [in a few steps (Wiki)](https://github.com/3F/LuNari/wiki/API)
+Here's how to extend API: [in a few steps (Wiki)](https://github.com/3F/LuNari/wiki/API.Dev)
 
 If you ready to contribute, please use [Pull Requests](https://help.github.com/articles/creating-a-pull-request/) (please through non-master branches). Other ways like .patch files are possible, but it may take more time to review the changes.
 
