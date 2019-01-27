@@ -1,44 +1,57 @@
-# LunaRoad
+# LuNari
 
-[![](https://raw.githubusercontent.com/3F/LunaRoad/master/LunaRoad/Resources/LunaRoad_v3_96px.png)](https://github.com/3F/LunaRoad)
+[![](./LuNari/Resources/LuNari.png)](https://github.com/3F/LuNari)
 
-Lua C API for .NET 
+[Lua](https://www.lua.org) for .NET on [Conari engine](https://github.com/3F/Conari)
 
-LunaRoad represents flexible platform for work with [Lua](https://www.lua.org).
+Provides *support** for all popular versions, like: 5.4, 5.3, 5.2, 5.1, ...
 
-*Works via powerful [Conari](https://github.com/3F/Conari) engine, starting with v1.3+*
+↳ *A few ways: API-layer and binding at runtime (DLR, Lambda expressions) with any Lua functions;*
 
 [![Build status](https://ci.appveyor.com/api/projects/status/94y78phdvkoi5oda/branch/master?svg=true)](https://ci.appveyor.com/project/3Fs/lunaroad/branch/master)
-[![release-src](https://img.shields.io/github/release/3F/LunaRoad.svg)](https://github.com/3F/LunaRoad/releases/latest)
-[![License](https://img.shields.io/badge/License-MIT-74A5C2.svg)](https://github.com/3F/LunaRoad/blob/master/LICENSE)
-[![NuGet package](https://img.shields.io/nuget/v/LunaRoad.svg)](https://www.nuget.org/packages/LunaRoad/) 
+[![release-src](https://img.shields.io/github/release/3F/LuNari.svg)](https://github.com/3F/LuNari/releases/latest)
+[![License](https://img.shields.io/badge/License-MIT-74A5C2.svg)](https://github.com/3F/LuNari/blob/master/LICENSE)
+[![NuGet package](https://img.shields.io/nuget/v/LuNari.svg)](https://www.nuget.org/packages/LuNari/) 
 
 **Easy to start**:
 
 ```csharp
 using(var l = new Lua<ILua51>("Lua.dll")) { // ILua51, ILua52, ILua53, ...
-    // ...
+    // l. { request anything to Lua }
 }
 ```
 
-Flexible binding with any exported function of library:
+## License
 
-* **Dynamic features / DLR:**
+The [MIT License (MIT)](https://github.com/3F/LuNari/blob/master/LICENSE)
 
-*It does not require API level at all, we will generate all this* ***automatically at runtime*** ! *Easy and works well.*
+```
+Copyright (c) 2016,2017,2019  Denis Kuzmin < entry.reg@gmail.com > :: github.com/3F
+```
+
+[![Donate](https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif) ☕](https://3F.github.io/Donation/) 
+
+## There are several methods to use LuNari
+
+### Dynamic features /DLR
+
+This does not require neither our API(see below) nor something other from you at all. We will generate all your needs **automatically at runtime!** 
+
+This is possible because of [Conari](https://github.com/3F/Conari). Thus, do whatever you want:
 
 ```csharp
 // all this will be generated at runtime, i.e. you can use all of what you need from Lua as you like:
-dlr.pushcclosure(L, onProc, 0);
-dlr.setglobal(L, "onKeyDown");
+d.pushcclosure(L, onProc, 0);
+d.setglobal(L, "onKeyDown");
 ...
-LuaNumber num = dlr.tonumber<LuaNumber>(L, 7);
+LuaNumber num = d.tonumber<LuaNumber>(L, 7);
 ```
 
-* **Lambda expressions:**
+### Lambda expressions
+
+You also can use your custom binding for what you need:
 
 ```csharp
-// custom binding:
 using(ILua l = new Lua("Lua52.dll"))
 {
     l.bind<Action<LuaState, LuaCFunction, int>>("pushcclosure")(L, onProc, 0);
@@ -49,9 +62,9 @@ using(ILua l = new Lua("Lua52.dll"))
 }
 ```
 
-*Since the LunaRoad works via [Conari](https://github.com/3F/Conari), it also does not require the creation of any additional* ***delegate***. *We'll do it* ***automatically*** *instead of you.* [[?](https://github.com/3F/LunaRoad/wiki/API)]
+### API Layer
 
-* **API layer:**
+Standardized way that covers an original [Lua](https://www.lua.org) features. 5.3, 5.2, 5.1, ...
 
 ```csharp
 using(var l = new Lua<ILua53>("Lua53.dll"))
@@ -71,22 +84,26 @@ l.U.arith(L, LUA_OPSUB);
 l.U.pop(L, 1);
 ```
 
-and light access to specific:
+Other lightweight access to specific:
 
 ```csharp
-// from the higher version to the lower, for example: v5.2 -> v5.1
-((ILua51)l.API).pushcclosure(L, onProc, 0); 
+// any direction, for example: v5.2 <-> v5.1
+l.v<ILua51>().pushcclosure(L, onProc, 0);
 
-// not important, for example: v5.2 <-> v5.1
-l.v<ILua51>().pushcclosure(L, onProc, 0); 
+// from the higher version to the lower, for example: v5.2 -> v5.1
+((ILua51)l.API).pushcclosure(L, onProc, 0);
 ```
+
+## Something else
 
 Powerful work with several libraries:
 
 ```csharp
-using(var lSpec = new Lua("SpecLua.dll")) {
-    using(ILua l = new Lua<ILua52>("Lua52.dll")) {
-        //...
+using(var lSpec = new Lua("SpecLua.dll"))
+{
+    using(ILua l = new Lua<ILua52>("Lua52.dll"))
+    {
+        // ...
     }
 }
 ```
@@ -115,69 +132,62 @@ using(var l = new Lua<ILua51>(
 }
 ```
 
-and more !
-
-----
+and **more!**
 
 
-## License
+## How to Get
 
-The [MIT License (MIT)](https://github.com/3F/LunaRoad/blob/master/LICENSE)
-
-```
-Copyright (c) 2016-2017  Denis Kuzmin <entry.reg@gmail.com>
-```
-
-##
-
-### How to Get
-
-Available variants:
-
-* NuGet PM: `Install-Package LunaRoad`
-* [GetNuTool](https://github.com/3F/GetNuTool): `msbuild gnt.core /p:ngpackages="LunaRoad"` or [gnt](https://github.com/3F/GetNuTool/releases/download/v1.6/gnt.bat) /p:ngpackages="LunaRoad"
-* NuGet Commandline: `nuget install LunaRoad`
-* [/releases](https://github.com/3F/LunaRoad/releases) ( [latest](https://github.com/3F/LunaRoad/releases/latest) )
-* [Nightly builds](https://ci.appveyor.com/project/3Fs/LunaRoad/history) (`/artifacts` page). But remember: It can be unstable or not work at all. Use this for tests of latest changes.
+* NuGet PM: `Install-Package LuNari`
+* [GetNuTool](https://github.com/3F/GetNuTool): `msbuild gnt.core /p:ngpackages="LuNari"` or [gnt](https://3f.github.io/GetNuTool/releases/latest/gnt/) /p:ngpackages="LuNari"
+* NuGet Commandline: `nuget install LuNari`
+* [/releases](https://github.com/3F/LuNari/releases) [ [latest](https://github.com/3F/LuNari/releases/latest) ]
+* [Nightly builds](https://ci.appveyor.com/project/3Fs/LuNari/history) (`/artifacts` page). It can be unstable or not work at all. Use this only for tests of latest changes.
+    * Artifacts [older than 6 months](https://www.appveyor.com/docs/packaging-artifacts/#artifacts-retention-policy) you can also find as `Pre-release` with mark `🎲 Nightly build` on [GitHub Releases](https://github.com/3F/LuNari/releases) page.
 
 
-### Roadmap
+## Roadmap
 
-The LunaRoad already provides powerful and flexible binding. And as you can see above, you already may work between different versions via lambda-functions and DLR features.
-However, the main tasks: to provide fully compatible API layer for more comfortable work with Lua 5.1, 5.2, 5.3 ...
+LuNari already provides flexible binding at runime. That is, as you can see above, you already can do anything between different versions via lambda-functions and DLR features.
+However, the main goal for this project is to provide fully compatible API layer for more comfortable work with any popular Lua version like: 5.1, 5.2, 5.3 ...
 
+## Contribute
 
-### How to Contribute
+Extend our API layer or improve all of what you want. It's completely transparent with our flexible architecture.
 
-Extend our API layer or improve all of what you want. It easy and completely transparent with our flexible architecture.
+Here's how to extend API: [in a few steps (Wiki)](https://github.com/3F/LuNari/wiki/API)
 
-If you ready to contribute, just use the pull requests or send .patch file. If it's not a simple binding to cover API, please also provide a correct unit-tests.
+If you ready to contribute, please use [Pull Requests](https://help.github.com/articles/creating-a-pull-request/) (please through non-master branches). Other ways like .patch files are possible, but it may take more time to review the changes.
+
+*Also note: if it's not a simple binding to cover API, please provide related unit-tests. Thanks.*
 
 The Application Program Interface of Lua:
 
 * [v5.1](https://www.lua.org/manual/5.1/manual.html#3)
 * [v5.2](https://www.lua.org/manual/5.2/manual.html#4)
 * [v5.3](https://www.lua.org/manual/5.3/manual.html#4)
+* [v5.4](https://www.lua.org/manual/5.4/) *( preview )*
 
-The documentation **[here](https://github.com/3F/LunaRoad/wiki/API)** - *try with us*
+## How to Build
 
-#### How to Build
+Use command:
 
-Current repository contains [git submodules](https://git-scm.com/book/en/Git-Tools-Submodules), and all this should be restored before build.
+```
+.\build Debug
+```
 
-Our build-scripts solves it automatically instead of you:
+*This will generate Zip & NuGet packages as `LuNari.<version>.nupkg` etc.*
 
-* Inside IDE by [vsSBE](https://visualstudiogallery.msdn.microsoft.com/0d1dbfd7-ed8a-40af-ae39-281bfeca2334/) v0.12.8+ (or [script for old versions](https://gist.github.com/3F/a7f8eeb59ade9139d4da4862e03ee225) - reloads all unavailable projects inside solution after updating submodules)
-* With msbuild tools (and other) by `submodules.bat`. Just command `> build`
+**Please note:** current repository contains [git submodules](https://git-scm.com/book/en/Git-Tools-Submodules). Our build-scripts will restore this automatically instead of you:
 
-*It also prepares Zip & NuGet package as a `LunaRoad.<version>.nupkg` etc.*
+* Inside IDE by [vsSBE](https://visualstudiogallery.msdn.microsoft.com/0d1dbfd7-ed8a-40af-ae39-281bfeca2334/) v0.12.8+
+* With msbuild tools by `submodules.bat`. 
 
 But just a note, how to do it manually:
 
 * For initial cloning repo:
 
 ```
-git clone --recursive https://github.com/3F/LunaRoad.git
+git clone --recursive https://github.com/3F/LuNari.git
 ```
 
 * For already cloned:
@@ -185,5 +195,3 @@ git clone --recursive https://github.com/3F/LunaRoad.git
 ```
 git submodule update --init --recursive
 ```
-
-[![Donate](https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=entry%2ereg%40gmail%2ecom&lc=US&item_name=3F%2dOpenSource%20%5b%20github%2ecom%2f3F&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted)

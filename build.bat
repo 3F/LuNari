@@ -12,7 +12,7 @@ call submodules "Conari/Conari.sln" || goto err
 
 call %_gnt% /p:wpath="%cd%" /p:ngconfig="packages.config" /nologo /v:m /m:4 || goto err
 
-call %_msbuild% -notamd64 "LunaRoad.sln" /v:normal /l:"packages\vsSBE.CI.MSBuild\bin\CI.MSBuild.dll" /m:4 /t:Rebuild /p:Configuration=%reltype% || goto err
+call %_msbuild% -notamd64 "LuNari.sln" /v:normal /l:"packages\vsSBE.CI.MSBuild\bin\CI.MSBuild.dll" /m:4 /t:Rebuild /p:Configuration=%reltype% || goto err
 
 goto exit
 

@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>LuNari</id>
+    <version>1.4.1</version>
+    <title>[ LuNari ] Lua for .NET: 5.4, 5.3, 5.2, 5.1, ...</title>
+    <authors>github.com/3F/LuNari</authors>
+    <license type="file">License.txt</license>
+    <owners>reg</owners>
+    <licenseUrl>https://aka.ms/deprecateLicenseUrl</licenseUrl>
+    <projectUrl>https://github.com/3F/LuNari</projectUrl>
+    <repository type="git" url="https://github.com/3F/LuNari" />
+    <iconUrl>https://raw.githubusercontent.com/3F/LuNari/master/LuNari/Resources/LuNari.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>
+    
+        Lua for .NET on Conari engine
+        Provides support* for all popular versions, like: 5.4, 5.3, 5.2, 5.1, ...
+
+        * There are several methods to use LuNari: 
+          API-layer and binding at runtime (DLR, Lambda expressions) with any Lua functions;
+        _ _ _ _ _ _
+
+        using(var l = new Lua&lt;ILua53&gt;("Lua.dll")) { /* ILua51, ILua52, ILua53, ... */ }
+        _ _ _ _ _ _
+        Source code and all details here: https://github.com/3F/LuNari
+        
+        
+        ~~~~~~~~
+        Get it via GetNuTool:
+        ==========================================
+        gnt /p:ngpackages="LuNari/1.4.1"
+        ==========================================
+        * https://github.com/3F/GetNuTool         
+        
+    </description>
+    <summary>Lua for .NET: Lua 5.4, 5.3, 5.2, 5.1, ... (Lua C API for .NET) Source code: https://github.com/3F/LuNari </summary>
+    <tags>Lua API dll Lua54 Lua53 Lua52 Lua51 LuNari LunaRoad KeraLua NLua LuaInterface Conari</tags>
+    <releaseNotes></releaseNotes>
+    <copyright>Copyright (c) 2016,2017,2019  Denis Kuzmin [entry.reg@gmail.com] :: GitHub/3F </copyright>
+    <references>
+      <!-- <reference file="Conari.dll" />   Optional via GetNuTool etc. -->
+      <reference file="LuNari.dll" />
+    </references>
+    <dependencies>
+        <dependency id="Conari" version="(1.3.0,)" />
+    </dependencies>
+  </metadata>
+</package>

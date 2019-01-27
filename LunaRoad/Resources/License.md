@@ -5,4 +5,4 @@
 * Initial by: Ypf http://ypf.deviantart.com
 * License: Free for commercial use
 
-* Modified by: entry.reg@gmail.com / r-eg.net
+* Modified by: entry.reg@gmail.com ( github.com/3F )
