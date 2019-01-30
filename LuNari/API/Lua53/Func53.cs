@@ -38,6 +38,19 @@ namespace net.r_eg.LuNari.API.Lua53
         }
 
         /// <summary>
+        /// [-0, +1, –] void lua_pushcfunction (lua_State *L, lua_CFunction f);
+        /// 
+        /// Pushes a C function onto the stack. This function receives a pointer to a C function 
+        /// and pushes onto the stack a Lua value of type function that, when called, invokes the corresponding C function.
+        /// </summary>
+        /// <param name="L"></param>
+        /// <param name="f"></param>
+        public override void pushcfunction(LuaState L, LuaCFunction f)
+        {
+            bind<Action<LuaState, LuaCFunction>>("pushcfunction")(L, f);
+        }
+
+        /// <summary>
         /// [-0, +1, e] int lua_getfield (lua_State *L, int index, const char *k);
         /// 
         /// Pushes onto the stack the value t[k], where t is the value at the given index. 

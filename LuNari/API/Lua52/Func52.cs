@@ -65,6 +65,26 @@ namespace net.r_eg.LuNari.API.Lua52
         }
 
         /// <summary>
+        /// [-(2|1), +1, e] void lua_arith (lua_State *L, int op);
+        /// 
+        /// Performs an arithmetic operation over the two values 
+        /// (or one, in the case of negation) at the top of the stack, 
+        /// with the value at the top being the second operand, pops these values, 
+        /// and pushes the result of the operation. 
+        /// 
+        /// The function follows the semantics of the corresponding Lua operator 
+        /// (that is, it may call metamethods).
+        /// </summary>
+        /// <param name="L"></param>
+        /// <param name="op">
+        /// Must be one of the following constants: LuaH.LUA_OP...
+        /// </param>
+        public void arith(LuaState L, int op)
+        {
+            bind<Action<LuaState, int>>("arith")(L, op);
+        }
+
+        /// <summary>
         /// [-0, +1, e] void lua_getglobal (lua_State *L, const char *name);
         /// 
         /// Pushes onto the stack the value of the global name.
@@ -74,6 +94,26 @@ namespace net.r_eg.LuNari.API.Lua52
         public override void getglobal(LuaState L, string name)
         {
             bind<Action<LuaState, string>>("getglobal")(L, name);
+        }
+
+        /// <summary>
+        /// [-0, +0, –] size_t lua_rawlen (lua_State *L, int index);
+        /// 
+        /// Returns the raw "length" of the value at the given index.
+        /// 
+        /// Note: lua_objlen (5.1) was renamed lua_rawlen (5.2)
+        /// </summary>
+        /// <param name="L"></param>
+        /// <param name="index"></param>
+        /// <returns>
+        /// for strings, this is the string length; 
+        /// for tables, this is the result of the length operator ('#') with no metamethods; 
+        /// for userdata, this is the size of the block of memory allocated for the userdata; 
+        /// for other values, it is 0. 
+        /// </returns>
+        public size_t rawlen(LuaState L, int index)
+        {
+            return bind<Func<LuaState, int, size_t>>("rawlen")(L, index);
         }
     }
 }

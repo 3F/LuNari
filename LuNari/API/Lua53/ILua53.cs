@@ -52,6 +52,29 @@ namespace net.r_eg.LuNari.API.Lua53
         void pushcclosure(LuaState L, LuaCFunction fn, int n);
 
         /// <summary>
+        /// [-0, +1, –] void lua_pushcfunction (lua_State *L, lua_CFunction f);
+        /// 
+        /// Pushes a C function onto the stack. This function receives a pointer to a C function 
+        /// and pushes onto the stack a Lua value of type function that, when called, invokes the corresponding C function.
+        /// </summary>
+        /// <param name="L"></param>
+        /// <param name="f"></param>
+        void pushcfunction(LuaState L, LuaCFunction f);
+
+        /// <summary>
+        /// [-0, +0, e] void lua_register (lua_State *L, const char *name, lua_CFunction f);
+        /// 
+        /// Sets the C function f as the new value of global name.
+        /// 
+        /// Defined as a macro:
+        ///     #define lua_register(L,n,f)  (lua_pushcfunction(L, f), lua_setglobal(L, n))
+        /// </summary>
+        /// <param name="L"></param>
+        /// <param name="name"></param>
+        /// <param name="f"></param>
+        void register(LuaState L, string name, LuaCFunction f);
+
+        /// <summary>
         /// [-1, +0, e] void lua_setfield (lua_State *L, int index, const char *k);
         /// 
         /// Does the equivalent to t[k] = v, where t is the value at the given index and v is the value at the top of the stack.
@@ -85,25 +108,40 @@ namespace net.r_eg.LuNari.API.Lua53
         LuaNumber tonumber(LuaState L, int index);
 
         /// <summary>
+        /// [-0, +0, m] const char *lua_tostring (lua_State *L, int index);
+        /// 
+        /// Equivalent to lua_tolstring with len equal to NULL.
+        /// </summary>
+        /// <param name="L"></param>
+        /// <param name="index"></param>
+        /// <returns>
+        /// Returns a fully aligned pointer to a string inside the Lua state. 
+        /// This string always has a zero ('\0') after its last character (as in C), but can contain other zeros in its body. 
+        /// Because Lua has garbage collection, there is no guarantee that the pointer returned by lua_tolstring will be valid 
+        /// after the corresponding value is removed from the stack.
+        /// </returns>
+        CharPtr tostring(LuaState L, int index);
+
+        /// <summary>
         /// [-0, +0, m] const char *lua_tolstring (lua_State *L, int index, size_t *len);
         /// 
         /// Converts the Lua value at the given index to a C string. 
         /// If len is not NULL, it sets *len with the string length. 
         /// The Lua value must be a string or a number; otherwise, the function returns NULL. 
         /// If the value is a number, then lua_tolstring also changes the actual value in the stack to a string. 
-        /// (This change confuses lua_next when lua_tolstring is applied to keys during a table traversal.) 
-        /// 
-        /// lua_tolstring returns a pointer to a string inside the Lua state. 
-        /// This string always has a zero ('\0') after its last character (as in C), 
-        /// but can contain other zeros in its body. 
-        /// 
-        /// Because Lua has garbage collection, there is no guarantee that the pointer returned by lua_tolstring 
-        /// will be valid after the corresponding Lua value is removed from the stack. 
+        /// (This change confuses lua_next when lua_tolstring is applied to keys during a table traversal.)
         /// </summary>
         /// <param name="L"></param>
         /// <param name="index">Lua value at the given acceptable index.</param>
         /// <param name="len">string length</param>
-        /// <returns></returns>
+        /// <returns>
+        /// Returns a pointer to a string inside the Lua state. 
+        /// This string always has a zero ('\0') after its last character (as in C), 
+        /// but can contain other zeros in its body. 
+        /// 
+        /// Because Lua has garbage collection, there is no guarantee that the pointer returned by lua_tolstring 
+        /// will be valid after the corresponding Lua value is removed from the stack.
+        /// </returns>
         CharPtr tolstring(LuaState L, int index, out size_t len);
 
         /// <summary>
@@ -128,6 +166,23 @@ namespace net.r_eg.LuNari.API.Lua53
         CharPtr pushstring(_.LuaState L, string s);
 
         /// <summary>
+        /// [-(2|1), +1, e] void lua_arith (lua_State *L, int op);
+        /// 
+        /// Performs an arithmetic or bitwise operation over the two values 
+        /// (or one, in the case of negations) at the top of the stack, 
+        /// with the value at the top being the second operand, pops these values, 
+        /// and pushes the result of the operation. 
+        /// 
+        /// The function follows the semantics of the corresponding Lua operator 
+        /// (that is, it may call metamethods).
+        /// </summary>
+        /// <param name="L"></param>
+        /// <param name="op">
+        /// Must be one of the following constants: LuaH.LUA_OP...
+        /// </param>
+        void arith(LuaState L, int op);
+
+        /// <summary>
         /// [-?, +?, -] void lua_settop (lua_State *L, int index);
         /// 
         /// Accepts any index, or 0, and sets the stack top to this index. 
@@ -147,6 +202,36 @@ namespace net.r_eg.LuNari.API.Lua53
         /// <param name="L"></param>
         /// <returns>the index of the top element in the stack.</returns>
         int gettop(LuaState L);
+
+        /// <summary>
+        /// [-1, +1, -] void lua_insert (lua_State *L, int index);
+        /// 
+        /// Moves the top element into the given valid index, shifting up the elements above this index to open space. 
+        /// This function cannot be called with a pseudo-index, because a pseudo-index is not an actual stack position.
+        /// </summary>
+        /// <param name="L"></param>
+        /// <param name="index"></param>
+        void insert(LuaState L, int index);
+
+        /// <summary>
+        /// [-1, +0, -] void lua_remove (lua_State *L, int index);
+        /// 
+        /// Removes the element at the given valid index, shifting down the elements above this index to fill the gap. 
+        /// This function cannot be called with a pseudo-index, because a pseudo-index is not an actual stack position.
+        /// </summary>
+        /// <param name="L"></param>
+        /// <param name="index"></param>
+        void remove(LuaState L, int index);
+
+        /// <summary>
+        /// [-1, +0, -] void lua_replace (lua_State *L, int index);
+        /// 
+        /// Moves the top element into the given valid index without shifting any element 
+        /// (therefore replacing the value at that given index), and then pops the top element. 
+        /// </summary>
+        /// <param name="L"></param>
+        /// <param name="index"></param>
+        void replace(LuaState L, int index);
 
         /// <summary>
         /// [-0, +1, -] void lua_pushvalue (lua_State *L, int index);
@@ -309,6 +394,15 @@ namespace net.r_eg.LuNari.API.Lua53
         void pushnil(LuaState L);
 
         /// <summary>
+        /// [-0, +1, –] int lua_pushthread (lua_State *L);
+        /// 
+        /// Pushes the thread represented by L onto the stack. 
+        /// </summary>
+        /// <param name="L"></param>
+        /// <returns>Returns 1 if this thread is the main thread of its state.</returns>
+        int pushthread(LuaState L);
+
+        /// <summary>
         /// [-0, +1, -] void lua_pushinteger (lua_State *L, lua_Integer n);
         /// 
         /// Pushes a number with value n onto the stack.
@@ -354,5 +448,22 @@ namespace net.r_eg.LuNari.API.Lua53
         /// LUA_TTHREAD, and LUA_TLIGHTUSERDATA.
         /// </returns>
         int type(LuaState L, int index);
+
+        /// <summary>
+        /// [-0, +0, –] size_t lua_rawlen (lua_State *L, int index);
+        /// 
+        /// Returns the raw "length" of the value at the given index.
+        /// 
+        /// Note: lua_objlen (5.1) was renamed lua_rawlen (5.2)
+        /// </summary>
+        /// <param name="L"></param>
+        /// <param name="index"></param>
+        /// <returns>
+        /// for strings, this is the string length; 
+        /// for tables, this is the result of the length operator ('#') with no metamethods; 
+        /// for userdata, this is the size of the block of memory allocated for the userdata; 
+        /// for other values, it is 0. 
+        /// </returns>
+        size_t rawlen(LuaState L, int index);
     }
 }
