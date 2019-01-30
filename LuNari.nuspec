@@ -43,7 +43,7 @@
       <reference file="LuNari.dll" />
     </references>
     <dependencies>
-        <dependency id="Conari" version="(1.3.0,)" />
+        <dependency id="Conari" version="1.3.0" />
     </dependencies>
   </metadata>
 </package>
