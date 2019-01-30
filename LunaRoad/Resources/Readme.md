@@ -1,1 +1,1 @@
-**Obsolete**. Please look LuNari folders [LuNari folders](../../)
+**Obsolete**. Please look LuNari folders [LuNari folders](https://github.com/3F/LuNari)

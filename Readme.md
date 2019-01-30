@@ -8,15 +8,15 @@ Provides *support** for all popular versions, like: 5.4, 5.3, 5.2, 5.1, ...
 
 ↳ *A few ways: API-layer and binding at runtime (DLR, Lambda expressions) with any Lua functions;*
 
-[![Build status](https://ci.appveyor.com/api/projects/status/94y78phdvkoi5oda/branch/master?svg=true)](https://ci.appveyor.com/project/3Fs/lunaroad/branch/master)
+[![Build status](https://ci.appveyor.com/api/projects/status/yw1dt77o9ynqehc4/branch/master?svg=true)](https://ci.appveyor.com/project/3Fs/lunari/branch/master)
 [![release-src](https://img.shields.io/github/release/3F/LuNari.svg)](https://github.com/3F/LuNari/releases/latest)
-[![License](https://img.shields.io/badge/License-MIT-74A5C2.svg)](https://github.com/3F/LuNari/blob/master/LICENSE)
 [![NuGet package](https://img.shields.io/nuget/v/LuNari.svg)](https://www.nuget.org/packages/LuNari/) 
+[![License](https://img.shields.io/badge/License-MIT-74A5C2.svg)](https://github.com/3F/LuNari/blob/master/LICENSE)
 
 **Easy to start**:
 
 ```csharp
-using(var l = new Lua<ILua51>("Lua.dll")) { // ILua51, ILua52, ILua53, ...
+using(var l = new Lua<ILua53>("Lua.dll")) { // ILua51, ILua52, ILua53, ...
     // l. { request anything to Lua }
 }
 ```
