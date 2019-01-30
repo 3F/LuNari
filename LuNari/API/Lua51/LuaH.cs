@@ -30,12 +30,17 @@ namespace net.r_eg.LuNari.API.Lua51
     /// 
     /// the 'some useful macros' should be provided by ILua interface.
     /// </summary>
-    public sealed class LuaH
+    public class LuaH
     {
         /// <summary>
-        /// mark for precompiled code (`esc`Lua)
+        /// lua.h const data for Lua 5.1
         /// </summary>
-        public const string LUA_SIGNATURE = "\033Lua";
+        protected LuaH() { }
+
+        /// <summary>
+        /// Mark for precompiled code (`esc`Lua)
+        /// </summary>
+        public const string LUA_SIGNATURE = "\x1bLua";
 
         /// <summary>
         /// Option for multiple returns in `lua_pcall' and `lua_call'
@@ -67,17 +72,41 @@ namespace net.r_eg.LuNari.API.Lua51
 
         /* thread status; 0 is OK */
 
+        /// <summary>
+        /// No errors.
+        /// </summary>
         public const int LUA_OK         = 0; //+
+
         public const int LUA_YIELD      = 1;
+
+        /// <summary>
+        /// A runtime error.
+        /// </summary>
         public const int LUA_ERRRUN     = 2;
+
+        /// <summary>
+        /// Syntax error during pre-compilation.
+        /// </summary>
         public const int LUA_ERRSYNTAX  = 3;
+
+        /// <summary>
+        /// Memory allocation error. 
+        /// For such errors, Lua does not call the error handler function.
+        /// </summary>
         public const int LUA_ERRMEM     = 4;
+
+        /// <summary>
+        /// Error while running the error handler function.
+        /// </summary>
         public const int LUA_ERRERR     = 5;
 
         /*
         ** basic types
         */
 
+        /// <summary>
+        /// Non-valid (but acceptable).
+        /// </summary>
         public const int LUA_TNONE = -1;
 
         public const int LUA_TNIL           = 0;
@@ -94,13 +123,45 @@ namespace net.r_eg.LuNari.API.Lua51
         ** garbage-collection function and options
         */
 
+        /// <summary>
+        /// Stops the garbage collector.
+        /// </summary>
         public const int LUA_GCSTOP         = 0;
+
+        /// <summary>
+        /// Restarts the garbage collector.
+        /// </summary>
         public const int LUA_GCRESTART      = 1;
+
+        /// <summary>
+        /// Performs a full garbage-collection cycle.
+        /// </summary>
         public const int LUA_GCCOLLECT      = 2;
+
+        /// <summary>
+        /// Returns the current amount of memory (in Kbytes) in use by Lua.
+        /// </summary>
         public const int LUA_GCCOUNT        = 3;
+
+        /// <summary>
+        /// Returns the remainder of dividing the current amount of bytes 
+        /// of memory in use by Lua by 1024.
+        /// </summary>
         public const int LUA_GCCOUNTB       = 4;
+
+        /// <summary>
+        /// Performs an incremental step of garbage collection.
+        /// </summary>
         public const int LUA_GCSTEP         = 5;
+
+        /// <summary>
+        /// Sets data as the new value for the pause of the collector.
+        /// </summary>
         public const int LUA_GCSETPAUSE     = 6;
+
+        /// <summary>
+        /// Sets data as the new value for the step multiplier of the collector.
+        /// </summary>
         public const int LUA_GCSETSTEPMUL   = 7;
 
         /*

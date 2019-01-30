@@ -30,111 +30,72 @@ namespace net.r_eg.LuNari.API.Lua53
     /// 
     /// the 'some useful macros' should be provided by ILua interface.
     /// </summary>
-    public sealed class LuaH
+    public class LuaH: Lua52.LuaH
     {
         /// <summary>
-        /// mark for precompiled code (`esc`Lua)
+        /// lua.h const data for Lua 5.3
         /// </summary>
-        public const string LUA_SIGNATURE = "\x1bLua";
-
-        /// <summary>
-        /// Option for multiple returns in `lua_pcall' and `lua_call'
-        /// </summary>
-        public const int LUA_MULTRET = -1;
-
-        /* thread status */
-
-        public const int LUA_OK         = 0;
-        public const int LUA_YIELD      = 1;
-        public const int LUA_ERRRUN     = 2;
-        public const int LUA_ERRSYNTAX  = 3;
-        public const int LUA_ERRMEM     = 4;
-        public const int LUA_ERRGCMM    = 5;
-        public const int LUA_ERRERR     = 6;
-
-        /*
-        ** basic types
-        */
-
-        public const int LUA_TNONE = -1;
-
-        public const int LUA_TNIL           = 0;
-        public const int LUA_TBOOLEAN       = 1;
-        public const int LUA_TLIGHTUSERDATA = 2;
-        public const int LUA_TNUMBER        = 3;
-        public const int LUA_TSTRING        = 4;
-        public const int LUA_TTABLE         = 5;
-        public const int LUA_TFUNCTION      = 6;
-        public const int LUA_TUSERDATA      = 7;
-        public const int LUA_TTHREAD        = 8;
-
-        /* predefined values in the registry */
-
-        public const int LUA_RIDX_MAINTHREAD    = 1;
-        public const int LUA_RIDX_GLOBALS       = 2;
-        public const int LUA_RIDX_LAST          = LUA_RIDX_GLOBALS;
+        protected LuaH() { }
 
         /*
         ** Comparison and arithmetic functions
         */
+                        /* ORDER TM, ORDER OP */
 
-        public const int LUA_OPADD      = 0;    /* ORDER TM, ORDER OP */
-        public const int LUA_OPSUB      = 1;
-        public const int LUA_OPMUL      = 2;
-        public const int LUA_OPMOD      = 3;
-        public const int LUA_OPPOW      = 4;
-        public const int LUA_OPDIV      = 5;
+        /// <summary>
+        ///  performs modulo (%)
+        /// </summary>
+        public new const int LUA_OPMOD  = 3;
+
+        /// <summary>
+        ///  performs exponentiation (^)
+        /// </summary>
+        public new const int LUA_OPPOW  = 4;
+
+        /// <summary>
+        /// performs float division (/)
+        /// </summary>
+        public new const int LUA_OPDIV  = 5;
+
+        /// <summary>
+        /// performs floor division (//)
+        /// </summary>
         public const int LUA_OPIDIV     = 6;
+
+        /// <summary>
+        ///  performs bitwise AND (&)
+        /// </summary>
         public const int LUA_OPBAND     = 7;
+
+        /// <summary>
+        ///  performs bitwise OR (|)
+        /// </summary>
         public const int LUA_OPBOR      = 8;
+
+        /// <summary>
+        /// performs bitwise exclusive OR (~)
+        /// </summary>
         public const int LUA_OPBXOR     = 9;
+
+        /// <summary>
+        /// performs left shift (&lt;&lt;)
+        /// </summary>
         public const int LUA_OPSHL      = 10;
+
+        /// <summary>
+        /// performs right shift (&gt;&gt;)
+        /// </summary>
         public const int LUA_OPSHR      = 11;
-        public const int LUA_OPUNM      = 12;
+
+        /// <summary>
+        /// performs mathematical negation (unary -)
+        /// </summary>
+        public new const int LUA_OPUNM  = 12;
+
+        /// <summary>
+        /// performs bitwise NOT (~)
+        /// </summary>
         public const int LUA_OPBNOT     = 13;
 
-        public const int LUA_OPEQ   = 0;
-        public const int LUA_OPLT   = 1;
-        public const int LUA_OPLE   = 2;
-
-
-        /*
-        ** garbage-collection function and options
-        */
-
-        public const int LUA_GCSTOP         = 0;
-        public const int LUA_GCRESTART      = 1;
-        public const int LUA_GCCOLLECT      = 2;
-        public const int LUA_GCCOUNT        = 3;
-        public const int LUA_GCCOUNTB       = 4;
-        public const int LUA_GCSTEP         = 5;
-        public const int LUA_GCSETPAUSE     = 6;
-        public const int LUA_GCSETSTEPMUL   = 7;
-        public const int LUA_GCISRUNNING    = 9;
-
-        /*
-        ** =======================================================================
-        ** Debug API
-        ** =======================================================================
-        */
-
-        /*
-        ** Event codes
-        */
-
-        public const int LUA_HOOKCALL       = 0;
-        public const int LUA_HOOKRET        = 1;
-        public const int LUA_HOOKLINE       = 2;
-        public const int LUA_HOOKCOUNT      = 3;
-        public const int LUA_HOOKTAILCALL   = 4;
-
-        /*
-        ** Event masks
-        */
-
-        public const int LUA_MASKCALL   = 1 << LUA_HOOKCALL;
-        public const int LUA_MASKRET    = 1 << LUA_HOOKRET;
-        public const int LUA_MASKLINE   = 1 << LUA_HOOKLINE;
-        public const int LUA_MASKCOUNT  = 1 << LUA_HOOKCOUNT;
     }
 }

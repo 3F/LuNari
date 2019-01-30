@@ -30,64 +30,91 @@ namespace net.r_eg.LuNari.API.Lua52
     /// 
     /// the 'some useful macros' should be provided by ILua interface.
     /// </summary>
-    public sealed class LuaH
+    public class LuaH: Lua51.LuaH
     {
         /// <summary>
-        /// mark for precompiled code (`esc`Lua)
+        /// lua.h const data for Lua 5.2
         /// </summary>
-        public const string LUA_SIGNATURE = "\033Lua";
-
-        /// <summary>
-        /// Option for multiple returns in `lua_pcall' and `lua_call'
-        /// </summary>
-        public const int LUA_MULTRET = -1;
+        protected LuaH() { }
 
         /* thread status */
 
-        public const int LUA_OK         = 0;
-        public const int LUA_YIELD      = 1;
-        public const int LUA_ERRRUN     = 2;
-        public const int LUA_ERRSYNTAX  = 3;
-        public const int LUA_ERRMEM     = 4;
-        public const int LUA_ERRGCMM    = 5;
-        public const int LUA_ERRERR     = 6;
+        /// <summary>
+        /// Error while running a __gc metamethod.
+        /// </summary>
+        public const int LUA_ERRGCMM        = 5;
 
-        /*
-        ** basic types
-        */
-
-        public const int LUA_TNONE = -1;
-
-        public const int LUA_TNIL           = 0;
-        public const int LUA_TBOOLEAN       = 1;
-        public const int LUA_TLIGHTUSERDATA = 2;
-        public const int LUA_TNUMBER        = 3;
-        public const int LUA_TSTRING        = 4;
-        public const int LUA_TTABLE         = 5;
-        public const int LUA_TFUNCTION      = 6;
-        public const int LUA_TUSERDATA      = 7;
-        public const int LUA_TTHREAD        = 8;
+        /// <summary>
+        /// Error while running the message handler.
+        /// </summary>
+        public new const int LUA_ERRERR     = 6;
 
         /* predefined values in the registry */
 
+        /// <summary>
+        /// At this index the registry has the main thread of the state.
+        /// </summary>
         public const int LUA_RIDX_MAINTHREAD    = 1;
+
+        /// <summary>
+        /// At this index the registry has the global environment.
+        /// </summary>
         public const int LUA_RIDX_GLOBALS       = 2;
         public const int LUA_RIDX_LAST          = LUA_RIDX_GLOBALS;
 
         /*
         ** Comparison and arithmetic functions
         */
+                                /* ORDER TM */
 
-        public const int LUA_OPADD  = 0; /* ORDER TM */
+        /// <summary>
+        /// Performs addition (+)
+        /// </summary>
+        public const int LUA_OPADD  = 0;
+
+        /// <summary>
+        /// Performs subtraction (-)
+        /// </summary>
         public const int LUA_OPSUB  = 1;
+
+        /// <summary>
+        /// Performs multiplication (*)
+        /// </summary>
         public const int LUA_OPMUL  = 2;
+
+        /// <summary>
+        /// Performs division (/)
+        /// </summary>
         public const int LUA_OPDIV  = 3;
+
+        /// <summary>
+        /// Performs modulo (%)
+        /// </summary>
         public const int LUA_OPMOD  = 4;
+
+        /// <summary>
+        /// Performs exponentiation (^)
+        /// </summary>
         public const int LUA_OPPOW  = 5;
+
+        /// <summary>
+        /// Performs mathematical negation (unary -)
+        /// </summary>
         public const int LUA_OPUNM  = 6;
 
+        /// <summary>
+        /// Compares for equality (==)
+        /// </summary>
         public const int LUA_OPEQ   = 0;
+
+        /// <summary>
+        /// Compares for less than (&lt;)
+        /// </summary>
         public const int LUA_OPLT   = 1;
+
+        /// <summary>
+        /// Compares for less or equal (&lt;=)
+        /// </summary>
         public const int LUA_OPLE   = 2;
 
 
@@ -95,17 +122,23 @@ namespace net.r_eg.LuNari.API.Lua52
         ** garbage-collection function and options
         */
 
-        public const int LUA_GCSTOP         = 0;
-        public const int LUA_GCRESTART      = 1;
-        public const int LUA_GCCOLLECT      = 2;
-        public const int LUA_GCCOUNT        = 3;
-        public const int LUA_GCCOUNTB       = 4;
-        public const int LUA_GCSTEP         = 5;
-        public const int LUA_GCSETPAUSE     = 6;
-        public const int LUA_GCSETSTEPMUL   = 7;
         public const int LUA_GCSETMAJORINC  = 8;
+
+        /// <summary>
+        /// Returns a boolean that tells whether the collector is running 
+        /// (i.e., not stopped).
+        /// </summary>
         public const int LUA_GCISRUNNING    = 9;
+
+        /// <summary>
+        /// Changes the collector to generational mode.
+        /// </summary>
         public const int LUA_GCGEN          = 10;
+
+        /// <summary>
+        /// Changes the collector to incremental mode. 
+        /// This is the default mode.
+        /// </summary>
         public const int LUA_GCINC          = 11;
 
         /*
@@ -118,19 +151,7 @@ namespace net.r_eg.LuNari.API.Lua52
         ** Event codes
         */
 
-        public const int LUA_HOOKCALL       = 0;
-        public const int LUA_HOOKRET        = 1;
-        public const int LUA_HOOKLINE       = 2;
-        public const int LUA_HOOKCOUNT      = 3;
         public const int LUA_HOOKTAILCALL   = 4;
 
-        /*
-        ** Event masks
-        */
-
-        public const int LUA_MASKCALL   = 1 << LUA_HOOKCALL;
-        public const int LUA_MASKRET    = 1 << LUA_HOOKRET;
-        public const int LUA_MASKLINE   = 1 << LUA_HOOKLINE;
-        public const int LUA_MASKCOUNT  = 1 << LUA_HOOKCOUNT;
     }
 }
