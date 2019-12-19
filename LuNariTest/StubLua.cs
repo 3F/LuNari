@@ -1,10 +1,10 @@
 ﻿using net.r_eg.LuNari;
 
-namespace net.r_eg.LuNariTest
+namespace LuNariTest
 {
-    internal sealed class _Lua: Lua
+    internal sealed class StubLua: Lua
     {
-        public _Lua()
+        public StubLua()
             : base(new LuaConfig("") { LazyLoading = true })
         {
 

@@ -1,24 +1,27 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using net.r_eg.LuNari.API;
 using net.r_eg.LuNari.API.Lua51;
+using Xunit;
 
-namespace net.r_eg.LuNariTest.API
+namespace LuNariTest.API
 {
-    [TestClass]
     public class BridgeTest
     {
-        [TestMethod]
-        //[ExpectedException(typeof(ArgumentException))]
+        [Fact]
         public void providerTest1()
         {
-            try {
+            Assert.Throws<ArgumentException>(() => 
+            {
                 new Bridge<ILua51>(null);
-                Assert.Fail("1");
-            }
-            catch(Exception ex) { Assert.IsTrue(ex.GetType() == typeof(ArgumentException), ex.GetType().ToString()); }
+            });
+        }
 
-            var bridge = new Bridge<ILua51>(new _Lua());
+        [Fact]
+        public void providerTest2()
+        {
+            var l = new Bridge<ILua51>(new StubLua());
+            Assert.NotNull(l.Lua);
+            Assert.Equal(LuaVersion.Lua53, l.Version);
         }
     }
 }
