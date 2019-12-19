@@ -18,7 +18,7 @@ namespace net.r_eg.LuNariTest.API
             }
             catch(Exception ex) { Assert.IsTrue(ex.GetType() == typeof(ArgumentException), ex.GetType().ToString()); }
 
-            var bridge = new Bridge<ILua51>(new _Provider());
+            var bridge = new Bridge<ILua51>(new _Lua());
         }
     }
 }
