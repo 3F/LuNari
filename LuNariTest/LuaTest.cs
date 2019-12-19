@@ -19,7 +19,7 @@ namespace net.r_eg.LuNariTest
                 new Lua(null);
                 Assert.Fail("1");
             }
-            catch(Exception ex) { Assert.IsTrue(ex.GetType() == typeof(ArgumentException), ex.GetType().ToString()); }
+            catch(Exception ex) { Assert.IsTrue(ex.GetType() == typeof(ArgumentNullException), ex.GetType().ToString()); }
 
             try {
                 new Lua(STUB_LIB_NAME);
@@ -39,7 +39,7 @@ namespace net.r_eg.LuNariTest
                 new Lua("");
                 Assert.Fail("2");
             }
-            catch(Exception ex) { Assert.IsTrue(ex.GetType() == typeof(ArgumentException), ex.GetType().ToString()); }
+            catch(Exception ex) { Assert.IsTrue(ex.GetType() == typeof(ArgumentNullException), ex.GetType().ToString()); }
         }
 
         /// <summary>
@@ -117,7 +117,7 @@ namespace net.r_eg.LuNariTest
         [TestMethod]
         public void funcNameTest1()
         {
-            var l = new _Provider();
+            var l = new _Lua();
 
             try {
                 l.procName("");

@@ -24,7 +24,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 using net.r_eg.Conari;
 using net.r_eg.LuNari.API;
@@ -47,11 +46,10 @@ namespace net.r_eg.LuNari
         }
     }
 
-    [SuppressMessage("Microsoft.Design", "CA1063:ImplementIDisposableCorrectly", Justification = "Bug. False positive. The IDisposable is already implemented correctly !")]
-    public class Lua<TAPI>: ConariL, ILua, IConari, IBinder, IDisposable
+    public class Lua<TAPI>: ConariL, ILua, IConari, IBinder
         where TAPI : ILevel
     {
-        private Dictionary<Type, ILevel> cacheL = new Dictionary<Type, ILevel>();
+        private readonly Dictionary<Type, ILevel> cacheL = new Dictionary<Type, ILevel>();
 
         /// <summary>
         /// Current API version.
@@ -65,12 +63,7 @@ namespace net.r_eg.LuNari
         /// <summary>
         /// Unspecified common interface to Lua C API Functions
         /// </summary>
-        public ILuaCommon U
-        {
-            get {
-                return (ILuaCommon)bridge<ILuaN>();
-            }
-        }
+        public ILuaCommon U => (ILuaCommon)bridge<ILuaN>();
 
         /// <summary>
         /// Gets specific API version.
