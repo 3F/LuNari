@@ -23,7 +23,7 @@
       "Enabled": true
     },
     {
-      "ClassName": "OWPComponent",
+      "ClassName": "OwpComponent",
       "Enabled": true
     },
     {
@@ -39,7 +39,7 @@
       "Enabled": true
     },
     {
-      "ClassName": "DTEComponent",
+      "ClassName": "DteComponent",
       "Enabled": true
     },
     {
@@ -59,7 +59,7 @@
       "Enabled": true
     },
     {
-      "ClassName": "MSBuildComponent",
+      "ClassName": "EvMSBuildComponent",
       "Enabled": true
     },
     {
@@ -91,27 +91,44 @@
       "Mode": {
         "$type": "net.r_eg.vsSBE.Events.ModeScript, vsSolutionBuildEvent",
         "Type": "Script",
-        "Command": "$(revDeltaBase = \"2017/02/07\")\n$(revDeltaMin = $([System.Math]::Pow(10, 3)))\n$(revDeltaMax = $([System.Math]::Pow(10, 5)))\n\n#[$(dbin    = \"bin/$(Configuration)/\")]\n$(netstamp  = $(TargetFrameworkVersion.Replace('v', '').Replace('.', '')))\n\n$(pLuNari = \"LuNari\")\n$(odir      = \"$(dbin)raw/\")\n\n#[IO delete.directory(\"$(dbin)\", true)]\n#[IO copy.directory(\"\", \"$(dbin)\", true)]",
+        "Command": "#[($(Configuration) == \"PublicRelease\") {\n    #[$(cfgname = 'Release')]\n    $(isCIBuild = true)\n}\nelse{\n    #[$(cfgname = $(Configuration))]\n}]\n\n#[$(dbin = \"bin/$(cfgname)/\")]\n\n$(revDeltaBase = \"2017/02/07\")\n$(revDeltaMin = $([System.Math]::Pow(10, 3)))\n$(revDeltaMax = 65534)\n\n\n$(netstamp  = $(TargetFrameworkVersion.Replace('v', '').Replace('.', '')))\n\n$(pDir  = \"LuNari\")\n$(odir  = \"$(dbin)raw\")\n\n#[var +revBuild]\n#[var +bSha1]\n#[var +bName]\n#[var +bRevc]\n\n#[var pVer = #[File get(\".version\")]]\n\n##[IO delete.directory(\"$(dbin)\", true)]\n#[IO copy.directory(\"\", \"$(dbin)\", true)]",
         "Command__": [
+          "#[($(Configuration) == \"PublicRelease\") {",
+          "    #[$(cfgname = 'Release')]",
+          "    $(isCIBuild = true)",
+          "}",
+          "else{",
+          "    #[$(cfgname = $(Configuration))]",
+          "}]",
+          "",
+          "#[$(dbin = \"bin/$(cfgname)/\")]",
+          "",
           "$(revDeltaBase = \"2017/02/07\")",
           "$(revDeltaMin = $([System.Math]::Pow(10, 3)))",
-          "$(revDeltaMax = $([System.Math]::Pow(10, 5)))",
+          "$(revDeltaMax = 65534)",
           "",
-          "#[$(dbin    = \"bin/$(Configuration)/\")]",
+          "",
           "$(netstamp  = $(TargetFrameworkVersion.Replace('v', '').Replace('.', '')))",
           "",
-          "$(pLuNari = \"LuNari\")",
-          "$(odir      = \"$(dbin)raw/\")",
+          "$(pDir  = \"LuNari\")",
+          "$(odir  = \"$(dbin)raw\")",
           "",
-          "#[IO delete.directory(\"$(dbin)\", true)]",
+          "#[var +revBuild]",
+          "#[var +bSha1]",
+          "#[var +bName]",
+          "#[var +bRevc]",
+          "",
+          "#[var pVer = #[File get(\".version\")]]",
+          "",
+          "##[IO delete.directory(\"$(dbin)\", true)]",
           "#[IO copy.directory(\"\", \"$(dbin)\", true)]"
         ]
       }
     },
     {
       "Enabled": true,
-      "Name": "ActVer",
-      "Caption": "Update version number 'as is' - TODO: ",
+      "Name": "ModulesAndPkg",
+      "Caption": "Submodules and dep packages",
       "SupportMSBuild": true,
       "SupportSBEScripts": true,
       "IgnoreIfBuildFailed": false,
@@ -131,14 +148,56 @@
       "Mode": {
         "$type": "net.r_eg.vsSBE.Events.ModeScript, vsSolutionBuildEvent",
         "Type": "Script",
-        "Command": "#[var pVer = #[File get(\".version\")]]\n\n#[IO replace.Regexp(\"$(pLuNari)/LuNariVersion.cs\", \"(S_NUM\\s+=).+?\\\";\", \"$1 \\\"$(pVer)\\\";\")]\n\n#[IO replace.Regexp(\"LuNari.nuspec\", \"<version>.+?</version>\", \"<version>$(pVer)</version>\")]\n#[IO replace.Regexp(\"LuNari.nuspec\", \"\\\"LuNari/[0-9.]+\\\"\", \"\\\"LuNari/$(pVer)\\\"\")]",
+        "Command": "#[( !(#[IO exists.file(\"Conari/Conari.sln\")]) )\n{\n    #[File call(\"git\", \"submodule update --init --recursive Conari\", 1000)]\n}]\n\n#[\" Packages \"]\n\n#[( !(#[IO exists.file(\"packages/__checked\")]) )\n{\n    #[File call(\"tools\\hmsbuild.bat\", \"-vsw-priority Microsoft.NetCore.Component.SDK -t:restore /v:q /nologo /p:Configuration=$(Configuration) /p:Platform=\\\"Any CPU\\\"\", 1000)]\n        \n    \n    #[IO copy.directory(\"\", \"packages/\", true)]\n    #[File write(\"packages/__checked\"): ]\n}]",
         "Command__": [
-          "#[var pVer = #[File get(\".version\")]]",
+          "#[( !(#[IO exists.file(\"Conari/Conari.sln\")]) )",
+          "{",
+          "    #[File call(\"git\", \"submodule update --init --recursive Conari\", 1000)]",
+          "}]",
           "",
-          "#[IO replace.Regexp(\"$(pLuNari)/LuNariVersion.cs\", \"(S_NUM\\s+=).+?\\\";\", \"$1 \\\"$(pVer)\\\";\")]",
+          "#[\" Packages \"]",
           "",
-          "#[IO replace.Regexp(\"LuNari.nuspec\", \"<version>.+?</version>\", \"<version>$(pVer)</version>\")]",
-          "#[IO replace.Regexp(\"LuNari.nuspec\", \"\\\"LuNari/[0-9.]+\\\"\", \"\\\"LuNari/$(pVer)\\\"\")]"
+          "#[( !(#[IO exists.file(\"packages/__checked\")]) )",
+          "{",
+          "    #[File call(\"tools\\hmsbuild.bat\", \"-vsw-priority Microsoft.NetCore.Component.SDK -t:restore /v:q /nologo /p:Configuration=$(Configuration) /p:Platform=\\\"Any CPU\\\"\", 1000)]",
+          "        ",
+          "    ",
+          "    #[IO copy.directory(\"\", \"packages/\", true)]",
+          "    #[File write(\"packages/__checked\"): ]",
+          "}]"
+        ]
+      }
+    },
+    {
+      "Enabled": true,
+      "Name": "ActVer",
+      "Caption": "Update version number ...",
+      "SupportMSBuild": true,
+      "SupportSBEScripts": true,
+      "IgnoreIfBuildFailed": false,
+      "BuildType": "Common",
+      "Confirmation": false,
+      "ToConfiguration": [],
+      "ExecutionOrder": {
+        "$type": "net.r_eg.vsSBE.Events.ExecutionOrder[], vsSolutionBuildEvent",
+        "$values": []
+      },
+      "Process": {
+        "$type": "net.r_eg.vsSBE.Events.EventProcess, vsSolutionBuildEvent",
+        "Waiting": true,
+        "Hidden": true,
+        "TimeLimit": 30
+      },
+      "Mode": {
+        "$type": "net.r_eg.vsSBE.Events.ModeScript, vsSolutionBuildEvent",
+        "Type": "Script",
+        "Command": "#[( ! $(isCIBuild) ) {\n    #[IO replace.Regex(\"$(pDir)/LuNariVersion.cs\", \"(\\sS_NUM\\s=).+?\\\";\", \"$1 \\\"$(pVer)\\\";\")]\n}]\n\n#[IO replace.Regex(\"$(pDir)/LuNari.csproj\", \"<Version>.+?</Version>\", \"<Version>$(pVer)</Version>\")]",
+        "Command__": [
+          "#[( ! $(isCIBuild) ) {",
+          "    #[IO replace.Regex(\"$(pDir)/LuNariVersion.cs\", \"(\\sS_NUM\\s=).+?\\\";\", \"$1 \\\"$(pVer)\\\";\")]",
+          "}]",
+          "",
+          "#[IO replace.Regex(\"$(pDir)/LuNari.csproj\", \"<Version>.+?</Version>\", \"<Version>$(pVer)</Version>\")]"
         ]
       }
     },
@@ -169,7 +228,7 @@
       "Mode": {
         "$type": "net.r_eg.vsSBE.Events.ModeScript, vsSolutionBuildEvent",
         "Type": "Script",
-        "Command": "#[var tpl = // This code was generated by a vsSolutionBuildEvent. \r\n// Changes to this file may cause incorrect behavior and will be lost if the code is regenerated.\r\nnamespace net.r_eg.LuNari\r\n{\r\n    using System;\r\n\r\n    public struct LuNariVersion\r\n    {\r\n        public static readonly Version number = new Version(S_NUM_REV);\r\n\r\n        public const string S_NUM = \"%S_NUM%\";\r\n        public const string S_REV = \"%S_REV%\";\r\n\r\n        public const string S_NUM_REV = S_NUM + \".\" + S_REV;\r\n\r\n        public const string BRANCH_SHA1 = \"%B_SHA1%\";\r\n        public const string BRANCH_NAME = \"%B_NAME%\";\r\n        public const string BRANCH_REVC = \"%B_REVC%\";\r\n\r\n        internal const string S_INFO        = S_NUM_REV + \" [ \" + BRANCH_SHA1 + \" ]\";\r\n        internal const string S_INFO_FULL   = S_INFO + \" /'\" + BRANCH_NAME + \"':\" + BRANCH_REVC;\r\n    }\r\n}]\r\n\r\n#[\" \r\n    Calculate revision\r\n\"]\r\n#[var tBase     = $([System.DateTime]::Parse('$(revDeltaBase)').ToBinary())]\r\n#[var tNow      = $([System.DateTime]::UtcNow.Ticks)]\r\n#[var revBuild  = #[$(\r\n                    [System.TimeSpan]::FromTicks('$(\r\n                        [MSBuild]::Subtract($(tNow), $(tBase))\r\n                    )')\r\n                    .TotalMinutes.ToString('0'))]]\r\n                     \r\n#[var revBuild  = #[$(\r\n                    [MSBuild]::Add(\r\n                        $(revDeltaMin), \r\n                        $([MSBuild]::Modulo(\r\n                            $(revBuild), \r\n                            $([MSBuild]::Subtract(\r\n                                $(revDeltaMax), $(revDeltaMin)\r\n                             ))\r\n                         ))\r\n                     )\r\n                   )]\r\n]\r\n\r\n#[\" \r\n    Remove placeholders\r\n\"]\r\n#[var tpl = $(tpl.Replace(\"%S_NUM%\", \"$(pVer)\").Replace(\"%S_REV%\", \"$(revBuild)\"))]\r\n\r\n#[\" \r\n    Checking of the git folder +tool & define sha1, branch name, etc.\r\n\"]\r\n#[( #[IO exists.directory(\".git\")] && #[IO exists.file(\"git.exe\", true)] )\r\n{\r\n    #[var bSha1 = #[IO sout(\"git\", \"rev-parse --short HEAD\")]]\r\n    #[var bName = #[IO sout(\"git\", \"rev-parse --abbrev-ref HEAD\")]]\r\n    #[var bRevc = #[IO sout(\"git\", \"rev-list HEAD --count\")]]\r\n    \r\n    #[($(bName) == \"HEAD\") {\r\n        #[var bName = $(APPVEYOR_REPO_BRANCH)]\r\n    }]    \r\n    \r\n    #[var tpl = #[$(tpl.Replace(\"%B_SHA1%\", \"#[var bSha1]\")\r\n                       .Replace(\"%B_NAME%\", \"#[var bName]\")\r\n                       .Replace(\"%B_REVC%\", \"#[var bRevc]\") )]]\r\n}\r\nelse {\r\n    #[var tpl = #[$(tpl.Replace(\"%B_SHA1%\", \"-\")\r\n                       .Replace(\"%B_NAME%\", \"-\")\r\n                       .Replace(\"%B_REVC%\", \"-\") )]]\r\n}]\r\n\r\n#[\" \r\n    Save result\r\n\"]\r\n#[File write(\"$(pLuNari)/LuNariVersion.cs\"):#[var tpl]]",
+        "Command": "#[var tpl = // This code was generated by a vsSolutionBuildEvent. \n// Changes to this file may cause incorrect behavior and will be lost if the code is regenerated.\nnamespace net.r_eg.LuNari\n{\n    using System;\n\n    public struct LuNariVersion\n    {\n        public static readonly Version number = new Version(S_NUM_REV);\n\n        public const string S_NUM = \"%S_NUM%\";\n        public const string S_REV = \"%S_REV%\";\n\n        public const string S_NUM_REV = S_NUM + \".\" + S_REV;\n\n        public const string BRANCH_SHA1 = \"%B_SHA1%\";\n        public const string BRANCH_NAME = \"%B_NAME%\";\n        public const string BRANCH_REVC = \"%B_REVC%\";\n\n        internal const string S_INFO        = S_NUM_REV + \"+\" + BRANCH_SHA1;\n        internal const string S_INFO_FULL   = S_INFO + \":\" + BRANCH_NAME + \"-\" + BRANCH_REVC;\n    }\n}]\n\n#[\" \n    Calculate revision\n\"]\n#[var tBase     = $([System.DateTime]::Parse('$(revDeltaBase)').ToBinary())]\n#[var tNow      = $([System.DateTime]::UtcNow.Ticks)]\n#[var revBuild  = #[$(\n                    [System.TimeSpan]::FromTicks('$(\n                        [MSBuild]::Subtract($(tNow), $(tBase))\n                    )')\n                    .TotalMinutes.ToString('0'))]]\n                     \n#[var revBuild  = #[$(\n                    [MSBuild]::Add(\n                        $(revDeltaMin), \n                        $([MSBuild]::Modulo(\n                            $(revBuild), \n                            $([MSBuild]::Subtract(\n                                $(revDeltaMax), $(revDeltaMin)\n                             ))\n                         ))\n                     )\n                   )]\n]\n\n#[\" \n    Remove placeholders\n\"]\n#[var tpl = $(tpl.Replace(\"%S_NUM%\", \"$(pVer)\").Replace(\"%S_REV%\", \"$(revBuild)\"))]\n\n#[\" \n    Checking of the git to define sha1, branch name, etc.\n\"]\n#[var isGit = #[IO cmd(\"git rev-parse 2>&1\")]]\n#[( $(isGit) == \"\" )\n{\n    #[var bSha1 = #[IO sout(\"git\", \"rev-parse --short HEAD\")]]\n    #[var bName = #[IO sout(\"git\", \"rev-parse --abbrev-ref HEAD\")]]\n    #[var bRevc = #[IO sout(\"git\", \"rev-list HEAD --count\")]]\n    \n    #[($(bName) == \"HEAD\") {\n        #[var bName = $(APPVEYOR_REPO_BRANCH)]\n    }]\n}\nelse {\n    #[$(bSha1 = '-')] #[$(bName = '-')] #[$(bRevc = '-')]\n}]\n\n#[var tpl = #[$(tpl.Replace(\"%B_SHA1%\", \"#[var bSha1]\")\n                   .Replace(\"%B_NAME%\", \"#[var bName]\")\n                   .Replace(\"%B_REVC%\", \"#[var bRevc]\") )]]\n\n#[\" \n    Save result\n\"]\n#[File write(\"$(pDir)/LuNariVersion.cs\"):#[var tpl]]",
         "Command__": [
           "#[var tpl = // This code was generated by a vsSolutionBuildEvent. ",
           "// Changes to this file may cause incorrect behavior and will be lost if the code is regenerated.",
@@ -190,8 +249,8 @@
           "        public const string BRANCH_NAME = \"%B_NAME%\";",
           "        public const string BRANCH_REVC = \"%B_REVC%\";",
           "",
-          "        internal const string S_INFO        = S_NUM_REV + \" [ \" + BRANCH_SHA1 + \" ]\";",
-          "        internal const string S_INFO_FULL   = S_INFO + \" /'\" + BRANCH_NAME + \"':\" + BRANCH_REVC;",
+          "        internal const string S_INFO        = S_NUM_REV + \"+\" + BRANCH_SHA1;",
+          "        internal const string S_INFO_FULL   = S_INFO + \":\" + BRANCH_NAME + \"-\" + BRANCH_REVC;",
           "    }",
           "}]",
           "",
@@ -225,9 +284,10 @@
           "#[var tpl = $(tpl.Replace(\"%S_NUM%\", \"$(pVer)\").Replace(\"%S_REV%\", \"$(revBuild)\"))]",
           "",
           "#[\" ",
-          "    Checking of the git folder +tool & define sha1, branch name, etc.",
+          "    Checking of the git to define sha1, branch name, etc.",
           "\"]",
-          "#[( #[IO exists.directory(\".git\")] && #[IO exists.file(\"git.exe\", true)] )",
+          "#[var isGit = #[IO cmd(\"git rev-parse 2>&1\")]]",
+          "#[( $(isGit) == \"\" )",
           "{",
           "    #[var bSha1 = #[IO sout(\"git\", \"rev-parse --short HEAD\")]]",
           "    #[var bName = #[IO sout(\"git\", \"rev-parse --abbrev-ref HEAD\")]]",
@@ -235,22 +295,83 @@
           "    ",
           "    #[($(bName) == \"HEAD\") {",
           "        #[var bName = $(APPVEYOR_REPO_BRANCH)]",
-          "    }]    ",
-          "    ",
-          "    #[var tpl = #[$(tpl.Replace(\"%B_SHA1%\", \"#[var bSha1]\")",
-          "                       .Replace(\"%B_NAME%\", \"#[var bName]\")",
-          "                       .Replace(\"%B_REVC%\", \"#[var bRevc]\") )]]",
+          "    }]",
           "}",
           "else {",
-          "    #[var tpl = #[$(tpl.Replace(\"%B_SHA1%\", \"-\")",
-          "                       .Replace(\"%B_NAME%\", \"-\")",
-          "                       .Replace(\"%B_REVC%\", \"-\") )]]",
+          "    #[$(bSha1 = '-')] #[$(bName = '-')] #[$(bRevc = '-')]",
           "}]",
+          "",
+          "#[var tpl = #[$(tpl.Replace(\"%B_SHA1%\", \"#[var bSha1]\")",
+          "                   .Replace(\"%B_NAME%\", \"#[var bName]\")",
+          "                   .Replace(\"%B_REVC%\", \"#[var bRevc]\") )]]",
           "",
           "#[\" ",
           "    Save result",
           "\"]",
-          "#[File write(\"$(pLuNari)/LuNariVersion.cs\"):#[var tpl]]"
+          "#[File write(\"$(pDir)/LuNariVersion.cs\"):#[var tpl]]"
+        ]
+      }
+    },
+    {
+      "Enabled": true,
+      "Name": "ActInfo",
+      "Caption": "Compile info",
+      "SupportMSBuild": true,
+      "SupportSBEScripts": true,
+      "IgnoreIfBuildFailed": false,
+      "BuildType": "Common",
+      "Confirmation": false,
+      "ToConfiguration": [],
+      "ExecutionOrder": {
+        "$type": "net.r_eg.vsSBE.Events.ExecutionOrder[], vsSolutionBuildEvent",
+        "$values": []
+      },
+      "Process": {
+        "$type": "net.r_eg.vsSBE.Events.EventProcess, vsSolutionBuildEvent",
+        "Waiting": true,
+        "Hidden": true,
+        "TimeLimit": 30
+      },
+      "Mode": {
+        "$type": "net.r_eg.vsSBE.Events.ModeScript, vsSolutionBuildEvent",
+        "Type": "Script",
+        "Command": "#[var buildInfo =  $([System.String]::Concat(\"  \"))\n    S_NUM:          #[$(pVer)]\n    \n    S_REV:          #[$(revBuild)]\n    \n    S_NUM_REV:      #[$(pVer)].#[$(revBuild)]\n    \n    bSha1:          #[$(bSha1)]\n    \n    bName:          #[$(bName)]\n    \n    bRevc:          #[$(bRevc)]\n    \n    Configuration:  #[$(Configuration)]\n    \n    Platforms:      #[$(TargetFrameworks)]\n    \n    revDeltaBase:   #[$(revDeltaBase)]\n    \n    revDeltaMin:    #[$(revDeltaMin)]\n    \n    revDeltaMax:    #[$(revDeltaMax)]\n    \n    \n                    :: generated by a vsSolutionBuildEvent v#[$(vsSolutionBuildEvent)]\n]\n\n#[( $(isCIBuild) ) { \n    #[IO replace.Regex(\"$(pDir)/LuNari.csproj\", \"<BuildInfoVSSBE>[\\s\\S]*?</BuildInfoVSSBE>\", \"<BuildInfoVSSBE>$(buildInfo)</BuildInfoVSSBE>\")]\n}else{\n    #[IO replace.Regex(\"$(pDir)/LuNari.csproj\", \"<BuildInfoVSSBE>[\\s\\S]*?</BuildInfoVSSBE>\", \"<BuildInfoVSSBE></BuildInfoVSSBE>\")]\n}]\n\n#[IO copy.directory(\"\", \"$(pDir)/obj/\", true)]\n#[IO writeLine(\"$(pDir)/obj/release-info.txt\"):#[var buildInfo]]",
+        "Command__": [
+          "#[var buildInfo =  $([System.String]::Concat(\"  \"))",
+          "    S_NUM:          #[$(pVer)]",
+          "    ",
+          "    S_REV:          #[$(revBuild)]",
+          "    ",
+          "    S_NUM_REV:      #[$(pVer)].#[$(revBuild)]",
+          "    ",
+          "    bSha1:          #[$(bSha1)]",
+          "    ",
+          "    bName:          #[$(bName)]",
+          "    ",
+          "    bRevc:          #[$(bRevc)]",
+          "    ",
+          "    Configuration:  #[$(Configuration)]",
+          "    ",
+          "    Platforms:      #[$(TargetFrameworks)]",
+          "    ",
+          "    revDeltaBase:   #[$(revDeltaBase)]",
+          "    ",
+          "    revDeltaMin:    #[$(revDeltaMin)]",
+          "    ",
+          "    revDeltaMax:    #[$(revDeltaMax)]",
+          "    ",
+          "    ",
+          "                    :: generated by a vsSolutionBuildEvent v#[$(vsSolutionBuildEvent)]",
+          "]",
+          "",
+          "#[( $(isCIBuild) ) { ",
+          "    #[IO replace.Regex(\"$(pDir)/LuNari.csproj\", \"<BuildInfoVSSBE>[\\s\\S]*?</BuildInfoVSSBE>\", \"<BuildInfoVSSBE>$(buildInfo)</BuildInfoVSSBE>\")]",
+          "}else{",
+          "    #[IO replace.Regex(\"$(pDir)/LuNari.csproj\", \"<BuildInfoVSSBE>[\\s\\S]*?</BuildInfoVSSBE>\", \"<BuildInfoVSSBE></BuildInfoVSSBE>\")]",
+          "}]",
+          "",
+          "#[IO copy.directory(\"\", \"$(pDir)/obj/\", true)]",
+          "#[IO writeLine(\"$(pDir)/obj/release-info.txt\"):#[var buildInfo]]"
         ]
       }
     }
@@ -279,21 +400,44 @@
       "Mode": {
         "$type": "net.r_eg.vsSBE.Events.ModeScript, vsSolutionBuildEvent",
         "Type": "Script",
-        "Command": "[IO copy.file(\n            \"$(SolutionDir)tools/*.*\", \n            \"$(odir)/tools/\", \n            true, \n            {\"*.nuspec\"})]\n            \n#[IO copy.file(\"LuNari.nuspec\", \"$(odir)/LuNari.nuspec\", true)]\n#[IO copy.file(\"$(pLuNari)/$(OutDir:$(pLuNari))/*.*\", \n               \"$(odir)/lib/net$(netstamp)/\", true)]\n\n#[IO copy.file(\"LICENSE\", \"$(odir)/License.txt\", true)]\n#[IO copy.file(\"Readme.md\", \"$(odir)/\", true)]\n#[IO copy.file(\"changelog.txt\", \"$(odir)/\", true)]",
+        "Command": "#[IO copy.file(\"LICENSE\", \"$(odir)/License.txt\", true)]\n#[IO copy.file(\n    {\"Readme.md\", \"3rd-party.txt\", \"changelog.txt\", \".version\", \"$(pDir)/obj/release-info.txt\"}, \n    \"$(odir)/\", true\n)]\n\n[( $(cfgname) == \"Release\" )\n{\n\n    #[$(_targets = $(TargetFrameworks:LuNari))]\n    #[$(_loop = true)]\n    \n    #[Box iterate(i = 0; $(_loop); i += 1): \n      #[try\n      {\n        \n        #[$(_target = $(_targets.Split(\";\")[$(i)]))]\n        \n        #[IO copy.file\n        (\n            \"$(pDir)/$(OutputPath:$(pDir))/$(_target)/*.*\", \n            \"$(odir)/lib/$(_target)/\", \n            true,\n            {\"*.json\", \"Conari.*\"}\n        )]\n      }\n      catch { $(_loop = false) }]\n    ]\n    \n}]\n\nConari Tests:\n#[IO copy.file(\"Conari\\UnLib\\bin\\$(cfgname)\\*.dll\", \"Conari\\ConariTest\\$(OutputPath:ConariTest)\\..\\\\\", true)]\n\n##[IO copy.file({\"tools/*.bat\", \"tools/hMSBuild.bat\"}, \"$(odir)/tools/\", true)]\n",
         "Command__": [
-          "[IO copy.file(",
-          "            \"$(SolutionDir)tools/*.*\", ",
-          "            \"$(odir)/tools/\", ",
-          "            true, ",
-          "            {\"*.nuspec\"})]",
-          "            ",
-          "#[IO copy.file(\"LuNari.nuspec\", \"$(odir)/LuNari.nuspec\", true)]",
-          "#[IO copy.file(\"$(pLuNari)/$(OutDir:$(pLuNari))/*.*\", ",
-          "               \"$(odir)/lib/net$(netstamp)/\", true)]",
-          "",
           "#[IO copy.file(\"LICENSE\", \"$(odir)/License.txt\", true)]",
-          "#[IO copy.file(\"Readme.md\", \"$(odir)/\", true)]",
-          "#[IO copy.file(\"changelog.txt\", \"$(odir)/\", true)]"
+          "#[IO copy.file(",
+          "    {\"Readme.md\", \"3rd-party.txt\", \"changelog.txt\", \".version\", \"$(pDir)/obj/release-info.txt\"}, ",
+          "    \"$(odir)/\", true",
+          ")]",
+          "",
+          "[( $(cfgname) == \"Release\" )",
+          "{",
+          "",
+          "    #[$(_targets = $(TargetFrameworks:LuNari))]",
+          "    #[$(_loop = true)]",
+          "    ",
+          "    #[Box iterate(i = 0; $(_loop); i += 1): ",
+          "      #[try",
+          "      {",
+          "        ",
+          "        #[$(_target = $(_targets.Split(\";\")[$(i)]))]",
+          "        ",
+          "        #[IO copy.file",
+          "        (",
+          "            \"$(pDir)/$(OutputPath:$(pDir))/$(_target)/*.*\", ",
+          "            \"$(odir)/lib/$(_target)/\", ",
+          "            true,",
+          "            {\"*.json\", \"Conari.*\"}",
+          "        )]",
+          "      }",
+          "      catch { $(_loop = false) }]",
+          "    ]",
+          "    ",
+          "}]",
+          "",
+          "Conari Tests:",
+          "#[IO copy.file(\"Conari\\UnLib\\bin\\$(cfgname)\\*.dll\", \"Conari\\ConariTest\\$(OutputPath:ConariTest)\\..\\\\\", true)]",
+          "",
+          "##[IO copy.file({\"tools/*.bat\", \"tools/hMSBuild.bat\"}, \"$(odir)/tools/\", true)]",
+          ""
         ]
       }
     },
@@ -320,43 +464,29 @@
       "Mode": {
         "$type": "net.r_eg.vsSBE.Events.ModeScript, vsSolutionBuildEvent",
         "Type": "Script",
-        "Command": "#[NuGet gnt.raw(\"/t:pack /p:ngin=\\\"$(odir)\\\" /p:ngout=\\\"$(dbin)\\\"\")]",
+        "Command": "#[( $(cfgname) == \"Release\" )\n{\n    \n    #[($(revBuild) == \"\" || $(revBuild) ~= \"*\") {\n        #[$(zipname = \"LuNari.$(pVer).zip\")]\n    }\n    else {\n        #[$(zipname = \"LuNari.$(pVer).$(revBuild)+$(bSha1).zip\")]\n    }]\n    \n    #[7z pack.directory(\"$(odir)\", \"$(dbin)\\\\$(zipname)\")]\n\n}]\n\n\n#[IO copy.file\n(\n    \"$(pDir)/$(OutputPath:$(pDir))/*$(pVer).nupkg\",\n    \"$(dbin)/\", \n    true \n)]",
         "Command__": [
-          "#[NuGet gnt.raw(\"/t:pack /p:ngin=\\\"$(odir)\\\" /p:ngout=\\\"$(dbin)\\\"\")]"
-        ]
-      }
-    },
-    {
-      "Enabled": true,
-      "Name": "Distributives",
-      "Caption": "zip archives etc.",
-      "SupportMSBuild": true,
-      "SupportSBEScripts": true,
-      "IgnoreIfBuildFailed": true,
-      "BuildType": "Common",
-      "Confirmation": false,
-      "ToConfiguration": [],
-      "ExecutionOrder": {
-        "$type": "net.r_eg.vsSBE.Events.ExecutionOrder[], vsSolutionBuildEvent",
-        "$values": []
-      },
-      "Process": {
-        "$type": "net.r_eg.vsSBE.Events.EventProcess, vsSolutionBuildEvent",
-        "Waiting": true,
-        "Hidden": true,
-        "TimeLimit": 30
-      },
-      "Mode": {
-        "$type": "net.r_eg.vsSBE.Events.ModeScript, vsSolutionBuildEvent",
-        "Type": "Script",
-        "Command": "#[7z pack.files({ \n        \"$(odir)\\\\lib\\\\net$(netstamp)\\\\*.*\",\n        \"$(odir)\\\\*.*\"\n    }, \n    \"$(dbin)\\\\LuNari_v$(pVer).zip\", \n    { \"$(odir)\\\\*.nuspec\" })]",
-        "Command__": [
-          "#[7z pack.files({ ",
-          "        \"$(odir)\\\\lib\\\\net$(netstamp)\\\\*.*\",",
-          "        \"$(odir)\\\\*.*\"",
-          "    }, ",
-          "    \"$(dbin)\\\\LuNari_v$(pVer).zip\", ",
-          "    { \"$(odir)\\\\*.nuspec\" })]"
+          "#[( $(cfgname) == \"Release\" )",
+          "{",
+          "    ",
+          "    #[($(revBuild) == \"\" || $(revBuild) ~= \"*\") {",
+          "        #[$(zipname = \"LuNari.$(pVer).zip\")]",
+          "    }",
+          "    else {",
+          "        #[$(zipname = \"LuNari.$(pVer).$(revBuild)+$(bSha1).zip\")]",
+          "    }]",
+          "    ",
+          "    #[7z pack.directory(\"$(odir)\", \"$(dbin)\\\\$(zipname)\")]",
+          "",
+          "}]",
+          "",
+          "",
+          "#[IO copy.file",
+          "(",
+          "    \"$(pDir)/$(OutputPath:$(pDir))/*$(pVer).nupkg\",",
+          "    \"$(dbin)/\", ",
+          "    true ",
+          ")]"
         ]
       }
     }
@@ -457,7 +587,7 @@
       }
     },
     {
-      "Enabled": true,
+      "Enabled": false,
       "Name": "ModernReload",
       "Caption": "v0.12.8+: Reload projects in solution after adding git submodules",
       "SupportMSBuild": true,

@@ -63,7 +63,7 @@ namespace net.r_eg.LuNari.API.Lua53
         public const int LUA_OPIDIV     = 6;
 
         /// <summary>
-        ///  performs bitwise AND (&)
+        ///  performs bitwise AND (&amp;)
         /// </summary>
         public const int LUA_OPBAND     = 7;
 

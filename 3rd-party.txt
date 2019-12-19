@@ -1,0 +1,33 @@
+LuNari   https://github.com/3F/LuNari 
+- - - - - - - - - - - - - - - - - - - -
+
+# Third-party software components
+
+
+## LuNari and its various packages may* include or reference:
+    (*- specific target platforms or some complex archives)
+    
+    * Conari
+        https://github.com/3F/Conari
+        
+    * hMSBuild
+        https://github.com/3F/hMSBuild
+        
+    * GetNuTool
+        https://github.com/3F/GetNuTool
+        
+    
+## Dev Dependencies includes the following tools for src:
+    
+    * vsSolutionBuildEvent
+        https://github.com/3F/vsSolutionBuildEvent
+        
+    * MSTest Framework
+        https://github.com/microsoft/testfx
+        
+    * hMSBuild
+        https://github.com/3F/hMSBuild
+        
+    * GetNuTool
+        https://github.com/3F/GetNuTool
+
