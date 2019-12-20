@@ -10,7 +10,7 @@ namespace LuNariTest.API
         [Fact]
         public void providerTest1()
         {
-            Assert.Throws<ArgumentException>(() => 
+            Assert.Throws<ArgumentNullException>(() => 
             {
                 new Bridge<ILua51>(null);
             });
