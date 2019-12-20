@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <Version>1.5.1</Version>
+    <Version>1.6.0</Version>
     <BuildInfoVSSBE></BuildInfoVSSBE>
   </PropertyGroup>
 
@@ -19,17 +19,65 @@
     <IconUrl>https://raw.githubusercontent.com/3F/LuNari/master/LuNari/Resources/LuNari.png</IconUrl>
     <Description>
         
-        Lua for .NET on Conari engine
-        Provides support* for all popular versions, like: 5.4, 5.3, 5.2, 5.1, ...
+        🗦🌔 LuNari is Lua for .NET on Conari engine
+        All actual Lua versions, like: Lua 5.4, 5.3, 5.2, 5.1, ...
 
-        * There are several methods to use LuNari: 
-          API-layer and binding at runtime (DLR, Lambda expressions) with any Lua functions;
-        _ _ _ _ _ _
+        MIT License: https://github.com/3F/LuNari
 
+
+        ## Why LuNari ?
+
+        Most popular features that will be adapted to your needs on the fly.
+
+        🔍 Easy to start:
+
+        ```csharp
         using(var l = new Lua&lt;ILua53&gt;("Lua.dll")) { /* ILua51, ILua52, ILua53, ... */ }
-        _ _ _ _ _ _
-        Source code and all details here: https://github.com/3F/LuNari
-        
+        ```
+
+        🚀 Awesome speed:
+
+        Based on the fast versions of Conari engine with caching of 0x29 opcodes (Calli).
+        https://github.com/3F/Conari#why-conari-
+
+
+        🔨 Its amazing dynamic features:
+
+        ```csharp
+        using(dynamic l = new LuaD("Lua.dll"))
+        {
+            // Lua now is yours ~
+            IntPtr L = l.luaL_newstate&lt;LuaState&gt;();
+            var num  = l.lua_tonumber&lt;LuaNumber&gt;(L, 1);
+        }
+        ```
+
+        🍱 Damn customizable:
+
+        ```csharp
+        var l = new Lua&lt;ILua52&gt;("Lua52.dll");
+
+            l.API.pushcclosure(L, onProc, 0);
+            l.bind&lt;Action&lt;LuaState, LuaCFunction, int&gt;&gt;("pushcclosure")(L, onProc, 0);
+            l.v&lt;ILua53&gt;().pushcclosure(L, onProc, 0);
+            ...
+        ```
+
+        🔖 Modern .NET Core
+
+        LuNari is ready for .NET Core starting from 1.6.
+        Its awesome dynamic features are also available even for .NET Standard 2.0
+        https://github.com/3F/Conari/issues/13
+
+
+        🌚 Unlimited extensible features:
+
+        Since this works through Conari ( https://github.com/3F/Conari ),
+        you can access to all newest features of the Lua immediately after introducing this in draft. 
+        Just use it without waiting for release.
+
+
+
     =======================================
     gnt /p:ngpackages="LuNari/$(Version)"
     ================== https://github.com/3F/GetNuTool
@@ -42,7 +90,7 @@
     <PackageProjectUrl>https://github.com/3F/LuNari</PackageProjectUrl>
     <RepositoryUrl>https://github.com/3F/LuNari</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <PackageTags>Lua API dll Lua54 Lua53 Lua52 Lua51 LuNari LunaRoad KeraLua NLua LuaInterface Conari API dll dotnet</PackageTags>
+    <PackageTags>Lua Lua54 Lua53 Lua52 Lua51 LuNari LunaRoad KeraLua NLua LuaInterface Conari API dll dotnet dotnetcore</PackageTags>
     <PackageReleaseNotes>changelog: https://github.com/3F/LuNari/blob/master/changelog.txt </PackageReleaseNotes>
     <Authors>github.com/3F/LuNari</Authors>
     <DocumentationFile>$(OutputPath)$(AssemblyName).xml</DocumentationFile>

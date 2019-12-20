@@ -1,8 +1,40 @@
-- - - - -
-  LuNari 
-_ _ _ _ _
+LuNari - https://github.com/3F/LuNari
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
 
+[v1.6] 2019.12.21
+
+    * NEW: Complete .NET Core support.
+           .NET Standard 2.0+
+           
+    * NEW: Implemented LuaD.
+            ```
+            using(dynamic l = new LuaD("Lua.dll"))
+            {
+                // Lua now is yours ~
+                IntPtr L = l.luaL_newstate<LuaState>();
+                var num  = l.lua_tonumber<LuaNumber>(L, 1);
+            }
+            ```
+           Lua via Conari engine [DLR version]
+           Requires full name to requested lua function by default (IConfig). 
+           
+    * NEW: Added netfx based target platforms: net472.
+           
+    * NEW: API. added: 
+    
+            +`lua_State* luaL_newstate(void);` /Lua 5.1; 5.2; 5.3
+           
+    * CHANGED: Updated Conari 1.4. More speed and features:
+               https://github.com/3F/Conari/releases/tag/1.4
+               
+    * CHANGED: Added the following tools to nupkg packages for related build processes.
+
+               https://www.nuget.org/packages/LuNari/
+               * tools\gnt.bat - https://github.com/3F/GetNuTool
+               * tools\hMSBuild.bat - https://github.com/3F/hMSBuild
+               
+               
 [v1.5.1] 2019.01.30
 
     * FIXED: Fixed nuget Conari version: "(1.3.0,)" > "1.3.0"
