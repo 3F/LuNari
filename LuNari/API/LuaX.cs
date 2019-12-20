@@ -55,10 +55,7 @@ namespace net.r_eg.LuNari.API
 
         protected void setProvider(IProvider provider)
         {
-            if(provider == null) {
-                throw new ArgumentException("Provider cannot be null.");
-            }
-            this.provider = provider;
+            this.provider = provider ?? throw new ArgumentNullException(nameof(provider));
         }
     }
 }

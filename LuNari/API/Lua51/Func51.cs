@@ -553,5 +553,14 @@ namespace net.r_eg.LuNari.API.Lua51
         {
             return bind<Func<LuaState, int, size_t>>("objlen")(L, index);
         }
+
+        /// <summary>
+        /// [-0, +0, –] lua_State* luaL_newstate(void);
+        ///  
+        /// Creates a new Lua state. It calls lua_newstate with an allocator based on the standard C realloc function 
+        /// and then sets a panic function that prints an error message to the standard error output in case of fatal errors. 
+        /// </summary>
+        /// <returns>Returns the new state, or NULL if there is a memory allocation error.</returns>
+        public LuaState lnewstate() => bindFunc<Func<LuaState>>("luaL_newstate")();
     }
 }

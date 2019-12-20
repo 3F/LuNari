@@ -465,5 +465,14 @@ namespace net.r_eg.LuNari.API.Lua53
         /// for other values, it is 0. 
         /// </returns>
         size_t rawlen(LuaState L, int index);
+
+        /// <summary>
+        /// [-0, +0, –] lua_State* luaL_newstate(void);
+        ///  
+        /// Creates a new Lua state. It calls lua_newstate with an allocator based on the standard C realloc function 
+        /// and then sets a panic function that prints an error message to the standard error output in case of fatal errors. 
+        /// </summary>
+        /// <returns>Returns the new state, or NULL if there is a memory allocation error.</returns>
+        LuaState lnewstate();
     }
 }
