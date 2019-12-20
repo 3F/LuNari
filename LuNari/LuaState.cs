@@ -23,6 +23,7 @@
 */
 
 using System;
+using net.r_eg.Conari.Types;
 
 namespace net.r_eg.LuNari
 {
@@ -64,15 +65,10 @@ namespace net.r_eg.LuNari
         /// </remarks>
         private IntPtr ptr;
 
-        public static implicit operator IntPtr(LuaState state)
-        {
-            return state.ptr;
-        }
+        [NativeType]
+        public static implicit operator IntPtr(LuaState state) => state.ptr;
 
-        public static implicit operator LuaState(IntPtr ptr)
-        {
-            return new LuaState(ptr);
-        }
+        public static implicit operator LuaState(IntPtr ptr) => new LuaState(ptr);
 
         public LuaState(IntPtr ptr)
         {

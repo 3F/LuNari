@@ -23,80 +23,44 @@
 */
 
 using System;
-using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using net.r_eg.Conari;
-using net.r_eg.LuNari.API;
+using net.r_eg.Conari.Core;
 
 namespace net.r_eg.LuNari
 {
-    public class Lua: Lua<API.Lua51.ILua51>, ILua, IConari, IBinder
+    /// <summary>
+    /// Lua via Conari engine [DLR version]
+    /// Requires full name to requested lua function by default (IConfig).
+    /// </summary>
+    public sealed class LuaD: ConariX, IConari, API.IBinder
     {
-        public Lua(LuaConfig cfg) 
-            : base(cfg)
+        private const CallingConvention __v_conv = CallingConvention.Cdecl;
+
+        public override CallingConvention Convention
+        {
+            get => __v_conv;
+            set => throw new NotSupportedException();
+        }
+
+        /// <summary>
+        /// Initialize Lua via Conari engine [DLR version].
+        /// </summary>
+        /// <param name="cfg">Custom configuration. Module cannot be overridden.</param>
+        public LuaD(IConfig cfg)
+            : base(cfg, __v_conv, null)
         {
 
         }
 
+        /// <summary>
+        /// Initialize Lua via Conari engine [DLR version].
+        /// </summary>
         /// <param name="lib">The Lua library.</param>
-        public Lua(string lib)
-            : base(lib)
-        {
-
-        }
-    }
-
-    public class Lua<TAPI>: ConariL, ILua, IConari, IBinder
-        where TAPI : ILevel
-    {
-        private readonly Dictionary<Type, ILevel> cacheL = new Dictionary<Type, ILevel>();
-
-        /// <summary>
-        /// Current API version.
-        /// </summary>
-        public TAPI API
-        {
-            get;
-            protected set;
-        }
-
-        /// <summary>
-        /// Unspecified common interface to Lua C API Functions
-        /// </summary>
-        public ILuaCommon U => (ILuaCommon)bridge<ILuaN>();
-
-        /// <summary>
-        /// Gets specific API version.
-        /// </summary>
-        /// <typeparam name="T">type of API version.</typeparam>
-        /// <returns></returns>
-        public T v<T>() where T : ILevel
-        {
-            return ((IAPI<T>)bridge<T>()).Lua;
-        }
-
-        public Lua(LuaConfig cfg)
-            : base(cfg, CallingConvention.Cdecl, "lua_")
-        {
-            API = v<TAPI>();
-        }
-        
-        /// <param name="lib">The Lua library.</param>
-        public Lua(string lib)
+        public LuaD(string lib)
             : this((LuaConfig)lib)
         {
 
-        }
-
-        protected T bridge<T>() where T : ILevel
-        {
-            var type = typeof(T);
-
-            if(!cacheL.ContainsKey(type)) {
-                cacheL[type] = new API.Bridge<T>(this);
-            }
-
-            return (T)cacheL[type];
         }
     }
 }
